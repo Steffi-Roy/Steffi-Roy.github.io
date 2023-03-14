@@ -106,11 +106,11 @@
 
 				<!-- Three -->
 					<section id="three">
-						<h2>Get In Touch</h2>
-						<p> Send me an email to get in touch :)</p>
-						<div class="row">
+						<!--<h2>Get In Touch</h2>
+						<p> Send me an email to get in touch :)</p> --->
+						<!-----<div class="row">
 							<div class="col-8 col-12-small">
-								<form method="post" action="mailto:steffiroy@ufl.edu">
+								<form method="post" action="#">
 									<div class="row gtr-uniform gtr-50">
 										<div class="col-6 col-12-xsmall"><input type="text" name="name" id="name" placeholder="Name" /></div>
 										<div class="col-6 col-12-xsmall"><input type="email" name="email" id="email" placeholder="Email" /></div>
@@ -120,7 +120,51 @@
 								<ul class="actions">
 									<li><input type="submit" value="Send Message" /></li>
 								</ul>
-							</div>
+							</div>--->
+							<body>
+
+								<link href="contact-form.css" rel="stylesheet">
+								
+								<div class="fcf-body">
+								
+									<div id="fcf-form">
+									<h3 class="fcf-h3">Get In Touch</h3>
+								
+									<form id="fcf-form-id" class="fcf-form-class" method="post" action="contact-form-process.php">
+										
+										<div class="fcf-form-group">
+											<label for="Name" class="fcf-label">Your name</label>
+											<div class="fcf-input-group">
+												<input type="text" id="Name" name="Name" class="fcf-form-control" required>
+											</div>
+										</div>
+								
+										<div class="fcf-form-group">
+											<label for="Email" class="fcf-label">Your email address</label>
+											<div class="fcf-input-group">
+												<input type="email" id="Email" name="Email" class="fcf-form-control" required>
+											</div>
+										</div>
+								
+										<div class="fcf-form-group">
+											<label for="Message" class="fcf-label">Your message</label>
+											<div class="fcf-input-group">
+												<textarea id="Message" name="Message" class="fcf-form-control" rows="6" maxlength="3000" required></textarea>
+											</div>
+										</div>
+								
+										<div class="fcf-form-group">
+											<button type="submit" id="fcf-button" class="button">Send Message</button>
+										</div>
+								
+										
+								
+									</form>
+									</div>
+								
+								</div>
+								
+								</body>
 							<div class="col-4 col-12-small">
 								<ul class="labeled-icons">
 									<li>
