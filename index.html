@@ -47,11 +47,35 @@
       h1, h2, h3 {
         color: #2d3748;
       }
+      .about-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .about-container img {
+        border-radius: 50%;
+        max-width: 180px;
+        margin-bottom: 1.5rem;
+      }
       footer {
         text-align: center;
         padding: 1rem;
         font-size: 0.9rem;
         color: #718096;
+      }
+      .resume-button {
+        display: inline-block;
+        padding: 0.6rem 1rem;
+        margin-top: 1rem;
+        background-color: #1a202c;
+        color: #fff;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: 600;
+      }
+      .resume-button:hover {
+        background-color: #2d3748;
       }
     </style>
   </head>
@@ -69,9 +93,16 @@
 
     <main>
       <section id="about">
-        <h2>About Me</h2>
-        <p>Hi, I’m <strong>Steffi Roy</strong>. I’m an engineer and researcher with interests in hardware security, formal verification, and system design. I enjoy working at the intersection of technology and creativity—whether in secure architecture or painting.</p>
-        <p>I’ve studied and worked on side-channel attacks, cryptographic protocols, and design verification. I also like badminton, tennis, and catching aesthetic photos of the cosmos or coffee.</p>
+        <div class="about-container">
+          <img src="images/me1.jpg" alt="Steffi Roy">
+          <h2>About Me</h2>
+          <p>Hey, this is <strong>Steffi!</strong> Welcome to my portfolio.</p>
+          <p>I completed my undergraduate degree in Electrical and Electronics Engineering with a focus on computer architecture and digital systems design. I pursued a master's degree in Electrical and Computer Engineering at the University of Florida, where I delved deeper into the area of hardware security and design verification.</p>
+          <p>My research interests lie at the intersection of cybersecurity, human-computer interaction, computer architecture, verification, and machine learning.</p>
+          <p>I worked as a research assistant at the FICS (Florida Institute of Cybersecurity) lab, developing efficient cryptographic algorithms for securing neural networks and crypto frameworks. I also explored side-channel attacks and proposed novel countermeasures.</p>
+          <p>Outside of tech, I enjoy painting, playing sports like tennis, badminton, and volleyball, and capturing moments through photography.</p>
+          <a class="resume-button" href="images/Steffi_PhD_Resume (1).pdf" download="Steffi-Resume">Download Resume</a>
+        </div>
       </section>
 
       <section id="recs">
