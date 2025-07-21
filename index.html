@@ -5,63 +5,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Steffi Roy | Academic Portfolio</title>
     <meta name="description" content="Academic portfolio of Steffi Roy - Researcher in hardware security, computer architecture, and verification.">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/minimal-mistakes-jekyll@4.27.2/assets/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        background-color: #f9f9f9;
+        color: #333;
+      }
+      header {
+        background: #1a202c;
+        color: #fff;
+        padding: 2rem;
+        text-align: center;
+      }
+      nav a {
+        margin: 0 1rem;
+        color: #edf2f7;
+        text-decoration: none;
+        font-weight: 600;
+      }
+      nav a:hover {
+        text-decoration: underline;
+      }
+      main {
+        max-width: 960px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        border-radius: 8px;
+      }
+      section {
+        padding: 2rem 0;
+        border-bottom: 1px solid #eee;
+      }
+      h1, h2, h3 {
+        color: #2d3748;
+      }
+      footer {
+        text-align: center;
+        padding: 1rem;
+        font-size: 0.9rem;
+        color: #718096;
+      }
+    </style>
   </head>
   <body>
-    <header class="site-header">
-      <div class="wrapper">
-        <h1 class="site-title">Steffi Roy</h1>
-        <p class="site-description">Engineer | Researcher | Hardware Security & Architecture</p>
-        <nav class="site-nav">
-          <a href="/about/">About</a>
-          <a href="/research/">Research</a>
-          <a href="/publications/">Publications</a>
-          <a href="/cv/">CV</a>
-          <a href="/blog/">Blog</a>
-        </nav>
-      </div>
+    <header>
+      <h1>Steffi Roy</h1>
+      <p>Engineer | Researcher | Hardware Security & Architecture</p>
+      <nav>
+        <a href="#about">About</a>
+        <a href="certifications.html">Certifications</a>
+        <a href="#recs">Recommendations</a>
+        <a href="#contact">Contact</a>
+      </nav>
     </header>
 
-    <main class="page-content">
-      <div class="wrapper">
-        <section>
-          <h2>Welcome</h2>
-          <p>Hi, I’m <strong>Steffi Roy</strong>. I’m an engineer and researcher with interests in hardware security, formal verification, and system design. My goal is to build systems that are both powerful and secure, while mentoring future engineers and contributing to open academic knowledge.</p>
-          <p>Explore my academic journey, certifications, publications, and projects. If you’d like to collaborate or just geek out about secure architecture, feel free to reach out!</p>
-        </section>
+    <main>
+      <section id="about">
+        <h2>About Me</h2>
+        <p>Hi, I’m <strong>Steffi Roy</strong>. I’m an engineer and researcher with interests in hardware security, formal verification, and system design. I enjoy working at the intersection of technology and creativity—whether in secure architecture or painting.</p>
+        <p>I’ve studied and worked on side-channel attacks, cryptographic protocols, and design verification. I also like badminton, tennis, and catching aesthetic photos of the cosmos or coffee.</p>
+      </section>
 
-        <section>
-          <h2>Recent Certificates</h2>
-          <ul>
-            <li>Cybersecurity Tools and Cyber Attacks - IBM</li>
-            <li>SystemVerilog with UVM - Cadence</li>
-            <li>Smart Contracts - Blockchain University</li>
-            <li>Data-Driven Astronomy - University of Sydney</li>
-          </ul>
-        </section>
+      <section id="recs">
+        <h2>Recommendations</h2>
+        <ul>
+          <li><strong>Books:</strong> "Computer Security: Art and Science" by Matt Bishop</li>
+          <li><strong>Websites:</strong> <a href="https://cybrary.it">Cybrary</a>, <a href="https://kaggle.com">Kaggle</a></li>
+          <li><strong>Research Paper:</strong> <a href="https://arxiv.org/abs/1901.06056">Deep Learning for Computer Vision</a></li>
+        </ul>
+      </section>
 
-        <section>
-          <h2>Recommendations</h2>
-          <ul>
-            <li><strong>Books:</strong> "Computer Security: Art and Science" by Matt Bishop</li>
-            <li><strong>Websites:</strong> <a href="https://cybrary.it">Cybrary</a>, <a href="https://kaggle.com">Kaggle</a></li>
-            <li><strong>Papers:</strong> <a href="https://arxiv.org/abs/1901.06056">Deep Learning for CV</a></li>
-          </ul>
-        </section>
-
-        <section>
-          <h2>Contact</h2>
-          <p>Email: <a href="mailto:steffiroy@hotmail.com">steffiroy@hotmail.com</a></p>
-          <p>GitHub: <a href="https://github.com/Steffi-Roy">Steffi-Roy</a></p>
-          <p>LinkedIn: <a href="https://www.linkedin.com/in/steffiroy/">@steffiroy</a></p>
-        </section>
-      </div>
+      <section id="contact">
+        <h2>Contact</h2>
+        <p>Email: <a href="mailto:steffiroy@hotmail.com">steffiroy@hotmail.com</a></p>
+        <p>GitHub: <a href="https://github.com/Steffi-Roy">github.com/Steffi-Roy</a></p>
+        <p>LinkedIn: <a href="https://linkedin.com/in/steffiroy">linkedin.com/in/steffiroy</a></p>
+      </section>
     </main>
 
-    <footer class="site-footer">
-      <div class="wrapper">
-        <p>&copy; 2025 Steffi Roy. Built with ❤️ using Minimal Mistakes Jekyll theme.</p>
-      </div>
+    <footer>
+      <p>&copy; 2025 Steffi Roy · Powered by HTML + CSS</p>
     </footer>
   </body>
 </html>
