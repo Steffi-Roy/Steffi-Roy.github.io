@@ -1,3 +1,7 @@
+from pathlib import Path
+
+# Define the content for recommendations.html again after reset
+recommendations_html = """
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,6 +21,10 @@
       color: #2d3748;
       text-align: center;
       margin-bottom: 2rem;
+    }
+    h3 {
+      color: #4a5568;
+      margin-top: 2rem;
     }
     ul {
       max-width: 800px;
@@ -44,14 +52,51 @@
   </style>
 </head>
 <body>
-  <h2>Recommendations</h2>
+  <h2>Recommended Resources</h2>
+
+  <h3>🌌 Astronomy & Space</h3>
   <ul>
-    <li><strong>Books:</strong> "Computer Security: Art and Science" by Matt Bishop</li>
-    <li><strong>Websites:</strong> <a href="https://cybrary.it">Cybrary</a>, <a href="https://kaggle.com">Kaggle</a></li>
-    <li><strong>Research Paper:</strong> <a href="https://arxiv.org/abs/1901.06056">Deep Learning for Computer Vision</a></li>
-    <li><strong>Videos: </strong><a href= "https://www.youtube.com/@SideChannelSecurity">All topics concerning side channel attacks</a></li>
+    <li><a href="https://apod.nasa.gov/apod/astropix.html">NASA Astronomy Picture of the Day</a> – Stunning space photo every day.</li>
+    <li><a href="https://stellarium-web.org/">Stellarium Web</a> – Interactive night sky map.</li>
+    <li><a href="https://webbtelescope.org/">James Webb Telescope Gallery</a> – Deep universe images.</li>
+    <li><a href="https://eyes.nasa.gov/">Eyes on the Solar System</a> – Real-time NASA mission tracker.</li>
+    <li><a href="https://heavens-above.com/">Heavens Above</a> – Track satellites and visible ISS passes.</li>
+  </ul>
+
+  <h3>🧪 Science & Curiosity</h3>
+  <ul>
+    <li><a href="https://nautil.us/">Nautilus</a> – Beautifully written science storytelling.</li>
+    <li><a href="https://waitbutwhy.com/">Wait But Why</a> – Long, nerdy, hilarious takes on science and life.</li>
+    <li><a href="https://ed.ted.com/lessons?category=science-technology">TED-Ed Science</a> – Animated explainers on big concepts.</li>
+    <li><a href="https://www.zooniverse.org/">Zooniverse</a> – Join real research projects from home.</li>
+    <li><a href="https://thekidshouldseethis.com/">The Kid Should See This</a> – Fascinating science videos for all ages.</li>
+  </ul>
+
+  <h3>🔐 Security & Privacy</h3>
+  <ul>
+    <li><a href="https://crypto.stackexchange.com/">Crypto Stack Exchange</a> – Q&A for cryptography and security algorithms.</li>
+    <li><a href="https://www.schneier.com/">Bruce Schneier’s Blog</a> – Insights from a top infosec mind.</li>
+    <li><a href="https://www.cybrary.it/">Cybrary</a> – Security training and certifications.</li>
+    <li><a href="https://portswigger.net/web-security">PortSwigger Web Security Academy</a> – Practical web security labs.</li>
+    <li><a href="https://nvd.nist.gov/">NIST Vulnerability Database</a> – National database of security flaws.</li>
+  </ul>
+
+  <h3>🧠 Computer Architecture & Systems</h3>
+  <ul>
+    <li><a href="https://www.cl.cam.ac.uk/teaching/2122/ECAD+Arch/">Cambridge Architecture Lectures</a> – Clear and accessible intro.</li>
+    <li><a href="https://pages.cs.wisc.edu/~markhill/cs552/">Mark Hill’s CS552</a> – Computer architecture legend’s course notes.</li>
+    <li><a href="https://www.coursera.org/learn/comparch">Computer Architecture by Princeton (Coursera)</a> – Engaging course with real world links.</li>
+    <li><a href="https://www.lighterra.com/papers/modernmicroprocessors/">A Brief History of Microprocessors</a> – A readable, rich overview.</li>
+    <li><a href="https://github.com/senorblanco/riscv-simple-sv">RISC-V SoC Design</a> – Great open-source sandbox project.</li>
   </ul>
 
   <a class="back-link" href="index.html">&larr; Back to Home</a>
 </body>
 </html>
+"""
+
+# Save the file
+output_path = Path("/mnt/data/recommendations.html")
+output_path.write_text(recommendations_html.strip())
+
+output_path.as_posix()
