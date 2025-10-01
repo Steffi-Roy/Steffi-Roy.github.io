@@ -30,7 +30,7 @@
   html{scroll-behavior:smooth}
   body{
     margin:0; background:var(--bg); color:var(--text);
-    font:16px/1.6 Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    font:16px/1.65 Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   }
 
   /* Header */
@@ -57,7 +57,6 @@
   main{
     max-width:var(--container); margin:-1.25rem auto 2rem; padding:0 var(--space);
   }
-  /* Wrap your sections in .card for the soft surface */
   .card{background:var(--card); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow)}
 
   section{padding:2rem var(--space); border-top:1px solid var(--border)}
@@ -69,28 +68,30 @@
   h3{font-size:clamp(18px,2.2vw,20px)}
 
   /* About */
-  .about-container{display:grid; grid-template-columns:120px 1fr; gap:16px; align-items:center; text-align:left}
+  .about-container{
+    display:grid;
+    grid-template-columns: 180px 1fr;
+    gap:24px;
+    align-items:start;
+  }
   .about-container img{
-    width:120px; height:120px; object-fit:cover; border-radius:50%;
+    width:160px; height:160px; object-fit:cover; border-radius:50%;
     border:3px solid var(--card); box-shadow:0 6px 18px rgba(0,0,0,.12)
   }
-  .about-container p{margin:.25rem 0; color:var(--muted)}
+  .about-content p{
+    max-width:65ch;
+    line-height:1.7;
+    margin:.7rem 0;
+  }
 
   /* Links and CTAs */
   a{color:var(--brand)}
   a:hover{text-decoration:underline}
   .btn{
-    display:inline-block; background:var(--brand); color:#001b2b;
+    display:inline-block; background:var(--brand); color:#fff;
     padding:.65rem .9rem; border-radius:10px; text-decoration:none; font-weight:600; border:1px solid transparent;
   }
   .btn:hover{text-decoration:none; filter:brightness(1.05)}
-  .btn.secondary{background:transparent; color:var(--brand); border:1px solid var(--border)}
-
-  /* Simple grids for projects/publications lists */
-  .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
-  .tile{padding:14px; border:1px solid var(--border); border-radius:10px; background:var(--card)}
-  .tile h3{margin:.2rem 0 .25rem}
-  .meta{color:var(--muted); font-size:.95rem}
 
   /* Footer */
   footer{color:var(--muted); text-align:center; padding:2rem 1rem}
@@ -99,23 +100,17 @@
   @media (max-width:760px){
     .about-container{grid-template-columns:1fr; text-align:center}
     .about-container img{margin:0 auto}
-    .grid-3{grid-template-columns:1fr}
     .btn{width:100%; text-align:center}
   }
   @media (prefers-reduced-motion: reduce){ *{scroll-behavior:auto} }
 </style>
-
-
-    <!-- add Outfit for headings -->
-
-    
-
   </head>
   <body>
     <header>
       <h1>Steffi Roy</h1>
       <p>Engineer | Researcher | Security & Architecture</p>
-      <a href="publications.html">Publications</a>
+      <nav>
+        <a href="publications.html">Publications</a>
         <a href="certifications.html">Certifications</a>
         <a href="recommendations.html">Recommendations</a>
         <a href="#contact">Contact</a>
@@ -123,22 +118,23 @@
     </header>
 
     <main>
-      <section id="about">
+      <section id="about" class="card">
+        <h2>About Me</h2>
         <div class="about-container">
+          <!-- Left: image -->
           <img src="images/me1.jpg" alt="Steffi Roy">
-          <h2>About Me</h2>
-          <p>Hey, this is <strong>Steffi!</strong> Welcome to my portfolio.</p>
-          <p>I completed my undergraduate degree in Electrical and Electronics Engineering with a focus on computer architecture and digital systems design. I pursued a master's degree in Electrical and Computer Engineering at the University of Florida, where I delved deeper into the area of hardware security and design verification.</p>
-          <p>My research interests lie at the intersection of security, computer architecture, machine learning, and verification.</p>
-          <p>I worked as a research assistant at the FICS (Florida Institute of Cybersecurity) lab, developing efficient cryptographic algorithms for securing neural networks and crypto frameworks. I also explored side-channel attacks and proposed novel countermeasures.</p>
-          <p>Outside of tech, I enjoy painting, playing sports like tennis, badminton, and volleyball, and capturing moments through photography.</p>
-          <a class="resume-button" href="images/Generic_Resume.pdf" download="Steffi-Resume">Download Resume</a>
+          <!-- Right: content -->
+          <div class="about-content">
+            <p>Hey, this is <strong>Steffi!</strong> Welcome to my portfolio. I completed my undergraduate degree in Electrical and Electronics Engineering with a focus on computer architecture and digital systems design. I pursued a master's degree in Electrical and Computer Engineering at the University of Florida, where I delved deeper into the area of hardware security and design verification.</p>
+            <p>My research interests lie at the intersection of security, computer architecture, machine learning, and verification.</p>
+            <p>I worked as a research assistant at the FICS (Florida Institute of Cybersecurity) lab, developing efficient cryptographic algorithms for securing neural networks and crypto frameworks. I also explored side-channel attacks and proposed novel countermeasures.</p>
+            <p>Outside of tech, I enjoy painting, playing sports like tennis, badminton, and volleyball, and capturing moments through photography.</p>
+            <a class="btn" href="images/Generic_Resume.pdf" download="Steffi-Resume">Download Resume</a>
+          </div>
         </div>
       </section>
 
-      
-
-      <section id="contact">
+      <section id="contact" class="card">
         <h2>Contact</h2>
         <p>Email: <a href="mailto:steffiroy@hotmail.com">steffiroy@hotmail.com</a></p>
         <p>GitHub: <a href="https://github.com/Steffi-Roy">github.com/Steffi-Roy</a></p>
@@ -151,5 +147,3 @@
     </footer>
   </body>
 </html>
-
-
