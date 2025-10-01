@@ -48,10 +48,19 @@
       nav a:hover, nav a:focus{ background:rgba(255,255,255,.10); outline:none }
       :focus-visible{ outline:2px solid var(--brand); outline-offset:2px }
 
-      /* Segmented control */
+      /* Segmented control with icons */
       .segment{ display:inline-flex; border:1px solid var(--border); border-radius:999px; padding:2px; background:var(--card) }
-      .segment button{ border:0; background:transparent; padding:.35rem .7rem; border-radius:999px; cursor:pointer; color:var(--muted); font-weight:600 }
+      .segment button{
+        border:0; background:transparent; padding:.35rem .7rem; border-radius:999px;
+        cursor:pointer; color:var(--muted); font-weight:600; display:inline-flex; align-items:center; justify-content:center; gap:.35rem;
+      }
       .segment button[aria-pressed="true"]{ background:var(--brand); color:#fff }
+      .segment svg{ width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:2; }
+
+      /* Utility for screen readers */
+      .sr-only{
+        position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+      }
 
       main{ max-width:var(--container); margin:-1.25rem auto 2rem; padding:0 var(--space) }
       .card{ background:var(--card); border:1px solid var(--border); border-radius:12px; box-shadow:var(--shadow) }
@@ -92,10 +101,23 @@
         <a href="recommendations.html">Recommendations</a>
         <a href="#contact">Contact</a>
 
-        <!-- Segmented theme buttons -->
-        <div class="segment" id="theme-seg">
-          <button type="button" data-mode="light" aria-pressed="true">Light</button>
-          <button type="button" data-mode="dark" aria-pressed="false">Dark</button>
+        <!-- Segmented theme buttons with icons -->
+        <div class="segment" id="theme-seg" role="group" aria-label="Theme">
+          <button type="button" data-mode="light" aria-pressed="true" aria-label="Light theme">
+            <!-- Sun icon -->
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2M12 19v2M21 12h-2M5 12H3M17.657 6.343l-1.414 1.414M7.757 16.243l-1.414 1.414M6.343 6.343 7.757 7.757M16.243 16.243l1.414 1.414"/>
+            </svg>
+            <span class="sr-only">Light</span>
+          </button>
+          <button type="button" data-mode="dark" aria-pressed="false" aria-label="Dark theme">
+            <!-- Moon icon -->
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 009 21a9 9 0 0012-8.21z"/>
+            </svg>
+            <span class="sr-only">Dark</span>
+          </button>
         </div>
       </nav>
     </header>
