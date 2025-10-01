@@ -130,6 +130,7 @@
   }
 </style>
   </head>
+  
   <body>
     <header>
       <h1>Steffi Roy</h1>
@@ -171,6 +172,35 @@
     <footer>
       <p>&copy; 2025 Steffi Roy · Powered by HTML + CSS</p>
     </footer>
+
+    <!-- 4) JS: add this just before </body> on every page -->
+<script>
+  // Cycles: auto -> light -> dark
+  (function () {
+    const root = document.documentElement;
+    const btn = document.getElementById('theme-toggle');
+
+    // Initial label
+    const saved = localStorage.getItem('theme') || 'auto';
+    root.setAttribute('data-theme', saved);            // 'auto' is allowed, CSS media query will win
+    setLabel(saved);
+
+    btn.addEventListener('click', () => {
+      const current = root.getAttribute('data-theme') || 'auto';
+      const next = current === 'auto' ? 'light' : current === 'light' ? 'dark' : 'auto';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      setLabel(next);
+    });
+
+    function setLabel(mode){
+      btn.textContent = `Theme: ${cap(mode)}`;
+      btn.className = mode === 'dark' ? 'btn' : 'btn secondary'; // subtle affordance
+    }
+    function cap(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
+  })();
+</script>
+
   </body>
 </html>
 
