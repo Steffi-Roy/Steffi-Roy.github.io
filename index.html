@@ -5,130 +5,134 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Steffi Roy | Academic Portfolio</title>
     <meta name="description" content="Academic portfolio of Steffi Roy - Researcher in hardware security, computer architecture, and verification.">
+    <meta name="color-scheme" content="light dark">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Apply saved theme before paint -->
     <script>
-  // Apply saved theme *before* paint to avoid flash
-    (function () {
-    const saved = localStorage.getItem('theme');      // 'light' | 'dark' | 'auto' | null
-    if (saved) document.documentElement.setAttribute('data-theme', saved);
-    })();
+      (function () {
+        const saved = localStorage.getItem('theme');
+        if (saved) document.documentElement.setAttribute('data-theme', saved);
+      })();
     </script>
-    
 
-<style>
-  /* Tokens */
-  :root{
-    --bg:#f6f7fb; --card:#ffffff; --text:#1f2937; --muted:#6b7280; --head:#0f172a;
-    --brand:#3b82f6; --brand-ink:#0b3fad; --border:#e5e7eb;
-    --radius:12px; --shadow:0 10px 30px rgba(2,6,23,.06);
-    --space:clamp(12px,2vw,20px); --container:1040px;
-    --header-from:#0f172a; --header-to:#1f2937;
-  }
-  @media (prefers-color-scheme: dark){
-    :root{
-      --bg:#0b0d12; --card:#0f131a; --text:#e5e7eb; --muted:#a7b0be; --head:#f3f4f6;
-      --brand:#60a5fa; --brand-ink:#cfe1ff; --border:#1f2430; --shadow:0 10px 30px rgba(0,0,0,.35);
-      --header-from:#0b0e14; --header-to:#0f172a;
-    }
-  }
+    <style>
+      /* Tokens */
+      :root{
+        --bg:#f6f7fb; --card:#ffffff; --text:#1f2937; --muted:#6b7280; --head:#0f172a;
+        --brand:#3b82f6; --brand-ink:#0b3fad; --border:#e5e7eb;
+        --radius:12px; --shadow:0 10px 30px rgba(2,6,23,.06);
+        --space:clamp(12px,2vw,20px); --container:1040px;
+        --header-from:#0f172a; --header-to:#1f2937;
+      }
+      @media (prefers-color-scheme: dark){
+        :root{
+          --bg:#0b0d12; --card:#0f131a; --text:#e5e7eb; --muted:#a7b0be; --head:#f3f4f6;
+          --brand:#60a5fa; --brand-ink:#cfe1ff; --border:#1f2430;
+          --shadow:0 10px 30px rgba(0,0,0,.35);
+          --header-from:#0b0e14; --header-to:#0f172a;
+        }
+      }
+      /* Manual overrides */
+      html[data-theme="light"]{
+        --bg:#f6f7fb; --card:#ffffff; --text:#1f2937; --muted:#6b7280; --head:#0f172a;
+        --brand:#3b82f6; --brand-ink:#0b3fad; --border:#e5e7eb;
+        --shadow:0 10px 30px rgba(2,6,23,.06);
+        --header-from:#0f172a; --header-to:#1f2937;
+      }
+      html[data-theme="dark"]{
+        --bg:#0b0d12; --card:#0f131a; --text:#e5e7eb; --muted:#a7b0be; --head:#f3f4f6;
+        --brand:#60a5fa; --brand-ink:#cfe1ff; --border:#1f2430;
+        --shadow:0 10px 30px rgba(0,0,0,.35);
+        --header-from:#0b0e14; --header-to:#0f172a;
+      }
 
-  /* Base */
-  html{scroll-behavior:smooth}
-  body{
-    margin:0; background:var(--bg); color:var(--text);
-    font:16px/1.65 Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  }
+      /* Base */
+      html{scroll-behavior:smooth}
+      body{
+        margin:0; background:var(--bg); color:var(--text);
+        font:16px/1.65 Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      }
 
-  /* Header */
-  header{
-    background:linear-gradient(180deg,var(--header-from),var(--header-to));
-    color:#fff; padding:3rem 1rem 2.25rem; text-align:center;
-  }
-  header h1{
-    font-family: Outfit, Inter, sans-serif; font-weight:700;
-    font-size:clamp(28px,4.6vw,44px); letter-spacing:.2px; margin:.2em 0 .1em;
-  }
-  header p{color:#d1d5db; margin:.2em 0 1rem}
+      /* Header */
+      header{
+        background:linear-gradient(180deg,var(--header-from),var(--header-to));
+        color:#fff; padding:3rem 1rem 2.25rem; text-align:center;
+      }
+      header h1{
+        font-family: Outfit, Inter, sans-serif; font-weight:700;
+        font-size:clamp(28px,4.6vw,44px); letter-spacing:.2px; margin:.2em 0 .1em;
+      }
+      header p{color:#d1d5db; margin:.2em 0 1rem}
 
-  /* Nav */
-  nav{margin-top:.25rem}
-  nav a{
-    margin:0 .6rem; color:#e5e7eb; text-decoration:none; font-weight:600;
-    padding:.4rem .6rem; border-radius:8px;
-  }
-  nav a:hover, nav a:focus{background:rgba(255,255,255,.10); outline:none}
-  :focus-visible{outline:2px solid var(--brand); outline-offset:2px}
+      /* Nav */
+      nav{margin-top:.25rem}
+      nav a{
+        margin:0 .6rem; color:#e5e7eb; text-decoration:none; font-weight:600;
+        padding:.4rem .6rem; border-radius:8px;
+      }
+      nav a:hover, nav a:focus{background:rgba(255,255,255,.10); outline:none}
+      :focus-visible{outline:2px solid var(--brand); outline-offset:2px}
 
-  /* Main card */
-  main{
-    max-width:var(--container); margin:-1.25rem auto 2rem; padding:0 var(--space);
-  }
-  .card{background:var(--card); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow)}
+      /* Main card */
+      main{
+        max-width:var(--container); margin:-1.25rem auto 2rem; padding:0 var(--space);
+      }
+      .card{background:var(--card); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow)}
 
-  section{padding:2rem var(--space); border-top:1px solid var(--border)}
-  section:first-of-type{border-top:0}
+      section{padding:2rem var(--space); border-top:1px solid var(--border)}
+      section:first-of-type{border-top:0}
 
-  /* Headings */
-  h1,h2,h3{color:var(--head); margin:0 0 .5rem}
-  h2{font-family: Outfit, Inter, sans-serif; font-size:clamp(22px,2.8vw,28px)}
-  h3{font-size:clamp(18px,2.2vw,20px)}
+      /* Headings */
+      h1,h2,h3{color:var(--head); margin:0 0 .5rem}
+      h2{font-family: Outfit, Inter, sans-serif; font-size:clamp(22px,2.8vw,28px)}
+      h3{font-size:clamp(18px,2.2vw,20px)}
 
-  /* About */
-  .about-container{
-    display:grid;
-    grid-template-columns: 180px 1fr;
-    gap:24px;
-    align-items:start;
-  }
-  .about-container img{
-    width:160px; height:160px; object-fit:cover; border-radius:50%;
-    border:3px solid var(--card); box-shadow:0 6px 18px rgba(0,0,0,.12)
-  }
-  .about-content p{
-    max-width:65ch;
-    line-height:1.7;
-    margin:.7rem 0;
-  }
+      /* About */
+      .about-container{
+        display:grid;
+        grid-template-columns: 180px 1fr;
+        gap:24px;
+        align-items:start;
+      }
+      .about-container img{
+        width:160px; height:160px; object-fit:cover; border-radius:50%;
+        border:3px solid var(--card); box-shadow:0 6px 18px rgba(0,0,0,.12)
+      }
+      .about-content p{
+        max-width:65ch;
+        line-height:1.7;
+        margin:.7rem 0;
+        hyphens:auto;
+      }
 
-  /* Links and CTAs */
-  a{color:var(--brand)}
-  a:hover{text-decoration:underline}
-  .btn{
-    display:inline-block; background:var(--brand); color:#fff;
-    padding:.65rem .9rem; border-radius:10px; text-decoration:none; font-weight:600; border:1px solid transparent;
-  }
-  .btn:hover{text-decoration:none; filter:brightness(1.05)}
+      /* Links and CTAs */
+      a{color:var(--brand)}
+      a:hover{text-decoration:underline}
+      .btn{
+        display:inline-block; background:var(--brand); color:#fff;
+        padding:.65rem .9rem; border-radius:10px; text-decoration:none; font-weight:600; border:1px solid transparent;
+      }
+      .btn:hover{text-decoration:none; filter:brightness(1.05)}
+      .btn.secondary{
+        background:transparent; color:var(--brand);
+        border:1px solid var(--border); cursor:pointer;
+      }
 
-  /* Footer */
-  footer{color:var(--muted); text-align:center; padding:2rem 1rem}
+      /* Footer */
+      footer{color:var(--muted); text-align:center; padding:2rem 1rem}
 
-  /* Mobile */
-  @media (max-width:760px){
-    .about-container{grid-template-columns:1fr; text-align:center}
-    .about-container img{margin:0 auto}
-    .btn{width:100%; text-align:center}
-  }
-  @media (prefers-reduced-motion: reduce){ *{scroll-behavior:auto} }
-
-
-  /* Light defaults when user picks 'light' */
-  html[data-theme="light"]{
-  --bg:#f6f7fb; --card:#ffffff; --text:#1f2937; --muted:#6b7280; --head:#0f172a;
-  --brand:#3b82f6; --brand-ink:#0b3fad; --border:#e5e7eb;
-  --shadow:0 10px 30px rgba(2,6,23,.06);
-  --header-from:#0f172a; --header-to:#1f2937;
-  }
-
-/* Dark when user picks 'dark' */
-  html[data-theme="dark"]{
-  --bg:#0b0d12; --card:#0f131a; --text:#e5e7eb; --muted:#a7b0be; --head:#f3f4f6;
-  --brand:#60a5fa; --brand-ink:#cfe1ff; --border:#1f2430;
-  --shadow:0 10px 30px rgba(0,0,0,.35);
-  --header-from:#0b0e14; --header-to:#0f172a;
-  }
-</style>
+      /* Mobile */
+      @media (max-width:760px){
+        .about-container{grid-template-columns:1fr; text-align:center}
+        .about-container img{margin:0 auto}
+        .btn{width:100%; text-align:center}
+      }
+      @media (prefers-reduced-motion: reduce){ *{scroll-behavior:auto} }
+    </style>
   </head>
   
   <body>
@@ -140,7 +144,7 @@
         <a href="certifications.html">Certifications</a>
         <a href="recommendations.html">Recommendations</a>
         <a href="#contact">Contact</a>
-        <button id="theme-toggle" aria-label="Toggle theme" style="margin-left:.6rem" class="btn secondary">Theme: Auto</button>
+        <button id="theme-toggle" aria-label="Toggle theme" aria-pressed="false" class="btn secondary">Theme: Auto</button>
       </nav>
     </header>
 
@@ -173,35 +177,30 @@
       <p>&copy; 2025 Steffi Roy · Powered by HTML + CSS</p>
     </footer>
 
-    <!-- 4) JS: add this just before </body> on every page -->
-<script>
-  // Cycles: auto -> light -> dark
-  (function () {
-    const root = document.documentElement;
-    const btn = document.getElementById('theme-toggle');
+    <!-- Theme toggle script -->
+    <script>
+      (function () {
+        const root = document.documentElement;
+        const btn = document.getElementById('theme-toggle');
+        const saved = localStorage.getItem('theme') || 'auto';
+        root.setAttribute('data-theme', saved);
+        setUI(saved);
 
-    // Initial label
-    const saved = localStorage.getItem('theme') || 'auto';
-    root.setAttribute('data-theme', saved);            // 'auto' is allowed, CSS media query will win
-    setLabel(saved);
+        btn.addEventListener('click', () => {
+          const current = root.getAttribute('data-theme') || 'auto';
+          const next = current === 'auto' ? 'light' : current === 'light' ? 'dark' : 'auto';
+          root.setAttribute('data-theme', next);
+          localStorage.setItem('theme', next);
+          setUI(next);
+        });
 
-    btn.addEventListener('click', () => {
-      const current = root.getAttribute('data-theme') || 'auto';
-      const next = current === 'auto' ? 'light' : current === 'light' ? 'dark' : 'auto';
-      root.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
-      setLabel(next);
-    });
-
-    function setLabel(mode){
-      btn.textContent = `Theme: ${cap(mode)}`;
-      btn.className = mode === 'dark' ? 'btn' : 'btn secondary'; // subtle affordance
-    }
-    function cap(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
-  })();
-</script>
-
+        function setUI(mode){
+          btn.textContent = `Theme: ${cap(mode)}`;
+          btn.className = mode === 'dark' ? 'btn' : 'btn secondary';
+          btn.setAttribute('aria-pressed', mode !== 'auto');
+        }
+        function cap(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
+      })();
+    </script>
   </body>
 </html>
-
-
