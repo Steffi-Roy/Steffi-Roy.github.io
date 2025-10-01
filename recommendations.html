@@ -7,316 +7,191 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     /*
-      VARIANT A OVERVIEW
-      - Fixed canvas starfield with subtle parallax and twinkle
-      - Section and list items reveal on scroll via IntersectionObserver
-      - Links get a growing underline and soft glow
-      - Back link has a magnetic hover effect
-      - Respects prefers-reduced-motion
+      VARIANT B OVERVIEW (CSS only)
+      - Slow animated background gradient
+      - Headline shimmer
+      - Lists fade and slide with staggered delays
+      - Links get ink highlight and underline fill
+      - Gentle card hover tilt using transform
+      - Motion reduced for accessibility
     */
 
     :root {
-      --bg: #0b1020;
-      --ink: #e8eefc;
-      --card: rgba(255, 255, 255, 0.08);
-      --card-stroke: rgba(255,255,255,0.2);
-      --accent: #9ec5ff;
-      --accent-2: #c8a8ff;
-      --link: #a7d0ff;
-      --shadow: rgba(0,0,0,0.35);
+      --bg1: #0e172a; /* deep indigo */
+      --bg2: #1e2a5a; /* navy */
+      --bg3: #13233d; /* muted blue */
+      --ink: #eaf0ff;
+      --muted: #cdd9f0;
+      --card: rgba(255, 255, 255, 0.85);
+      --link: #2b6cb0;
     }
 
     * { box-sizing: border-box; }
 
-    html, body { height: 100%; }
-
     body {
-      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
       margin: 0;
+      min-height: 100dvh;
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
       color: var(--ink);
-      /* Texture plus deep space color */
       background:
         url('https://www.transparenttextures.com/patterns/sketchy.png') repeat,
-        radial-gradient(1200px 800px at 10% 10%, #1c2440 0%, #0b1020 60%),
-        linear-gradient(#0b1020, #0b1020);
-      overflow-x: hidden;
+        linear-gradient(120deg, var(--bg1), var(--bg2), var(--bg3));
+      background-size: auto, 300% 300%;
+      animation: bg-move 30s ease-in-out infinite;
+      padding: 2rem;
     }
 
-    /* Full screen star canvas sits behind content */
-    #stars {
-      position: fixed;
-      inset: 0;
-      width: 100vw;
-      height: 100vh;
-      display: block;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    .wrap {
-      position: relative;
-      z-index: 1;
-      padding: 5rem 1.25rem 6rem;
-      max-width: 1100px;
-      margin: 0 auto;
+    @keyframes bg-move {
+      0% { background-position: left top, 0% 50%; }
+      50% { background-position: left top, 100% 50%; }
+      100% { background-position: left top, 0% 50%; }
     }
 
     h2 {
-      font-size: clamp(2rem, 4vw, 3rem);
       text-align: center;
-      margin: 0 0 2.5rem;
-      /* Animated gradient ink */
-      background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--ink));
-      background-size: 300% 100%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: hueShift 14s linear infinite;
-      text-shadow: 0 2px 20px rgba(158,197,255,0.15);
+      margin: 0 0 2rem;
+      font-size: clamp(2rem, 4vw, 3rem);
+      background: linear-gradient(90deg, #bcd9ff 0%, #f0e2ff 50%, #ffffff 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      background-size: 200% 100%;
+      animation: shimmer 10s linear infinite;
+      text-shadow: 0 2px 16px rgba(255,255,255,0.12);
     }
 
-    h3 {
-      font-size: 1.25rem;
-      margin: 3rem 0 1rem;
-      letter-spacing: 0.2px;
-      color: #dbe6ff;
+    @keyframes shimmer {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
     }
 
-    /* Cards for UL lists */
+    h3 { color: var(--muted); margin: 2.25rem auto 0.75rem; max-width: 820px; }
+
     ul {
-      position: relative;
+      list-style: none;
+      max-width: 820px;
       margin: 0 auto;
       padding: 1.25rem 1.25rem 1rem;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255,255,255,0.2);
       border-radius: 14px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04));
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      border: 1px solid var(--card-stroke);
-      box-shadow: 0 10px 30px var(--shadow);
-      list-style: none; /* Remove bullets, we add our own */
-      max-width: 900px;
-      transform: translateY(24px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.25);
+      transform: translateY(20px);
       opacity: 0;
-      filter: saturate(0.9);
-      transition: transform 700ms cubic-bezier(.2,.8,.2,1), opacity 800ms ease, filter 800ms ease;
+      animation: cardIn 900ms cubic-bezier(.2,.8,.2,1) both;
     }
 
-    /* Decorative subtle top glow */
-    ul::before {
-      content: "";
-      position: absolute;
-      inset: -1px -1px auto -1px;
-      height: 8px;
-      border-radius: 14px 14px 0 0;
-      background: linear-gradient(90deg, rgba(158,197,255,0.4), rgba(200,168,255,0.2), rgba(255,255,255,0.1));
-      filter: blur(6px);
-      pointer-events: none;
-    }
+    /* Each card appears with a slight offset delay */
+    ul:nth-of-type(1) { animation-delay: 120ms; }
+    ul:nth-of-type(2) { animation-delay: 260ms; }
+    ul:nth-of-type(3) { animation-delay: 400ms; }
+    ul:nth-of-type(4) { animation-delay: 540ms; }
 
-    /* Reveal state set by JS */
-    ul.show { transform: translateY(0); opacity: 1; filter: saturate(1); }
+    @keyframes cardIn { from { transform: translateY(24px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
-    li { position: relative; margin: 0.4rem 0; padding-left: 1.25rem; }
+    li { position: relative; margin: 0.45rem 0; padding-left: 1rem; opacity: 0; transform: translateY(6px); }
 
-    /* Custom star bullets */
+    /* Stagger list items inside each card */
+    ul li { animation: itemIn 600ms ease-out both; }
+    ul li:nth-child(1) { animation-delay: 120ms; }
+    ul li:nth-child(2) { animation-delay: 210ms; }
+    ul li:nth-child(3) { animation-delay: 300ms; }
+    ul li:nth-child(4) { animation-delay: 390ms; }
+    ul li:nth-child(5) { animation-delay: 480ms; }
+
+    @keyframes itemIn { to { opacity: 1; transform: translateY(0); } }
+
+    /* Decorative bullet */
     li::before {
-      content: "★";
-      position: absolute;
-      left: 0;
-      top: 0.1rem;
-      font-size: 0.9rem;
-      opacity: 0.65;
-      transition: transform 400ms ease;
+      content: "✦";
+      position: absolute; left: 0; top: 0.1rem; opacity: 0.7; font-size: 0.9rem;
+      transform: translateY(2px);
     }
-
-    li:hover::before { transform: rotate(12deg) scale(1.1); }
 
     a {
-      color: var(--link);
+      color: #cfe3ff;
       text-decoration: none;
       font-weight: 600;
       position: relative;
-      display: inline-block;
-      padding-bottom: 1px; /* space for underline */
-      outline: none;
+      padding: 0.05rem 0.1rem;
     }
 
-    /* Growing underline on hover and focus */
+    /* Ink background highlight that grows on hover */
+    a::before {
+      content: "";
+      position: absolute; inset: 0 -2px 0 -2px;
+      background: rgba(158,197,255,0.15);
+      border-radius: 6px;
+      transform: scaleY(0.6);
+      opacity: 0;
+      transition: transform 220ms ease, opacity 220ms ease;
+      z-index: -1;
+    }
+
+    /* Underline that fills from left to right */
     a::after {
       content: "";
-      position: absolute;
-      left: 0; bottom: -2px;
-      width: 100%; height: 2px;
+      position: absolute; left: 0; right: 0; bottom: -2px; height: 2px;
+      background: linear-gradient(90deg, #9ec5ff, #c8a8ff);
       transform: scaleX(0);
       transform-origin: left;
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-      transition: transform 300ms ease;
+      transition: transform 220ms ease;
     }
 
-    a:hover::after, a:focus-visible::after { transform: scaleX(1); }
+    a:hover::before { opacity: 1; transform: scaleY(1); }
+    a:hover::after { transform: scaleX(1); }
 
-    /* Soft glow on hover */
-    a:hover { text-shadow: 0 0 12px rgba(158,197,255,0.25); }
+    /* Gentle tilt on card hover */
+    ul:hover { transform: translateY(-2px) rotateX(1deg); }
 
     .back-link {
-      display: block;
-      text-align: center;
-      margin: 3rem auto 0;
-      font-weight: 700;
-      color: #e6eaff;
-      width: max-content;
-      padding: 0.5rem 0.75rem;
-      border-radius: 10px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.18);
-      box-shadow: 0 6px 20px var(--shadow);
-      transition: transform 250ms ease, background 250ms ease;
-      will-change: transform;
+      display: block; text-align: center; margin: 3rem auto 0;
+      font-weight: 700; color: #eef3ff; width: max-content;
+      padding: 0.55rem 0.8rem; border-radius: 10px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.22);
+      box-shadow: 0 8px 26px rgba(0,0,0,0.25);
+      transition: transform 200ms ease, background 200ms ease;
     }
+    .back-link:hover { transform: translateY(-2px) scale(1.02); background: rgba(255,255,255,0.12); }
 
-    .back-link:hover { background: rgba(255,255,255,0.1); }
-
-    /* Enter animations for headings and lists */
-    @keyframes hueShift { from { background-position: 0% 50%; } to { background-position: 300% 50%; } }
-
-    /* Respect reduced motion */
     @media (prefers-reduced-motion: reduce) {
-      h2 { animation: none; }
-      ul, .back-link { transition: none; }
-      a::after { transition: none; }
+      * { animation: none !important; transition: none !important; }
     }
   </style>
 </head>
 <body>
-  <!-- Fixed starfield canvas backdrop -->
-  <canvas id="stars"></canvas>
+  <h2>Recommended Resources</h2>
 
-  <main class="wrap">
-    <h2>Recommended Resources</h2>
+  <h3>🌌 Astronomy & Space</h3>
+  <ul>
+    <li><a href="https://apod.nasa.gov/apod/astropix.html">NASA Astronomy Picture of the Day</a></li>
+    <li><a href="https://stellarium-web.org/">Stellarium Web</a></li>
+    <li><a href="https://webbtelescope.org/">James Webb Telescope Gallery</a></li>
+    <li><a href="https://eyes.nasa.gov/">Eyes on the Solar System</a></li>
+    <li><a href="https://heavens-above.com/">Heavens Above</a></li>
+  </ul>
 
-    <h3>🌌 Astronomy & Space</h3>
-    <ul>
-      <li><a href="https://apod.nasa.gov/apod/astropix.html">NASA Astronomy Picture of the Day</a></li>
-      <li><a href="https://stellarium-web.org/">Stellarium Web</a></li>
-      <li><a href="https://webbtelescope.org/">James Webb Telescope Gallery</a></li>
-      <li><a href="https://eyes.nasa.gov/">Eyes on the Solar System</a></li>
-      <li><a href="https://heavens-above.com/">Heavens Above</a></li>
-    </ul>
+  <h3>🔐 Security & Privacy</h3>
+  <ul>
+    <li><a href="https://nvd.nist.gov/vuln">NIST Vulnerability Database</a></li>
+    <li><a href="https://tehranipoor.ece.ufl.edu/intro-to-hardware-security-and-trust/">Hardware Security</a></li>
+    <li><a href="https://www.youtube.com/@SideChannelSecurity">Videos on side channel attacks</a></li>  
+  </ul>
 
-    <h3>🔐 Security & Privacy</h3>
-    <ul>
-      <li><a href="https://nvd.nist.gov/vuln">NIST Vulnerability Database</a></li>
-      <li><a href="https://tehranipoor.ece.ufl.edu/intro-to-hardware-security-and-trust/">Hardware Security</a></li>
-      <li><a href="https://www.youtube.com/@SideChannelSecurity">Videos on side channel attacks</a></li>
-    </ul>
+  <h3>🧠 Computer Architecture & Systems</h3>
+  <ul>
+    <li><a href="https://www.cl.cam.ac.uk/teaching/2122/ECAD+Arch/">Cambridge Architecture Lectures</a></li>
+    <li><a href="https://pages.cs.wisc.edu/~markhill/cs552/">Mark Hill’s CS552</a></li>
+    <li><a href="https://www.lighterra.com/papers/modernmicroprocessors/">A Brief History of Microprocessors</a></li>
+    <li><a href="https://github.com/senorblanco/riscv-simple-sv">RISC-V SoC Design</a></li>
+  </ul>
 
-    <h3>🧠 Computer Architecture & Systems</h3>
-    <ul>
-      <li><a href="https://www.cl.cam.ac.uk/teaching/2122/ECAD+Arch/">Cambridge Architecture Lectures</a></li>
-      <li><a href="https://pages.cs.wisc.edu/~markhill/cs552/">Mark Hill’s CS552</a></li>
-      <li><a href="https://www.lighterra.com/papers/modernmicroprocessors/">A Brief History of Microprocessors</a></li>
-      <li><a href="https://github.com/senorblanco/riscv-simple-sv">RISC-V SoC Design</a></li>
-    </ul>
+  <h3>🌀 Random</h3>
+  <ul>
+    <li><a href="https://nautil.us/">Nautilus</a></li>
+    <li><a href="https://waitbutwhy.com/">Wait But Why</a></li>
+    <li><a href="https://ed.ted.com/lessons?category=science-technology">TED-Ed Science</a></li>
+  </ul>
 
-    <h3>🌀 Random</h3>
-    <ul>
-      <li><a href="https://nautil.us/">Nautilus</a></li>
-      <li><a href="https://waitbutwhy.com/">Wait But Why</a></li>
-      <li><a href="https://ed.ted.com/lessons?category=science-technology">TED-Ed Science</a></li>
-    </ul>
-
-    <a class="back-link" href="index.html">← Back to Home</a>
-  </main>
-
-  <script>
-    /* STARFIELD + PARALLAX */
-    const c = document.getElementById('stars');
-    const ctx = c.getContext('2d');
-    let W, H, DPR, stars = [], mouseX = 0, mouseY = 0;
-
-    function resize() {
-      DPR = Math.max(1, Math.min(window.devicePixelRatio || 1, 2));
-      W = c.width = Math.floor(innerWidth * DPR);
-      H = c.height = Math.floor(innerHeight * DPR);
-      c.style.width = innerWidth + 'px';
-      c.style.height = innerHeight + 'px';
-      initStars();
-    }
-
-    function rand(min, max){ return Math.random() * (max - min) + min; }
-
-    function initStars(){
-      const count = Math.floor((innerWidth * innerHeight) / 9000);
-      stars = new Array(count).fill(0).map(() => ({
-        x: rand(0, W),
-        y: rand(0, H),
-        r: rand(0.6, 1.8) * DPR,
-        tw: rand(0.2, 1),
-        a: rand(0.4, 0.9),
-        depth: rand(0.4, 1.5) /* depth controls parallax */
-      }));
-    }
-
-    function draw(){
-      ctx.clearRect(0,0,W,H);
-      // subtle vignette background glow
-      const grad = ctx.createRadialGradient(W*0.1, H*0.1, 0, W*0.1, H*0.1, Math.max(W,H));
-      grad.addColorStop(0, 'rgba(30,44,80,0.15)');
-      grad.addColorStop(1, 'rgba(11,16,32,0)');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0,0,W,H);
-
-      const cx = (mouseX - innerWidth/2) / innerWidth; // -0.5..0.5
-      const cy = (mouseY - innerHeight/2) / innerHeight;
-
-      for (const s of stars){
-        // parallax shift based on depth and mouse position
-        const px = s.x + cx * 20 * s.depth;
-        const py = s.y + cy * 20 * s.depth;
-        const twinkle = 0.5 + 0.5 * Math.sin(performance.now()/1000 * s.tw + s.x);
-        ctx.globalAlpha = s.a * (0.6 + 0.4 * twinkle);
-        ctx.beginPath();
-        ctx.arc(px, py, s.r, 0, Math.PI*2);
-        ctx.fillStyle = 'rgba(200,220,255,0.9)';
-        ctx.fill();
-      }
-      ctx.globalAlpha = 1;
-      requestAnimationFrame(draw);
-    }
-
-    window.addEventListener('resize', resize);
-    window.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
-    resize();
-    draw();
-
-    /* SCROLL REVEAL: observe each UL and add .show when in view */
-    const lists = document.querySelectorAll('ul');
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
-    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.15 });
-    lists.forEach(el => io.observe(el));
-
-    /* MAGNETIC BACK LINK: gentle attract-and-release */
-    const back = document.querySelector('.back-link');
-    let rafId = null;
-
-    function onMove(e){
-      const rect = back.getBoundingClientRect();
-      const mx = e.clientX - (rect.left + rect.width/2);
-      const my = e.clientY - (rect.top + rect.height/2);
-      const dist = Math.hypot(mx,my);
-      const radius = 160; // influence area
-      if (dist < radius){
-        const strength = (1 - dist / radius);
-        const tx = mx * 0.15 * strength;
-        const ty = my * 0.15 * strength;
-        back.style.transform = `translate(${tx}px, ${ty}px)`;
-      } else {
-        back.style.transform = 'translate(0,0)';
-      }
-    }
-
-    window.addEventListener('pointermove', onMove);
-  </script>
+  <a class="back-link" href="index.html">← Back to Home</a>
 </body>
 </html>
