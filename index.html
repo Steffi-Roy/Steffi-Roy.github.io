@@ -11,7 +11,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Apply saved theme before paint (two-state only) -->
     <script>
       (function () {
         const saved = localStorage.getItem('theme');
@@ -20,7 +19,6 @@
     </script>
 
     <style>
-      /* Tokens */
       :root{
         --bg:#f6f7fb; --card:#ffffff; --text:#1f2937; --muted:#6b7280; --head:#0f172a;
         --brand:#3b82f6; --brand-ink:#0b3fad; --border:#e5e7eb;
@@ -35,109 +33,55 @@
         --header-from:#0b0e14; --header-to:#0f172a;
       }
 
-      /* Base */
       html{scroll-behavior:smooth}
-      body{
-        margin:0; background:var(--bg); color:var(--text);
-        font:16px/1.65 Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      }
+      body{ margin:0; background:var(--bg); color:var(--text); font:16px/1.65 Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif }
 
-      /* Header */
-      header{
-        background:linear-gradient(180deg,var(--header-from),var(--header-to));
-        color:#fff; padding:3rem 1rem 2.25rem; text-align:center;
-      }
+      header{ background:linear-gradient(180deg,var(--header-from),var(--header-to)); color:#fff; padding:3rem 1rem 2.25rem; text-align:center }
       header h1{
-        font-family: Outfit, Inter, sans-serif; font-weight:700;
-        font-size:clamp(28px,4.6vw,44px); letter-spacing:.2px; margin:.2em 0 .1em;
-        color:#fff; text-shadow:0 2px 6px rgba(0,0,0,.35); /* stays readable on dark */
+        font-family:Outfit, Inter, sans-serif; font-weight:700; font-size:clamp(28px,4.6vw,44px);
+        margin:.2em 0 .1em; color:#fff; text-shadow:0 2px 6px rgba(0,0,0,.35)
       }
-      header p{color:#d1d5db; margin:.2em 0 1rem}
+      header p{ color:#d1d5db; margin:.2em 0 1rem }
 
-      /* Nav */
-      nav{margin-top:.25rem; display:flex; gap:.6rem; justify-content:center; align-items:center; flex-wrap:wrap}
-      nav a{
-        margin:0 .2rem; color:#e5e7eb; text-decoration:none; font-weight:600;
-        padding:.4rem .6rem; border-radius:8px;
-      }
-      nav a:hover, nav a:focus{background:rgba(255,255,255,.10); outline:none}
-      :focus-visible{outline:2px solid var(--brand); outline-offset:2px}
+      nav{ margin-top:.25rem; display:flex; gap:.6rem; justify-content:center; align-items:center; flex-wrap:wrap }
+      nav a{ margin:0 .2rem; color:#e5e7eb; text-decoration:none; font-weight:600; padding:.4rem .6rem; border-radius:8px }
+      nav a:hover, nav a:focus{ background:rgba(255,255,255,.10); outline:none }
+      :focus-visible{ outline:2px solid var(--brand); outline-offset:2px }
 
-      /* Two-state notch switch */
-      .switch{
-        --w:52px; --h:28px;
-        position:relative; width:var(--w); height:var(--h);
-        border-radius:999px; border:1px solid var(--border);
-        background:var(--card); display:inline-flex; align-items:center; padding:0 6px;
-        cursor:pointer; user-select:none;
-      }
-      .switch .knob{
-        position:absolute; top:3px; left:3px; width:22px; height:22px;
-        border-radius:50%; background:var(--brand); transition:left .18s ease;
-        box-shadow:0 2px 6px rgba(0,0,0,.25);
-      }
-      html[data-theme="dark"] .switch .knob{ left:calc(100% - 3px - 22px) }
-      .switch-label{ color:#e5e7eb; font-size:.9rem; margin-left:.25rem }
+      /* Segmented control */
+      .segment{ display:inline-flex; border:1px solid var(--border); border-radius:999px; padding:2px; background:var(--card) }
+      .segment button{ border:0; background:transparent; padding:.35rem .7rem; border-radius:999px; cursor:pointer; color:var(--muted); font-weight:600 }
+      .segment button[aria-pressed="true"]{ background:var(--brand); color:#fff }
 
-      /* Main card */
-      main{
-        max-width:var(--container); margin:-1.25rem auto 2rem; padding:0 var(--space);
-      }
-      .card{background:var(--card); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow)}
+      main{ max-width:var(--container); margin:-1.25rem auto 2rem; padding:0 var(--space) }
+      .card{ background:var(--card); border:1px solid var(--border); border-radius:12px; box-shadow:var(--shadow) }
+      section{ padding:2rem var(--space); border-top:1px solid var(--border) }
+      section:first-of-type{ border-top:0 }
 
-      section{padding:2rem var(--space); border-top:1px solid var(--border)}
-      section:first-of-type{border-top:0}
+      h1,h2,h3{ color:var(--head); margin:0 0 .5rem }
+      h2{ font-family:Outfit, Inter, sans-serif; font-size:clamp(22px,2.8vw,28px) }
+      h3{ font-size:clamp(18px,2.2vw,20px) }
 
-      /* Headings */
-      h1,h2,h3{color:var(--head); margin:0 0 .5rem}
-      h2{font-family: Outfit, Inter, sans-serif; font-size:clamp(22px,2.8vw,28px)}
-      h3{font-size:clamp(18px,2.2vw,20px)}
+      .about-container{ display:grid; grid-template-columns:180px 1fr; gap:24px; align-items:start }
+      .about-container img{ width:160px; height:160px; object-fit:cover; border-radius:50%; border:3px solid var(--card); box-shadow:0 6px 18px rgba(0,0,0,.12) }
+      .about-content p{ max-width:65ch; line-height:1.7; margin:.9rem 0; hyphens:auto }
 
-      /* About */
-      .about-container{
-        display:grid;
-        grid-template-columns: 180px 1fr;
-        gap:24px;
-        align-items:start;
-      }
-      .about-container img{
-        width:160px; height:160px; object-fit:cover; border-radius:50%;
-        border:3px solid var(--card); box-shadow:0 6px 18px rgba(0,0,0,.12)
-      }
-      .about-content p{
-        max-width:65ch;
-        line-height:1.7;
-        margin:.9rem 0;
-        hyphens:auto;
-      }
-
-      /* Links and CTAs */
-      a{color:var(--brand)}
-      a:hover{text-decoration:underline}
-      .btn{
-        display:inline-block; background:var(--brand); color:#fff;
-        padding:.55rem .8rem; border-radius:10px; text-decoration:none; font-weight:600; border:1px solid transparent;
-      }
-      .btn:hover{text-decoration:none; filter:brightness(1.05)}
-      .btn.secondary{
-        background:transparent; color:#e5e7eb;
-        border:1px solid var(--border); cursor:pointer;
-      }
+      a{ color:var(--brand) }
+      a:hover{ text-decoration:underline }
+      .btn{ display:inline-block; background:var(--brand); color:#fff; padding:.55rem .8rem; border-radius:10px; text-decoration:none; font-weight:600; border:1px solid transparent }
+      .btn:hover{ text-decoration:none; filter:brightness(1.05) }
       .btn.sm{ padding:.45rem .7rem }
 
-      /* Footer */
-      footer{color:var(--muted); text-align:center; padding:2rem 1rem}
+      footer{ color:var(--muted); text-align:center; padding:2rem 1rem }
 
-      /* Mobile */
       @media (max-width:760px){
-        .about-container{grid-template-columns:1fr; text-align:center}
-        .about-container img{margin:0 auto}
-        .btn{width:100%; text-align:center}
+        .about-container{ grid-template-columns:1fr; text-align:center }
+        .about-container img{ margin:0 auto }
+        .btn{ width:100%; text-align:center }
       }
       @media (prefers-reduced-motion: reduce){ *{scroll-behavior:auto} }
     </style>
   </head>
-  
   <body>
     <header>
       <h1>Steffi Roy</h1>
@@ -148,11 +92,11 @@
         <a href="recommendations.html">Recommendations</a>
         <a href="#contact">Contact</a>
 
-        <!-- Notch switch -->
-        <button id="theme-toggle" class="switch" aria-label="Toggle theme" aria-pressed="false">
-          <span class="knob"></span>
-        </button>
-        <span class="switch-label" id="theme-label">Light</span>
+        <!-- Segmented theme buttons -->
+        <div class="segment" id="theme-seg">
+          <button type="button" data-mode="light" aria-pressed="true">Light</button>
+          <button type="button" data-mode="dark" aria-pressed="false">Dark</button>
+        </div>
       </nav>
     </header>
 
@@ -160,9 +104,7 @@
       <section id="about" class="card">
         <h2>About Me</h2>
         <div class="about-container">
-          <!-- Left: image -->
           <img src="images/me1.jpg" alt="Steffi Roy">
-          <!-- Right: content -->
           <div class="about-content">
             <p>Hey, this is <strong>Steffi!</strong> Welcome to my portfolio. I completed my undergraduate degree in Electrical and Electronics Engineering with a focus on computer architecture and digital systems design. I pursued a master's degree in Electrical and Computer Engineering at the University of Florida, where I delved deeper into the area of hardware security and design verification.</p>
             <p>My research interests lie at the intersection of security, computer architecture, machine learning, and verification.</p>
@@ -185,22 +127,17 @@
       <p>&copy; 2025 Steffi Roy · Powered by HTML + CSS</p>
     </footer>
 
-    <!-- Two-state theme toggle -->
     <script>
-      (function () {
-        const root = document.documentElement;
-        const btn = document.getElementById('theme-toggle');
-        const label = document.getElementById('theme-label');
-        const saved = localStorage.getItem('theme') === 'dark' ? 'dark' : 'light';
-        set(saved);
-
-        btn.addEventListener('click', () => set(root.getAttribute('data-theme') === 'light' ? 'dark' : 'light'));
-
-        function set(mode){
-          root.setAttribute('data-theme', mode);
-          localStorage.setItem('theme', mode);
-          btn.setAttribute('aria-pressed', mode === 'dark');
-          label.textContent = mode === 'dark' ? 'Dark' : 'Light';
+      // Segmented control logic (Light/Dark)
+      (function(){
+        const root=document.documentElement, seg=document.getElementById('theme-seg');
+        const saved=(localStorage.getItem('theme')==='dark')?'dark':'light'; set(saved);
+        seg.addEventListener('click',e=>{
+          const b=e.target.closest('button[data-mode]'); if(!b) return; set(b.dataset.mode);
+        });
+        function set(m){
+          root.setAttribute('data-theme',m); localStorage.setItem('theme',m);
+          seg.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed', String(b.dataset.mode===m)));
         }
       })();
     </script>
