@@ -9,6 +9,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
 
+    
+
 <style>
   /* Tokens */
   :root{
@@ -103,6 +105,23 @@
     .btn{width:100%; text-align:center}
   }
   @media (prefers-reduced-motion: reduce){ *{scroll-behavior:auto} }
+
+
+  /* Light defaults when user picks 'light' */
+  html[data-theme="light"]{
+  --bg:#f6f7fb; --card:#ffffff; --text:#1f2937; --muted:#6b7280; --head:#0f172a;
+  --brand:#3b82f6; --brand-ink:#0b3fad; --border:#e5e7eb;
+  --shadow:0 10px 30px rgba(2,6,23,.06);
+  --header-from:#0f172a; --header-to:#1f2937;
+  }
+
+/* Dark when user picks 'dark' */
+  html[data-theme="dark"]{
+  --bg:#0b0d12; --card:#0f131a; --text:#e5e7eb; --muted:#a7b0be; --head:#f3f4f6;
+  --brand:#60a5fa; --brand-ink:#cfe1ff; --border:#1f2430;
+  --shadow:0 10px 30px rgba(0,0,0,.35);
+  --header-from:#0b0e14; --header-to:#0f172a;
+  }
 </style>
   </head>
   <body>
@@ -114,6 +133,7 @@
         <a href="certifications.html">Certifications</a>
         <a href="recommendations.html">Recommendations</a>
         <a href="#contact">Contact</a>
+        <button id="theme-toggle" aria-label="Toggle theme" style="margin-left:.6rem" class="btn secondary">Theme: Auto</button>
       </nav>
     </header>
 
@@ -147,3 +167,4 @@
     </footer>
   </body>
 </html>
+
