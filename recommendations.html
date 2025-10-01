@@ -1,93 +1,90 @@
-
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Recommendations | Steffi Roy</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background: url('https://www.transparenttextures.com/patterns/sketchy.png') repeat;
-      background-color: #fdfdfd;
-      margin: 0;
-      padding: 2rem;
-      color: #333;
-    }
-    h2 {
-      color: #1a202c;
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-    h3 {
-      color: #2d3748;
-      margin-top: 2rem;
-    }
-    ul {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 1.5rem;
-      background: rgba(255, 255, 255, 0.85);
-      border-radius: 10px;
-      list-style-type: square;
-      box-shadow: 0 0 10px rgba(0,0,0,0.05);
-    }
-    li {
-      margin-bottom: 1rem;
-    }
-    a {
-      color: #2b6cb0;
-      text-decoration: none;
-      font-weight: 600;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    .back-link {
-      display: block;
-      text-align: center;
-      margin-top: 3rem;
-      font-weight: bold;
-      color: #2d3748;
-    }
-  </style>
-</head>
-<body>
-  <h2>Recommended Resources</h2>
+}
 
-  <h3>🌌 Astronomy & Space</h3>
-  <ul>
-    <li><a href="https://apod.nasa.gov/apod/astropix.html">NASA Astronomy Picture of the Day</a></li>
-    <li><a href="https://stellarium-web.org/">Stellarium Web</a></li>
-    <li><a href="https://webbtelescope.org/">James Webb Telescope Gallery</a></li>
-    <li><a href="https://eyes.nasa.gov/">Eyes on the Solar System</a></li>
-    <li><a href="https://heavens-above.com/">Heavens Above</a></li>
-  </ul>
 
-  <h3>🔐 Security & Privacy</h3>
-  <ul>
-    <li><a href="https://nvd.nist.gov/vuln">NIST Vulnerability Database</a></li>
-    <li><a href="https://tehranipoor.ece.ufl.edu/intro-to-hardware-security-and-trust/">Hardware Security</a></li>
-    <li><a href="https://www.youtube.com/@SideChannelSecurity">Videos on side channel attacks</a></li>  
-  </ul>
+function rand(min, max){ return Math.random() * (max - min) + min; }
 
-  <h3>🧠 Computer Architecture & Systems</h3>
-  <ul>
-    <li><a href="https://www.cl.cam.ac.uk/teaching/2122/ECAD+Arch/">Cambridge Architecture Lectures</a></li>
-    <li><a href="https://pages.cs.wisc.edu/~markhill/cs552/">Mark Hill’s CS552</a></li>
-    <li><a href="https://www.lighterra.com/papers/modernmicroprocessors/">A Brief History of Microprocessors</a></li>
-    <li><a href="https://github.com/senorblanco/riscv-simple-sv">RISC-V SoC Design</a></li>
-  </ul>
 
-  <h3>🌀 Random</h3>
-  <ul>
-    <li><a href="https://nautil.us/">Nautilus</a></li>
-    <li><a href="https://waitbutwhy.com/">Wait But Why</a></li>
-    <li><a href="https://ed.ted.com/lessons?category=science-technology">TED-Ed Science</a></li>
-  </ul>
+function initStars(){
+const count = Math.floor((innerWidth * innerHeight) / 9000);
+stars = new Array(count).fill(0).map(() => ({
+x: rand(0, W),
+y: rand(0, H),
+r: rand(0.6, 1.8) * DPR,
+tw: rand(0.2, 1),
+a: rand(0.4, 0.9),
+depth: rand(0.4, 1.5) /* depth controls parallax */
+}));
+}
 
-  <a class="back-link" href="index.html">&larr; Back to Home</a>
+
+function draw(){
+ctx.clearRect(0,0,W,H);
+// subtle vignette background glow
+const grad = ctx.createRadialGradient(W*0.1, H*0.1, 0, W*0.1, H*0.1, Math.max(W,H));
+grad.addColorStop(0, 'rgba(30,44,80,0.15)');
+grad.addColorStop(1, 'rgba(11,16,32,0)');
+ctx.fillStyle = grad;
+ctx.fillRect(0,0,W,H);
+
+
+const cx = (mouseX - innerWidth/2) / innerWidth; // -0.5..0.5
+const cy = (mouseY - innerHeight/2) / innerHeight;
+
+
+for (const s of stars){
+// parallax shift based on depth and mouse position
+const px = s.x + cx * 20 * s.depth;
+const py = s.y + cy * 20 * s.depth;
+const twinkle = 0.5 + 0.5 * Math.sin(performance.now()/1000 * s.tw + s.x);
+ctx.globalAlpha = s.a * (0.6 + 0.4 * twinkle);
+ctx.beginPath();
+ctx.arc(px, py, s.r, 0, Math.PI*2);
+ctx.fillStyle = 'rgba(200,220,255,0.9)';
+ctx.fill();
+}
+ctx.globalAlpha = 1;
+requestAnimationFrame(draw);
+}
+
+
+window.addEventListener('resize', resize);
+window.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
+resize();
+draw();
+
+
+/* SCROLL REVEAL: observe each UL and add .show when in view */
+const lists = document.querySelectorAll('ul');
+const io = new IntersectionObserver((entries) => {
+entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+}, { rootMargin: '0px 0px -10% 0px', threshold: 0.15 });
+lists.forEach(el => io.observe(el));
+
+
+/* MAGNETIC BACK LINK: gentle attract-and-release */
+const back = document.querySelector('.back-link');
+let rafId = null;
+
+
+function onMove(e){
+const rect = back.getBoundingClientRect();
+const mx = e.clientX - (rect.left + rect.width/2);
+const my = e.clientY - (rect.top + rect.height/2);
+const dist = Math.hypot(mx,my);
+const radius = 160; // influence area
+if (dist < radius){
+const strength = (1 - dist / radius);
+const tx = mx * 0.15 * strength;
+const ty = my * 0.15 * strength;
+back.style.transform = `translate(${tx}px, ${ty}px)`;
+} else {
+back.style.transform = 'translate(0,0)';
+}
+}
+
+
+window.addEventListener('pointermove', onMove);
+</script>
 </body>
 </html>
-
