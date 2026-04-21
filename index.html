@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Steffi Roy | Academic Portfolio</title>
-    <meta name="description" content="Academic portfolio of Steffi Roy - Researcher in hardware security, computer architecture, and verification.">
+    <title>Steffi Roy | PhD Applicant · Hardware Security & AI Systems</title>
+    <meta name="description" content="Steffi Roy — prospective PhD student researching AI systems, hardware security, and computer architecture. Seeking PhD positions for Fall 2026.">
     <meta name="color-scheme" content="light dark">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,147 +19,398 @@
     </script>
 
     <style>
-      :root{
-        --bg:#f6f7fb; --card:#ffffff; --text:#1f2937; --muted:#6b7280; --head:#0f172a;
-        --brand:#3b82f6; --brand-ink:#0b3fad; --border:#e5e7eb;
-        --radius:12px; --shadow:0 10px 30px rgba(2,6,23,.06);
-        --space:clamp(12px,2vw,20px); --container:1040px;
-        --header-from:#0f172a; --header-to:#1f2937;
+      /* ── Design tokens ── */
+      :root {
+        --bg: #f6f7fb; --card: #ffffff; --text: #1f2937; --muted: #6b7280;
+        --head: #0f172a; --brand: #3b82f6; --brand-light: #eff6ff;
+        --brand-ink: #1d4ed8; --border: #e5e7eb;
+        --radius: 14px; --shadow: 0 4px 24px rgba(2,6,23,.07);
+        --space: clamp(14px, 2.5vw, 24px); --container: 880px;
+        --pub-accent: #7c3aed;
       }
-      html[data-theme="dark"]{
-        --bg:#0b0d12; --card:#0f131a; --text:#e5e7eb; --muted:#a7b0be; --head:#f3f4f6;
-        --brand:#60a5fa; --brand-ink:#cfe1ff; --border:#1f2430;
-        --shadow:0 10px 30px rgba(0,0,0,.35);
-        --header-from:#0b0e14; --header-to:#0f172a;
-      }
-
-      html{scroll-behavior:smooth}
-      body{ margin:0; background:var(--bg); color:var(--text); font:16px/1.65 Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif }
-
-      header{ background:linear-gradient(180deg,var(--header-from),var(--header-to)); color:#fff; padding:3rem 1rem 2.25rem; text-align:center }
-      header h1{
-        font-family:Outfit, Inter, sans-serif; font-weight:700; font-size:clamp(28px,4.6vw,44px);
-        margin:.2em 0 .1em; color:#fff; text-shadow:0 2px 6px rgba(0,0,0,.35)
-      }
-      header p{ color:#d1d5db; margin:.2em 0 1rem }
-
-      nav{ margin-top:.25rem; display:flex; gap:.6rem; justify-content:center; align-items:center; flex-wrap:wrap }
-      nav a{ margin:0 .2rem; color:#e5e7eb; text-decoration:none; font-weight:600; padding:.4rem .6rem; border-radius:8px }
-      nav a:hover, nav a:focus{ background:rgba(255,255,255,.10); outline:none }
-      :focus-visible{ outline:2px solid var(--brand); outline-offset:2px }
-
-      /* Segmented control with icons */
-      .segment{ display:inline-flex; border:1px solid var(--border); border-radius:999px; padding:2px; background:var(--card) }
-      .segment button{
-        border:0; background:transparent; padding:.35rem .7rem; border-radius:999px;
-        cursor:pointer; color:var(--muted); font-weight:600; display:inline-flex; align-items:center; justify-content:center; gap:.35rem;
-      }
-      .segment button[aria-pressed="true"]{ background:var(--brand); color:#fff }
-      .segment svg{ width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:2; }
-
-      /* Utility for screen readers */
-      .sr-only{
-        position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+      html[data-theme="dark"] {
+        --bg: #0b0d12; --card: #0f131a; --text: #e2e8f0; --muted: #94a3b8;
+        --head: #f1f5f9; --brand: #60a5fa; --brand-light: #0c1829;
+        --brand-ink: #93c5fd; --border: #1e2a3a;
+        --shadow: 0 4px 24px rgba(0,0,0,.4);
+        --pub-accent: #a78bfa;
       }
 
-      main{ max-width:var(--container); margin:-1.25rem auto 2rem; padding:0 var(--space) }
-      .card{ background:var(--card); border:1px solid var(--border); border-radius:12px; box-shadow:var(--shadow) }
-      section{ padding:2rem var(--space); border-top:1px solid var(--border) }
-      section:first-of-type{ border-top:0 }
+      /* ── Reset & base ── */
+      *, *::before, *::after { box-sizing: border-box }
+      html { scroll-behavior: smooth }
+      body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.7 Inter, system-ui, sans-serif }
+      h1, h2, h3, h4 { margin: 0 0 .5em; color: var(--head); line-height: 1.3 }
+      h2 { font-family: Outfit, Inter, sans-serif; font-size: clamp(20px, 2.6vw, 26px) }
+      h3 { font-size: clamp(16px, 2vw, 18px) }
+      a { color: var(--brand); text-decoration: none }
+      a:hover { text-decoration: underline }
+      p { margin: .6em 0 }
+      :focus-visible { outline: 2px solid var(--brand); outline-offset: 2px }
+      .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap }
 
-      h1,h2,h3{ color:var(--head); margin:0 0 .5rem }
-      h2{ font-family:Outfit, Inter, sans-serif; font-size:clamp(22px,2.8vw,28px) }
-      h3{ font-size:clamp(18px,2.2vw,20px) }
+      /* ── Layout ── */
+      .wrap { max-width: var(--container); margin: 0 auto; padding: 0 var(--space) }
 
-      .about-container{ display:grid; grid-template-columns:180px 1fr; gap:24px; align-items:start }
-      .about-container img{ width:160px; height:160px; object-fit:cover; border-radius:50%; border:3px solid var(--card); box-shadow:0 6px 18px rgba(0,0,0,.12) }
-      .about-content p{ max-width:65ch; line-height:1.7; margin:.9rem 0; hyphens:auto }
-
-      a{ color:var(--brand) }
-      a:hover{ text-decoration:underline }
-      .btn{ display:inline-block; background:var(--brand); color:#fff; padding:.55rem .8rem; border-radius:10px; text-decoration:none; font-weight:600; border:1px solid transparent }
-      .btn:hover{ text-decoration:none; filter:brightness(1.05) }
-      .btn.sm{ padding:.45rem .7rem }
-
-      footer{ color:var(--muted); text-align:center; padding:2rem 1rem }
-
-      @media (max-width:760px){
-        .about-container{ grid-template-columns:1fr; text-align:center }
-        .about-container img{ margin:0 auto }
-        .btn{ width:100%; text-align:center }
+      /* ── Header ── */
+      header {
+        background: linear-gradient(160deg, #0b0e14 0%, #0f1e35 60%, #0d1b2e 100%);
+        color: #fff; padding: 3.5rem 1rem 3rem;
       }
-      @media (prefers-reduced-motion: reduce){ *{scroll-behavior:auto} }
+      .hero { display: grid; grid-template-columns: auto 1fr; gap: 2rem; align-items: center }
+      .hero img {
+        width: 120px; height: 120px; object-fit: cover; border-radius: 50%;
+        border: 3px solid rgba(255,255,255,.2); box-shadow: 0 4px 20px rgba(0,0,0,.4);
+      }
+      .hero-text h1 {
+        font-family: Outfit, sans-serif; font-weight: 700; font-size: clamp(26px, 4vw, 38px);
+        color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,.3); margin-bottom: .15em;
+      }
+      .hero-text .subtitle { color: #94a3b8; font-size: 1rem; margin: 0 0 .75rem }
+      .seeking-badge {
+        display: inline-block; background: rgba(96,165,250,.15); color: #93c5fd;
+        border: 1px solid rgba(96,165,250,.35); border-radius: 999px;
+        font-size: .78rem; font-weight: 600; padding: .28rem .75rem; margin-bottom: .9rem;
+        letter-spacing: .02em;
+      }
+      .hero-ctas { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .75rem }
+      .btn {
+        display: inline-flex; align-items: center; gap: .35rem;
+        padding: .45rem .9rem; border-radius: 8px; font-weight: 600; font-size: .875rem;
+        text-decoration: none; transition: filter .15s;
+      }
+      .btn:hover { filter: brightness(1.08); text-decoration: none }
+      .btn-primary { background: var(--brand); color: #fff }
+      .btn-outline { background: rgba(255,255,255,.07); color: #e2e8f0; border: 1px solid rgba(255,255,255,.18) }
+
+      /* Nav */
+      nav { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; margin-top: 1.75rem; padding-top: 1.25rem; border-top: 1px solid rgba(255,255,255,.1) }
+      nav a { color: #cbd5e1; font-weight: 500; font-size: .9rem; padding: .3rem .5rem; border-radius: 6px }
+      nav a:hover { color: #fff; text-decoration: none; background: rgba(255,255,255,.08) }
+      .nav-spacer { flex: 1 }
+
+      /* Theme toggle */
+      .segment { display: inline-flex; border: 1px solid rgba(255,255,255,.15); border-radius: 999px; padding: 2px; background: rgba(255,255,255,.06) }
+      .segment button {
+        border: 0; background: transparent; padding: .3rem .6rem; border-radius: 999px;
+        cursor: pointer; color: #94a3b8; display: inline-flex; align-items: center; justify-content: center;
+      }
+      .segment button[aria-pressed="true"] { background: var(--brand); color: #fff }
+      .segment svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2 }
+
+      /* ── Content ── */
+      main { padding: 2.5rem 0 3rem }
+
+      .section-wrap { padding: 2rem 0; border-top: 1px solid var(--border) }
+      .section-wrap:first-child { border-top: none; padding-top: 0 }
+
+      .section-label {
+        font-family: Outfit, sans-serif; text-transform: uppercase; letter-spacing: .08em;
+        font-size: .7rem; font-weight: 700; color: var(--brand); margin-bottom: 1.2rem;
+      }
+
+      /* Research interests */
+      .interests-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-top: 1.25rem }
+      .interest-card {
+        background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+        padding: 1.1rem 1.25rem; box-shadow: var(--shadow);
+      }
+      .interest-card h4 { font-size: .95rem; color: var(--head); margin-bottom: .3em }
+      .interest-card p { font-size: .85rem; color: var(--muted); margin: 0 }
+
+      /* Research statement */
+      .statement {
+        background: var(--brand-light); border-left: 4px solid var(--brand);
+        border-radius: 0 var(--radius) var(--radius) 0; padding: 1rem 1.25rem;
+        font-size: .95rem; color: var(--text); margin-bottom: 1.5rem; line-height: 1.75;
+      }
+
+      /* Experience */
+      .exp-entry { margin-bottom: 1.5rem }
+      .exp-header { display: flex; align-items: baseline; gap: .75rem; flex-wrap: wrap; margin-bottom: .4em }
+      .exp-header h3 { margin: 0 }
+      .exp-dates { font-size: .82rem; color: var(--muted); white-space: nowrap }
+      .exp-org { font-size: .9rem; color: var(--brand); font-weight: 600 }
+      ul.bullets { margin: .4em 0 0 1rem; padding: 0; color: var(--text) }
+      ul.bullets li { margin-bottom: .35em; font-size: .9rem }
+
+      /* Publications */
+      .pub-card {
+        background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+        box-shadow: var(--shadow); padding: 1.25rem 1.5rem;
+        border-left: 4px solid var(--pub-accent);
+      }
+      .pub-card h3 { font-size: 1rem; margin-bottom: .3em }
+      .pub-authors { font-size: .85rem; color: var(--muted); margin-bottom: .25em }
+      .pub-venue { font-size: .85rem; color: var(--pub-accent); font-weight: 600; margin-bottom: .6em }
+      .pub-abstract { font-size: .88rem; color: var(--text); line-height: 1.65; margin-bottom: .85em }
+      .pub-links { display: flex; flex-wrap: wrap; gap: .5rem }
+      .tag {
+        display: inline-block; background: var(--brand-light); color: var(--brand-ink);
+        border: 1px solid var(--border); border-radius: 6px;
+        font-size: .75rem; font-weight: 600; padding: .18rem .55rem;
+      }
+      .tag.venue-tag { background: transparent; color: var(--pub-accent); border-color: var(--pub-accent) }
+
+      /* Project cards */
+      .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.1rem; margin-top: 1.25rem }
+      .project-card {
+        background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+        box-shadow: var(--shadow); padding: 1.25rem; display: flex; flex-direction: column; gap: .6rem;
+      }
+      .project-card h3 { font-size: .98rem; margin: 0 }
+      .project-card p { font-size: .86rem; color: var(--muted); margin: 0; flex: 1 }
+      .tech-tags { display: flex; flex-wrap: wrap; gap: .35rem }
+      .project-link { font-size: .82rem; font-weight: 600; color: var(--brand) }
+
+      /* Education */
+      .edu-entry { margin-bottom: 1.1rem }
+      .edu-entry h3 { font-size: .98rem; margin-bottom: .15em }
+      .edu-entry p { font-size: .88rem; color: var(--muted); margin: 0 }
+
+      /* Contact */
+      .contact-list { list-style: none; padding: 0; margin: .75rem 0 0; display: flex; flex-wrap: wrap; gap: .6rem }
+      .contact-list a {
+        display: inline-flex; align-items: center; gap: .4rem;
+        background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+        padding: .5rem .9rem; font-weight: 600; font-size: .875rem; color: var(--head);
+        box-shadow: var(--shadow); text-decoration: none;
+      }
+      .contact-list a:hover { border-color: var(--brand); color: var(--brand) }
+      .contact-note { font-size: .9rem; color: var(--muted); margin-top: .9rem; font-style: italic }
+
+      /* Footer */
+      footer { text-align: center; color: var(--muted); font-size: .82rem; padding: 2rem 1rem; border-top: 1px solid var(--border) }
+
+      /* Responsive */
+      @media (max-width: 600px) {
+        .hero { grid-template-columns: 1fr; text-align: center }
+        .hero img { margin: 0 auto }
+        .hero-ctas { justify-content: center }
+        .interests-grid { grid-template-columns: 1fr }
+        .projects-grid { grid-template-columns: 1fr }
+      }
+      @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto } }
     </style>
   </head>
   <body>
+    <!-- ── Header / Hero ── -->
     <header>
-      <h1>Steffi Roy</h1>
-      <p>Engineer | Researcher | Security & Architecture</p>
-      <nav>
-        <a href="publications.html">Publications</a>
-        <a href="certifications.html">Certifications</a>
-        <a href="recommendations.html">Recommendations</a>
-        <a href="#contact">Contact</a>
-
-        <!-- Segmented theme buttons with icons -->
-        <div class="segment" id="theme-seg" role="group" aria-label="Theme">
-          <button type="button" data-mode="light" aria-pressed="true" aria-label="Light theme">
-            <!-- Sun icon -->
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="12" cy="12" r="4"></circle>
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2M12 19v2M21 12h-2M5 12H3M17.657 6.343l-1.414 1.414M7.757 16.243l-1.414 1.414M6.343 6.343 7.757 7.757M16.243 16.243l1.414 1.414"/>
-            </svg>
-            <span class="sr-only">Light</span>
-          </button>
-          <button type="button" data-mode="dark" aria-pressed="false" aria-label="Dark theme">
-            <!-- Moon icon -->
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 009 21a9 9 0 0012-8.21z"/>
-            </svg>
-            <span class="sr-only">Dark</span>
-          </button>
+      <div class="wrap">
+        <div class="hero">
+          <img src="images/me1.jpg" alt="Steffi Roy">
+          <div class="hero-text">
+            <div class="seeking-badge">Seeking PhD Positions · Fall 2026</div>
+            <h1>Steffi Roy</h1>
+            <p class="subtitle">Prospective PhD Student &nbsp;·&nbsp; Hardware Security &amp; AI Systems</p>
+            <p style="color:#94a3b8; font-size:.92rem; max-width:50ch; margin:.3rem 0 0">
+              I study the intersection of AI systems, computer architecture, and hardware security — with a focus on making AI efficient and trustworthy at the hardware level.
+            </p>
+            <div class="hero-ctas">
+              <!-- TODO: replace href with your academic CV PDF path -->
+              <a class="btn btn-primary" href="images/Generic_Resume.pdf" download="Steffi-Roy-CV">&#8659; CV</a>
+              <a class="btn btn-outline" href="https://scholar.google.com/citations?view_op=list_works&hl=en&user=uzveKwIAAAAJ" target="_blank" rel="noopener">Google Scholar</a>
+              <a class="btn btn-outline" href="mailto:steffiroy@hotmail.com">Email Me</a>
+            </div>
+          </div>
         </div>
-      </nav>
+
+        <nav>
+          <a href="#research">Research</a>
+          <a href="#publications">Publications</a>
+          <a href="#projects">Projects</a>
+          <a href="#education">Education</a>
+          <a href="recommendations.html">Recommendations</a>
+          <a href="#contact">Contact</a>
+          <div class="nav-spacer"></div>
+          <div class="segment" id="theme-seg" role="group" aria-label="Theme">
+            <button type="button" data-mode="light" aria-pressed="true" aria-label="Light theme">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2M12 19v2M21 12h-2M5 12H3M17.657 6.343l-1.414 1.414M7.757 16.243l-1.414 1.414M6.343 6.343 7.757 7.757M16.243 16.243l1.414 1.414"/></svg>
+              <span class="sr-only">Light</span>
+            </button>
+            <button type="button" data-mode="dark" aria-pressed="false" aria-label="Dark theme">
+              <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 009 21a9 9 0 0012-8.21z"/></svg>
+              <span class="sr-only">Dark</span>
+            </button>
+          </div>
+        </nav>
+      </div>
     </header>
 
     <main>
-      <section id="about" class="card">
-        <h2>About Me</h2>
-        <div class="about-container">
-          <img src="images/me1.jpg" alt="Steffi Roy">
-          <div class="about-content">
-            <p>Hey, this is <strong>Steffi!</strong> Welcome to my portfolio. I completed my undergraduate degree in Electrical and Electronics Engineering with a focus on computer architecture and digital systems design. I pursued a master's degree in Electrical and Computer Engineering at the University of Florida, where I delved deeper into the area of hardware security and design verification.</p>
-            <p>My research interests lie at the intersection of security, computer architecture, machine learning, and verification.</p>
-            <p>I worked as a research assistant at the FICS (Florida Institute of Cybersecurity) lab, developing efficient cryptographic algorithms for securing neural networks and crypto frameworks. I also explored side-channel attacks and proposed novel countermeasures.</p>
-            <p>Outside of tech, I enjoy painting, playing sports like tennis, badminton, and volleyball, and capturing moments through photography.</p>
-            <a class="btn sm" href="images/Generic_Resume.pdf" download="Steffi-Resume">Download Resume</a>
+      <div class="wrap">
+
+        <!-- ── Research Interests ── -->
+        <div class="section-wrap" id="research">
+          <div class="section-label">Research</div>
+
+          <div class="statement">
+            My research sits at the intersection of <strong>AI systems</strong>, <strong>computer architecture</strong>, and <strong>hardware security</strong>. I am particularly interested in how we can compress and deploy AI models efficiently on resource-constrained hardware, and how we ensure those systems remain secure against physical and algorithmic attacks.
+          </div>
+
+          <div class="interests-grid">
+            <div class="interest-card">
+              <h4>AI Systems &amp; Compression</h4>
+              <p>Model compression, efficient inference, and hardware–software co-design for machine learning workloads.</p>
+            </div>
+            <div class="interest-card">
+              <h4>AI + Robotics / Embedded Systems</h4>
+              <p>Deploying AI workflows on resource-constrained platforms — embedded systems, microcontrollers, and edge devices.</p>
+            </div>
+            <div class="interest-card">
+              <h4>Hardware Security</h4>
+              <p>Side-channel attacks, cryptographic hardware, and secure architectures for machine learning systems.</p>
+            </div>
           </div>
         </div>
-      </section>
 
-      <section id="contact" class="card">
-        <h2>Contact</h2>
-        <p>Email: <a href="mailto:steffiroy@hotmail.com">steffiroy@hotmail.com</a></p>
-        <p>GitHub: <a href="https://github.com/Steffi-Roy">github.com/Steffi-Roy</a></p>
-        <p>LinkedIn: <a href="https://linkedin.com/in/steffiroy">linkedin.com/in/steffiroy</a></p>
-      </section>
+        <!-- ── Research Experience ── -->
+        <div class="section-wrap" id="experience">
+          <div class="section-label">Research Experience</div>
+
+          <div class="exp-entry">
+            <div class="exp-header">
+              <h3>Research Assistant</h3>
+              <span class="exp-dates"><!-- TODO: add dates, e.g. "Aug 2022 – May 2024" --></span>
+            </div>
+            <!-- TODO: add PI name and lab URL -->
+            <div class="exp-org">
+              <a href="https://www.fics.institute.ufl.edu/" target="_blank" rel="noopener">Florida Institute for Cybersecurity Research (FICS)</a>,
+              University of Florida
+            </div>
+            <ul class="bullets">
+              <li>Designed and implemented efficient cryptographic algorithms for securing neural network models and cryptographic frameworks.</li>
+              <li>Investigated side-channel attack vectors on hardware cryptographic implementations and proposed novel countermeasures.</li>
+              <li>Conducted design verification using SystemVerilog and UVM to validate security properties of hardware modules.</li>
+              <!-- TODO: add a 4th bullet if you have more to say -->
+            </ul>
+          </div>
+        </div>
+
+        <!-- ── Publications ── -->
+        <div class="section-wrap" id="publications">
+          <div class="section-label">Publications</div>
+
+          <!-- TODO: fill in your publication details below -->
+          <div class="pub-card">
+            <h3><!-- TODO: Paper title --></h3>
+            <p class="pub-authors"><!-- TODO: Author 1, Author 2, <strong>Steffi Roy</strong>, Author N --></p>
+            <p class="pub-venue">
+              <!-- TODO: Conference / Journal Name, Year -->
+              &nbsp;
+            </p>
+            <p class="pub-abstract">
+              <!-- TODO: 1–2 sentence summary of what the paper does and why it matters -->
+            </p>
+            <div class="pub-links">
+              <!-- TODO: uncomment and fill in the links you have -->
+              <!-- <a class="tag" href="#">PDF</a> -->
+              <!-- <a class="tag" href="#">Code</a> -->
+              <!-- <a class="tag" href="#">BibTeX</a> -->
+              <a class="tag" href="https://scholar.google.com/citations?view_op=list_works&hl=en&user=uzveKwIAAAAJ" target="_blank" rel="noopener">Google Scholar</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Projects ── -->
+        <div class="section-wrap" id="projects">
+          <div class="section-label">Projects</div>
+
+          <div class="projects-grid">
+
+            <!-- Project 1 -->
+            <div class="project-card">
+              <!-- TODO: fill in project 1 (AI Compression / Efficient ML) -->
+              <h3>AI Model Compression</h3>
+              <p><!-- TODO: 2-sentence description. What did you build? What was the key result or insight? --></p>
+              <div class="tech-tags">
+                <!-- TODO: add your stack, e.g.: -->
+                <span class="tag">PyTorch</span>
+                <span class="tag">Quantization</span>
+              </div>
+              <!-- TODO: uncomment and add your GitHub link -->
+              <!-- <a class="project-link" href="#" target="_blank" rel="noopener">GitHub &rarr;</a> -->
+            </div>
+
+            <!-- Project 2 -->
+            <div class="project-card">
+              <!-- TODO: fill in project 2 (AI + Systems / Workflows) -->
+              <h3>AI + System Workflows</h3>
+              <p><!-- TODO: 2-sentence description --></p>
+              <div class="tech-tags">
+                <span class="tag">Python</span>
+                <span class="tag">Systems</span>
+              </div>
+              <!-- <a class="project-link" href="#" target="_blank" rel="noopener">GitHub &rarr;</a> -->
+            </div>
+
+            <!-- Project 3 -->
+            <div class="project-card">
+              <!-- TODO: fill in project 3 (AI + Arduino / Robotics) -->
+              <h3>AI on Embedded Systems</h3>
+              <p><!-- TODO: 2-sentence description --></p>
+              <div class="tech-tags">
+                <span class="tag">Arduino</span>
+                <span class="tag">TensorFlow Lite</span>
+              </div>
+              <!-- <a class="project-link" href="#" target="_blank" rel="noopener">GitHub &rarr;</a> -->
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ── Education ── -->
+        <div class="section-wrap" id="education">
+          <div class="section-label">Education</div>
+
+          <div class="edu-entry">
+            <h3>M.S. Electrical &amp; Computer Engineering</h3>
+            <p>University of Florida &nbsp;·&nbsp; Hardware Security &amp; Design Verification
+            <!-- TODO: add graduation year, e.g. "· 2024" -->
+            </p>
+          </div>
+          <div class="edu-entry">
+            <h3>B.E. Electrical &amp; Electronics Engineering</h3>
+            <!-- TODO: add your undergraduate institution name -->
+            <p><!-- TODO: University Name --> &nbsp;·&nbsp; Computer Architecture &amp; Digital Systems</p>
+          </div>
+        </div>
+
+        <!-- ── Contact ── -->
+        <div class="section-wrap" id="contact">
+          <div class="section-label">Contact</div>
+          <p>I am actively looking for PhD opportunities for Fall 2026. If your lab works on AI systems, hardware security, computer architecture, or related areas, I'd love to connect.</p>
+          <ul class="contact-list">
+            <li><a href="mailto:steffiroy@hotmail.com">&#9993; steffiroy@hotmail.com</a></li>
+            <li><a href="https://github.com/Steffi-Roy" target="_blank" rel="noopener">&#128279; GitHub</a></li>
+            <li><a href="https://linkedin.com/in/steffiroy" target="_blank" rel="noopener">&#128279; LinkedIn</a></li>
+            <li><a href="https://scholar.google.com/citations?view_op=list_works&hl=en&user=uzveKwIAAAAJ" target="_blank" rel="noopener">&#128279; Google Scholar</a></li>
+          </ul>
+          <p class="contact-note">Response time: usually within 48 hours.</p>
+        </div>
+
+      </div><!-- /.wrap -->
     </main>
 
     <footer>
-      <p>&copy; 2025 Steffi Roy · Powered by HTML + CSS</p>
+      <p>&copy; 2025 Steffi Roy</p>
     </footer>
 
     <script>
-      // Segmented control logic (Light/Dark)
       (function(){
-        const root=document.documentElement, seg=document.getElementById('theme-seg');
-        const saved=(localStorage.getItem('theme')==='dark')?'dark':'light'; set(saved);
-        seg.addEventListener('click',e=>{
-          const b=e.target.closest('button[data-mode]'); if(!b) return; set(b.dataset.mode);
+        const root = document.documentElement;
+        const seg = document.getElementById('theme-seg');
+        const saved = (localStorage.getItem('theme') === 'dark') ? 'dark' : 'light';
+        set(saved);
+        seg.addEventListener('click', e => {
+          const b = e.target.closest('button[data-mode]');
+          if (!b) return;
+          set(b.dataset.mode);
         });
-        function set(m){
-          root.setAttribute('data-theme',m); localStorage.setItem('theme',m);
-          seg.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed', String(b.dataset.mode===m)));
+        function set(m) {
+          root.setAttribute('data-theme', m);
+          localStorage.setItem('theme', m);
+          seg.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mode === m)));
         }
       })();
     </script>
