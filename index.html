@@ -83,12 +83,6 @@
       .btn-primary { background: var(--brand); color: #fff }
       .btn-outline { background: rgba(255,255,255,.07); color: #e2e8f0; border: 1px solid rgba(255,255,255,.18) }
 
-      /* Nav */
-      nav { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; margin-top: 1.75rem; padding-top: 1.25rem; border-top: 1px solid rgba(255,255,255,.1) }
-      nav a { color: #cbd5e1; font-weight: 500; font-size: .9rem; padding: .3rem .5rem; border-radius: 6px }
-      nav a:hover { color: #fff; text-decoration: none; background: rgba(255,255,255,.08) }
-      .nav-spacer { flex: 1 }
-
       /* Theme toggle */
       .segment { display: inline-flex; border: 1px solid rgba(255,255,255,.15); border-radius: 999px; padding: 2px; background: rgba(255,255,255,.06) }
       .segment button {
@@ -152,14 +146,31 @@
       }
       .tag.venue-tag { background: transparent; color: var(--pub-accent); border-color: var(--pub-accent) }
 
-      /* Project cards */
-      .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.1rem; margin-top: 1.25rem }
-      .project-card {
+      /* Project accordion */
+      .project-item {
         background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
-        box-shadow: var(--shadow); padding: 1.25rem; display: flex; flex-direction: column; gap: .6rem;
+        box-shadow: var(--shadow); margin-bottom: .75rem; overflow: hidden;
       }
-      .project-card h3 { font-size: .98rem; margin: 0 }
-      .project-card p { font-size: .86rem; color: var(--muted); margin: 0; flex: 1 }
+      .project-item:last-child { margin-bottom: 0 }
+      .project-summary {
+        display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+        padding: 1rem 1.25rem; cursor: pointer; user-select: none; list-style: none;
+      }
+      .project-summary::-webkit-details-marker { display: none }
+      .project-summary:hover { background: var(--brand-light) }
+      .project-summary h3 { font-size: .98rem; margin: 0; flex: 1 }
+      .project-summary .proj-tags { display: flex; flex-wrap: wrap; gap: .35rem }
+      .project-chevron {
+        width: 18px; height: 18px; stroke: var(--muted); fill: none; stroke-width: 2;
+        transition: transform .25s; flex-shrink: 0;
+      }
+      details[open] .project-chevron { transform: rotate(180deg) }
+      .project-body {
+        padding: 0 1.25rem 1rem; border-top: 1px solid var(--border);
+        font-size: .88rem; color: var(--muted); line-height: 1.7;
+      }
+      .project-body p { margin: .75rem 0 .5rem; color: var(--text) }
+      .project-body .proj-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .5rem; margin-top: .75rem }
       .tech-tags { display: flex; flex-wrap: wrap; gap: .35rem }
       .project-link { font-size: .82rem; font-weight: 600; color: var(--brand) }
 
@@ -207,22 +218,14 @@
               I study the intersection of AI systems, computer architecture, and hardware security — with a focus on making AI efficient and trustworthy at the hardware level.
             </p>
             <div class="hero-ctas">
-              <!-- TODO: replace href with your academic CV PDF path -->
-              <a class="btn btn-primary" href="images/Generic_Resume.pdf" download="Steffi-Roy-CV">&#8659; CV</a>
+              <a class="btn btn-primary" href="https://github.com/Steffi-Roy" target="_blank" rel="noopener">GitHub</a>
               <a class="btn btn-outline" href="https://scholar.google.com/citations?view_op=list_works&hl=en&user=uzveKwIAAAAJ" target="_blank" rel="noopener">Google Scholar</a>
               <a class="btn btn-outline" href="mailto:steffiroy@hotmail.com">Email Me</a>
             </div>
           </div>
         </div>
 
-        <nav>
-          <a href="#research">Research</a>
-          <a href="#publications">Publications</a>
-          <a href="#projects">Projects</a>
-          <a href="#education">Education</a>
-          <a href="recommendations.html">Recommendations</a>
-          <a href="#contact">Contact</a>
-          <div class="nav-spacer"></div>
+        <div style="display:flex; justify-content:flex-end; margin-top:1.5rem">
           <div class="segment" id="theme-seg" role="group" aria-label="Theme">
             <button type="button" data-mode="light" aria-pressed="true" aria-label="Light theme">
               <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2M12 19v2M21 12h-2M5 12H3M17.657 6.343l-1.414 1.414M7.757 16.243l-1.414 1.414M6.343 6.343 7.757 7.757M16.243 16.243l1.414 1.414"/></svg>
@@ -233,7 +236,7 @@
               <span class="sr-only">Dark</span>
             </button>
           </div>
-        </nav>
+        </div>
       </div>
     </header>
 
@@ -316,46 +319,69 @@
         <div class="section-wrap" id="projects">
           <div class="section-label">Projects</div>
 
-          <div class="projects-grid">
-
-            <!-- Project 1 -->
-            <div class="project-card">
-              <!-- TODO: fill in project 1 (AI Compression / Efficient ML) -->
-              <h3>AI Model Compression</h3>
-              <p><!-- TODO: 2-sentence description. What did you build? What was the key result or insight? --></p>
-              <div class="tech-tags">
-                <!-- TODO: add your stack, e.g.: -->
-                <span class="tag">PyTorch</span>
-                <span class="tag">Quantization</span>
+          <!-- Project 1 -->
+          <div class="project-item">
+            <details>
+              <summary class="project-summary">
+                <h3>AI Model Compression</h3>
+                <div class="proj-tags">
+                  <!-- TODO: update tags to match your stack -->
+                  <span class="tag">PyTorch</span>
+                  <span class="tag">Quantization</span>
+                </div>
+                <svg class="project-chevron" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </summary>
+              <div class="project-body">
+                <!-- TODO: fill in description and links -->
+                <p></p>
+                <div class="proj-footer">
+                  <div class="tech-tags"></div>
+                  <!-- <a class="project-link" href="#" target="_blank" rel="noopener">GitHub &rarr;</a> -->
+                </div>
               </div>
-              <!-- TODO: uncomment and add your GitHub link -->
-              <!-- <a class="project-link" href="#" target="_blank" rel="noopener">GitHub &rarr;</a> -->
-            </div>
+            </details>
+          </div>
 
-            <!-- Project 2 -->
-            <div class="project-card">
-              <!-- TODO: fill in project 2 (AI + Systems / Workflows) -->
-              <h3>AI + System Workflows</h3>
-              <p><!-- TODO: 2-sentence description --></p>
-              <div class="tech-tags">
-                <span class="tag">Python</span>
-                <span class="tag">Systems</span>
+          <!-- Project 2 -->
+          <div class="project-item">
+            <details>
+              <summary class="project-summary">
+                <h3>AI + System Workflows</h3>
+                <div class="proj-tags">
+                  <span class="tag">Python</span>
+                  <span class="tag">Systems</span>
+                </div>
+                <svg class="project-chevron" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </summary>
+              <div class="project-body">
+                <p></p>
+                <div class="proj-footer">
+                  <div class="tech-tags"></div>
+                  <!-- <a class="project-link" href="#" target="_blank" rel="noopener">GitHub &rarr;</a> -->
+                </div>
               </div>
-              <!-- <a class="project-link" href="#" target="_blank" rel="noopener">GitHub &rarr;</a> -->
-            </div>
+            </details>
+          </div>
 
-            <!-- Project 3 -->
-            <div class="project-card">
-              <!-- TODO: fill in project 3 (AI + Arduino / Robotics) -->
-              <h3>AI on Embedded Systems</h3>
-              <p><!-- TODO: 2-sentence description --></p>
-              <div class="tech-tags">
-                <span class="tag">Arduino</span>
-                <span class="tag">TensorFlow Lite</span>
+          <!-- Project 3 -->
+          <div class="project-item">
+            <details>
+              <summary class="project-summary">
+                <h3>AI on Embedded Systems</h3>
+                <div class="proj-tags">
+                  <span class="tag">Arduino</span>
+                  <span class="tag">TensorFlow Lite</span>
+                </div>
+                <svg class="project-chevron" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </summary>
+              <div class="project-body">
+                <p></p>
+                <div class="proj-footer">
+                  <div class="tech-tags"></div>
+                  <!-- <a class="project-link" href="#" target="_blank" rel="noopener">GitHub &rarr;</a> -->
+                </div>
               </div>
-              <!-- <a class="project-link" href="#" target="_blank" rel="noopener">GitHub &rarr;</a> -->
-            </div>
-
+            </details>
           </div>
         </div>
 
@@ -382,9 +408,7 @@
           <p>I am actively looking for PhD opportunities for Fall 2026. If your lab works on AI systems, hardware security, computer architecture, or related areas, I'd love to connect.</p>
           <ul class="contact-list">
             <li><a href="mailto:steffiroy@hotmail.com">&#9993; steffiroy@hotmail.com</a></li>
-            <li><a href="https://github.com/Steffi-Roy" target="_blank" rel="noopener">&#128279; GitHub</a></li>
             <li><a href="https://linkedin.com/in/steffiroy" target="_blank" rel="noopener">&#128279; LinkedIn</a></li>
-            <li><a href="https://scholar.google.com/citations?view_op=list_works&hl=en&user=uzveKwIAAAAJ" target="_blank" rel="noopener">&#128279; Google Scholar</a></li>
           </ul>
           <p class="contact-note">Response time: usually within 48 hours.</p>
         </div>
