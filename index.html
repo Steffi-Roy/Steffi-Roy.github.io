@@ -119,14 +119,6 @@
         font-size: .95rem; color: var(--text); margin-bottom: 1.5rem; line-height: 1.75;
       }
 
-      /* Experience */
-      .exp-entry { margin-bottom: 1.5rem }
-      .exp-header { display: flex; align-items: baseline; gap: .75rem; flex-wrap: wrap; margin-bottom: .4em }
-      .exp-header h3 { margin: 0 }
-      .exp-dates { font-size: .82rem; color: var(--muted); white-space: nowrap }
-      .exp-org { font-size: .9rem; color: var(--brand); font-weight: 600 }
-      ul.bullets { margin: .4em 0 0 1rem; padding: 0; color: var(--text) }
-      ul.bullets li { margin-bottom: .35em; font-size: .9rem }
 
       /* Publications */
       .pub-card {
@@ -182,7 +174,6 @@
         .hero-ctas { justify-content: center }
         .interests-grid { grid-template-columns: 1fr }
         .projects-grid { grid-template-columns: 1fr }
-        .exp-header { flex-direction: column; gap: .2rem }
       }
       @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto } }
     </style>
@@ -247,23 +238,6 @@
           </div>
         </div>
 
-        <!-- ── Research Experience ── -->
-        <div class="section-wrap" id="experience">
-          <div class="section-label">Research</div>
-
-          <div class="exp-entry">
-            <div class="exp-header">
-              <div>
-                <h3><a href="https://www.fics.institute.ufl.edu/" target="_blank" rel="noopener">FICS Lab</a> &mdash; University of Florida</h3>
-                <div class="exp-org" style="margin-top:.1em">Hardware Security &amp; Cryptographic Systems</div>
-              </div>
-              <span class="exp-dates">2021 – 2023</span>
-            </div>
-            <p style="font-size:.9rem;color:var(--text);margin:.6em 0 .5em;line-height:1.7">
-              Built three published systems at the intersection of hardware security and machine learning: a garbled-circuit framework for private chip design tools (ICCAD 2022), a neural network architecture resilient to power side-channels on FPGA (SPACE 2022), and hardened IC metering protocols using oblivious transfer cryptography (SRC TECHCON 2022).
-            </p>
-          </div>
-        </div>
 
         <!-- ── Publications ── -->
         <div class="section-wrap" id="publications">
