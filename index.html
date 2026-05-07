@@ -146,51 +146,33 @@
       }
       .tag.venue-tag { background: transparent; color: var(--pub-accent); border-color: var(--pub-accent) }
 
-      /* Project accordion */
-      .project-item {
+      /* Project cards */
+      .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.1rem; margin-top: .25rem }
+      .project-card {
         background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
-        box-shadow: var(--shadow); margin-bottom: .75rem; overflow: hidden;
+        box-shadow: var(--shadow); padding: 1.4rem 1.5rem;
+        display: flex; flex-direction: column; gap: .6rem;
+        transition: box-shadow .2s, border-color .2s;
       }
-      .project-item:last-child { margin-bottom: 0 }
-      .project-summary {
-        display: flex; align-items: center; justify-content: space-between; gap: 1rem;
-        padding: 1rem 1.25rem; cursor: pointer; user-select: none; list-style: none;
-      }
-      .project-summary::-webkit-details-marker { display: none }
-      .project-summary:hover { background: var(--brand-light) }
-      .project-summary h3 { font-size: .98rem; margin: 0; flex: 1 }
-      .project-summary .proj-tags { display: flex; flex-wrap: wrap; gap: .35rem }
-      .project-chevron {
-        width: 18px; height: 18px; stroke: var(--muted); fill: none; stroke-width: 2;
-        transition: transform .25s; flex-shrink: 0;
-      }
-      details[open] .project-chevron { transform: rotate(180deg) }
-      .project-body {
-        padding: 0 1.25rem 1rem; border-top: 1px solid var(--border);
-        font-size: .88rem; color: var(--muted); line-height: 1.7;
-      }
-      .project-body p { margin: .75rem 0 .5rem; color: var(--text) }
-      .project-body .proj-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .5rem; margin-top: .75rem }
+      .project-card:hover { border-color: var(--brand); box-shadow: 0 6px 32px rgba(59,130,246,.12) }
+      .project-card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: .5rem }
+      .project-card h3 { font-size: 1rem; margin: 0; color: var(--head) }
+      .project-card .proj-context { font-size: .78rem; color: var(--muted); margin-top: .2em }
+      .project-card p { font-size: .875rem; color: var(--text); line-height: 1.65; margin: 0; flex: 1 }
+      .project-card-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .5rem; margin-top: .25rem }
       .tech-tags { display: flex; flex-wrap: wrap; gap: .35rem }
-      .project-link { font-size: .82rem; font-weight: 600; color: var(--brand) }
+      .project-link { font-size: .82rem; font-weight: 600; color: var(--brand); white-space: nowrap }
+      .project-link:hover { text-decoration: underline }
 
       /* Education */
-      .edu-entry { margin-bottom: 1.1rem }
-      .edu-entry h3 { font-size: .98rem; margin-bottom: .15em }
-      .edu-entry p { font-size: .88rem; color: var(--muted); margin: 0 }
+      .edu-timeline { display: flex; flex-direction: column; gap: .9rem }
+      .edu-entry { display: flex; gap: 1rem; align-items: flex-start }
+      .edu-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--brand); margin-top: .55rem; flex-shrink: 0 }
+      .edu-entry h3 { font-size: .95rem; margin: 0 0 .15em; color: var(--head) }
+      .edu-entry p { font-size: .85rem; color: var(--muted); margin: 0 }
 
-      /* Contact */
-      .contact-list { list-style: none; padding: 0; margin: .75rem 0 0; display: flex; flex-wrap: wrap; gap: .6rem }
-      .contact-list a {
-        display: inline-flex; align-items: center; gap: .4rem;
-        background: var(--card); border: 1px solid var(--border); border-radius: 8px;
-        padding: .5rem .9rem; font-weight: 600; font-size: .875rem; color: var(--head);
-        box-shadow: var(--shadow); text-decoration: none;
-      }
-      .contact-list a:hover { border-color: var(--brand); color: var(--brand) }
-      .contact-note { font-size: .9rem; color: var(--muted); margin-top: .9rem; font-style: italic }
 
-      /* Footer */
+/* Footer */
       footer { text-align: center; color: var(--muted); font-size: .82rem; padding: 2rem 1rem; border-top: 1px solid var(--border) }
 
       /* Responsive */
@@ -200,6 +182,7 @@
         .hero-ctas { justify-content: center }
         .interests-grid { grid-template-columns: 1fr }
         .projects-grid { grid-template-columns: 1fr }
+        .exp-header { flex-direction: column; gap: .2rem }
       }
       @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto } }
     </style>
@@ -266,22 +249,19 @@
 
         <!-- ── Research Experience ── -->
         <div class="section-wrap" id="experience">
-          <div class="section-label">Research Experience</div>
+          <div class="section-label">Research</div>
 
           <div class="exp-entry">
             <div class="exp-header">
-              <h3>Research Assistant</h3>
-              <span class="exp-dates">Dec 2021 – Jan 2023</span>
+              <div>
+                <h3><a href="https://www.fics.institute.ufl.edu/" target="_blank" rel="noopener">FICS Lab</a> &mdash; University of Florida</h3>
+                <div class="exp-org" style="margin-top:.1em">Hardware Security &amp; Cryptographic Systems</div>
+              </div>
+              <span class="exp-dates">2021 – 2023</span>
             </div>
-            <div class="exp-org">
-              <a href="https://www.fics.institute.ufl.edu/" target="_blank" rel="noopener">Florida Institute for Cybersecurity Research (FICS Lab)</a>,
-              University of Florida
-            </div>
-            <ul class="bullets">
-              <li>Developed HWGN2, a hardware-garbled neural network framework providing side-channel resilience for secure deep learning inference on FPGA. Published at SPACE 2022.</li>
-              <li>Designed Garbled EDA, a privacy-preserving electronic design automation framework using garbled circuits and multiparty computation (SFE/PFE) to protect IP and PDKs. Published at ICCAD 2022.</li>
-              <li>Implemented secure IC metering protocols using Bellare-Micali and Naor-Pinkas oblivious transfer with countermeasures against fault injection and MITM attacks. Presented at SRC TECHCON 2022.</li>
-            </ul>
+            <p style="font-size:.9rem;color:var(--text);margin:.6em 0 .5em;line-height:1.7">
+              Built three published systems at the intersection of hardware security and machine learning: a garbled-circuit framework for private chip design tools (ICCAD 2022), a neural network architecture resilient to power side-channels on FPGA (SPACE 2022), and hardened IC metering protocols using oblivious transfer cryptography (SRC TECHCON 2022).
+            </p>
           </div>
         </div>
 
@@ -318,77 +298,60 @@
         <div class="section-wrap" id="projects">
           <div class="section-label">Projects</div>
 
-          <!-- Project 1 -->
-          <div class="project-item">
-            <details>
-              <summary class="project-summary">
+          <div class="projects-grid">
+
+            <div class="project-card">
+              <div class="project-card-header">
                 <div>
                   <h3>Multi-Agent Reinforcement Learning</h3>
-                  <div style="font-size:.8rem;color:var(--muted);margin-top:.15em">MADDPG vs. DDPG &nbsp;·&nbsp; Northeastern University</div>
-                </div>
-                <div class="proj-tags">
-                  <span class="tag">PyTorch</span>
-                  <span class="tag">OpenAI Gym</span>
-                  <span class="tag">Reinforcement Learning</span>
-                </div>
-                <svg class="project-chevron" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-              </summary>
-              <div class="project-body">
-                <p>Implemented and benchmarked MADDPG and DDPG algorithms in cooperative and competitive multi-agent environments. Analyzed policy convergence, reward shaping, and inter-agent communication under partial observability.</p>
-                <div class="proj-footer">
-                  <div class="tech-tags"></div>
+                  <div class="proj-context">MADDPG vs. DDPG &nbsp;·&nbsp; Northeastern</div>
                 </div>
               </div>
-            </details>
-          </div>
+              <p>Implemented and benchmarked MADDPG and DDPG in cooperative and competitive multi-agent environments. Analyzed policy convergence, reward shaping, and inter-agent communication under partial observability.</p>
+              <div class="project-card-footer">
+                <div class="tech-tags">
+                  <span class="tag">PyTorch</span>
+                  <span class="tag">OpenAI Gym</span>
+                  <span class="tag">RL</span>
+                </div>
+              </div>
+            </div>
 
-          <!-- Project 2 -->
-          <div class="project-item">
-            <details>
-              <summary class="project-summary">
+            <div class="project-card">
+              <div class="project-card-header">
                 <div>
                   <h3>LLM Compression &amp; Efficient Training</h3>
-                  <div style="font-size:.8rem;color:var(--muted);margin-top:.15em">Northeastern University</div>
+                  <div class="proj-context">Northeastern</div>
                 </div>
-                <div class="proj-tags">
+              </div>
+              <p>Explored parameter-efficient fine-tuning and model compression for large language models. Participated in the OpenAI parameter golf challenge — minimizing parameter count while preserving GPT training quality.</p>
+              <div class="project-card-footer">
+                <div class="tech-tags">
                   <span class="tag">PyTorch</span>
                   <span class="tag">LLMs</span>
                   <span class="tag">Model Compression</span>
                 </div>
-                <svg class="project-chevron" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-              </summary>
-              <div class="project-body">
-                <p>Explored parameter-efficient fine-tuning and model compression techniques for large language models. Participated in the OpenAI parameter golf challenge (train_gpt.py), minimizing parameter count while preserving GPT training quality.</p>
-                <div class="proj-footer">
-                  <div class="tech-tags"></div>
-                  <a class="project-link" href="https://github.com/Steffi-Roy" target="_blank" rel="noopener">GitHub &rarr;</a>
-                </div>
+                <a class="project-link" href="https://github.com/Steffi-Roy" target="_blank" rel="noopener">GitHub &rarr;</a>
               </div>
-            </details>
-          </div>
+            </div>
 
-          <!-- Project 3 -->
-          <div class="project-item">
-            <details>
-              <summary class="project-summary">
+            <div class="project-card">
+              <div class="project-card-header">
                 <div>
                   <h3>HabitBuddy</h3>
-                  <div style="font-size:.8rem;color:var(--muted);margin-top:.15em">End-to-End HCI Application &nbsp;·&nbsp; Northeastern University, CS 5340</div>
+                  <div class="proj-context">HCI Application &nbsp;·&nbsp; Northeastern, CS 5340</div>
                 </div>
-                <div class="proj-tags">
+              </div>
+              <p>Led end-to-end UX research and iterative design of a companion-based habit tracker — user personas, paper prototyping, heuristic evaluation, and high-fidelity Figma prototype.</p>
+              <div class="project-card-footer">
+                <div class="tech-tags">
                   <span class="tag">Figma</span>
                   <span class="tag">UX Research</span>
                   <span class="tag">HCI</span>
                 </div>
-                <svg class="project-chevron" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-              </summary>
-              <div class="project-body">
-                <p>Led end-to-end UX research and iterative design of a companion-based habit tracker. Process included user personas, paper prototyping, heuristic evaluation, and high-fidelity Figma prototype.</p>
-                <div class="proj-footer">
-                  <div class="tech-tags"></div>
-                </div>
               </div>
-            </details>
+            </div>
+
           </div>
         </div>
 
@@ -396,32 +359,31 @@
         <div class="section-wrap" id="education">
           <div class="section-label">Education</div>
 
-          <div class="edu-entry">
-            <h3>Northeastern University — Khoury College of Computer Sciences</h3>
-            <p>M.S. in Computer Science &nbsp;·&nbsp; GPA: 4.0/4.0 &nbsp;·&nbsp; Jan 2026 – Present</p>
-            <p style="font-size:.85rem;color:var(--muted)">Courses: Foundations of AI, Human-Computer Interaction, Algorithms, Cloud Computing (in progress)</p>
-          </div>
-          <div class="edu-entry">
-            <h3>University of Florida</h3>
-            <p>M.S. in Electrical &amp; Computer Engineering &nbsp;·&nbsp; GPA: 3.6/4.0 &nbsp;·&nbsp; Jan 2021 – Aug 2023</p>
-          </div>
-          <div class="edu-entry">
-            <h3>Mahindra Ecole Centrale, Hyderabad</h3>
-            <p>B.Tech in Electrical &amp; Electronics Engineering &nbsp;·&nbsp; CGPA: 9.3/10 &nbsp;·&nbsp; 2016 – 2020</p>
+          <div class="edu-timeline">
+            <div class="edu-entry">
+              <div class="edu-dot"></div>
+              <div>
+                <h3>Northeastern University — Khoury College of Computer Sciences</h3>
+                <p>M.S. Computer Science &nbsp;·&nbsp; 2026 – Present</p>
+              </div>
+            </div>
+            <div class="edu-entry">
+              <div class="edu-dot"></div>
+              <div>
+                <h3>University of Florida</h3>
+                <p>M.S. Electrical &amp; Computer Engineering &nbsp;·&nbsp; 2021 – 2023</p>
+              </div>
+            </div>
+            <div class="edu-entry">
+              <div class="edu-dot"></div>
+              <div>
+                <h3>Mahindra Ecole Centrale, Hyderabad</h3>
+                <p>B.Tech Electrical &amp; Electronics Engineering &nbsp;·&nbsp; 2016 – 2020</p>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- ── Contact ── -->
-        <div class="section-wrap" id="contact">
-          <div class="section-label">Contact</div>
-          <p>I am actively seeking PhD positions for Fall 2026. My interests span ML systems, safe AI, and efficient deep learning. If your lab works on any of these areas, I would love to connect.</p>
-          <ul class="contact-list">
-            <li><a href="mailto:steffiroy@hotmail.com">&#9993; steffiroy@hotmail.com</a></li>
-            <li><a href="https://github.com/Steffi-Roy" target="_blank" rel="noopener">&#128279; GitHub</a></li>
-            <li><a href="https://scholar.google.com/citations?view_op=list_works&hl=en&user=uzveKwIAAAAJ" target="_blank" rel="noopener">&#128218; Google Scholar</a></li>
-          </ul>
-          <p class="contact-note">Response time: usually within 48 hours.</p>
-        </div>
 
       </div><!-- /.wrap -->
     </main>
