@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Steffi Roy | PhD Applicant · Hardware Security & AI Systems</title>
-    <meta name="description" content="Steffi Roy — prospective PhD student researching AI systems, hardware security, and computer architecture. Seeking PhD positions for Fall 2026.">
+    <title>Steffi Roy | MS Student · ML Systems & Safe AI</title>
+    <meta name="description" content="Steffi Roy — MS student at Northeastern researching machine learning systems, safe AI, and efficient deep learning. Seeking PhD positions Fall 2026.">
     <meta name="color-scheme" content="light dark">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -211,14 +211,15 @@
         <div class="hero">
           <img src="images/me1.jpg" alt="Steffi Roy">
           <div class="hero-text">
-            <div class="seeking-badge">Seeking PhD Positions · Fall 2026</div>
+            <div class="seeking-badge">Actively seeking PhD positions · Fall 2026</div>
             <h1>Steffi Roy</h1>
-            <p class="subtitle">Prospective PhD Student &nbsp;·&nbsp; Hardware Security &amp; AI Systems</p>
-            <p style="color:#94a3b8; font-size:.92rem; max-width:50ch; margin:.3rem 0 0">
-              I study the intersection of AI systems, computer architecture, and hardware security — with a focus on making AI efficient and trustworthy at the hardware level.
-            </p>
+            <p class="subtitle">MS student at Northeastern interested in machine learning systems, safe AI, and efficient deep learning. Previously: hardware security research at UF, silicon verification at Texas Instruments and Microsoft.</p>
             <div class="hero-ctas">
-              <a class="btn btn-primary" href="https://github.com/Steffi-Roy" target="_blank" rel="noopener">GitHub</a>
+              <a class="btn btn-primary" href="/Steffi_Roy_Resume.pdf" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download CV
+              </a>
+              <a class="btn btn-outline" href="https://github.com/Steffi-Roy" target="_blank" rel="noopener">GitHub</a>
               <a class="btn btn-outline" href="https://scholar.google.com/citations?view_op=list_works&hl=en&user=uzveKwIAAAAJ" target="_blank" rel="noopener">Google Scholar</a>
               <a class="btn btn-outline" href="mailto:steffiroy@hotmail.com">Email Me</a>
             </div>
@@ -247,22 +248,18 @@
         <div class="section-wrap" id="research">
           <div class="section-label">Research</div>
 
-          <div class="statement">
-            My research sits at the intersection of <strong>AI systems</strong>, <strong>computer architecture</strong>, and <strong>hardware security</strong>. I am particularly interested in how we can compress and deploy AI models efficiently on resource-constrained hardware, and how we ensure those systems remain secure against physical and algorithmic attacks.
-          </div>
-
           <div class="interests-grid">
             <div class="interest-card">
-              <h4>AI Systems &amp; Compression</h4>
-              <p>Model compression, efficient inference, and hardware–software co-design for machine learning workloads.</p>
+              <h4>ML Systems &amp; Efficient Deep Learning</h4>
+              <p>Model compression, parameter-efficient fine-tuning, and hardware–software co-design for scalable machine learning workloads.</p>
             </div>
             <div class="interest-card">
-              <h4>AI + Robotics / Embedded Systems</h4>
-              <p>Deploying AI workflows on resource-constrained platforms — embedded systems, microcontrollers, and edge devices.</p>
+              <h4>Safe &amp; Certifiable AI</h4>
+              <p>Robustness under distribution shift, out-of-distribution detection, and formal guarantees for learned systems — particularly in autonomous and safety-critical settings.</p>
             </div>
             <div class="interest-card">
-              <h4>Hardware Security</h4>
-              <p>Side-channel attacks, cryptographic hardware, and secure architectures for machine learning systems.</p>
+              <h4>Hardware Security for AI</h4>
+              <p>Side-channel resilience for neural network inference, privacy-preserving computation, and secure hardware architectures for deployed ML systems.</p>
             </div>
           </div>
         </div>
@@ -274,18 +271,16 @@
           <div class="exp-entry">
             <div class="exp-header">
               <h3>Research Assistant</h3>
-              <span class="exp-dates"><!-- TODO: add dates, e.g. "Aug 2022 – May 2024" --></span>
+              <span class="exp-dates">Dec 2021 – Jan 2023</span>
             </div>
-            <!-- TODO: add PI name and lab URL -->
             <div class="exp-org">
-              <a href="https://www.fics.institute.ufl.edu/" target="_blank" rel="noopener">Florida Institute for Cybersecurity Research (FICS)</a>,
+              <a href="https://www.fics.institute.ufl.edu/" target="_blank" rel="noopener">Florida Institute for Cybersecurity Research (FICS Lab)</a>,
               University of Florida
             </div>
             <ul class="bullets">
-              <li>Designed and implemented efficient cryptographic algorithms for securing neural network models and cryptographic frameworks.</li>
-              <li>Investigated side-channel attack vectors on hardware cryptographic implementations and proposed novel countermeasures.</li>
-              <li>Conducted design verification using SystemVerilog and UVM to validate security properties of hardware modules.</li>
-              <!-- TODO: add a 4th bullet if you have more to say -->
+              <li>Developed HWGN2, a hardware-garbled neural network framework providing side-channel resilience for secure deep learning inference on FPGA. Published at SPACE 2022.</li>
+              <li>Designed Garbled EDA, a privacy-preserving electronic design automation framework using garbled circuits and multiparty computation (SFE/PFE) to protect IP and PDKs. Published at ICCAD 2022.</li>
+              <li>Implemented secure IC metering protocols using Bellare-Micali and Naor-Pinkas oblivious transfer with countermeasures against fault injection and MITM attacks. Presented at SRC TECHCON 2022.</li>
             </ul>
           </div>
         </div>
@@ -294,23 +289,27 @@
         <div class="section-wrap" id="publications">
           <div class="section-label">Publications</div>
 
-          <!-- TODO: fill in your publication details below -->
+          <div class="pub-card" style="margin-bottom:.75rem">
+            <h3>Garbled EDA: Privacy-Preserving Electronic Design Automation</h3>
+            <p class="pub-authors">M. Hashemi, <strong>S. Roy</strong>, F. Ganji, D. Forte</p>
+            <p class="pub-venue">ICCAD 2022</p>
+            <p class="pub-abstract">Designed a framework to run chip design tools securely without revealing proprietary IP, using cryptographic multiparty computation.</p>
+          </div>
+
+          <div class="pub-card" style="margin-bottom:.75rem">
+            <h3>Active IC Metering Protocol Security with Oblivious Transfer</h3>
+            <p class="pub-authors"><strong>S. Roy</strong>, M. Hashemi, F. Ganji, D. Forte</p>
+            <p class="pub-venue">SRC TECHCON 2022</p>
+            <p class="pub-abstract">Built and hardened protocols that prevent unauthorized cloning of chips, using oblivious transfer cryptography.</p>
+          </div>
+
           <div class="pub-card">
-            <h3><!-- TODO: Paper title --></h3>
-            <p class="pub-authors"><!-- TODO: Author 1, Author 2, <strong>Steffi Roy</strong>, Author N --></p>
-            <p class="pub-venue">
-              <!-- TODO: Conference / Journal Name, Year -->
-              &nbsp;
-            </p>
-            <p class="pub-abstract">
-              <!-- TODO: 1–2 sentence summary of what the paper does and why it matters -->
-            </p>
-            <div class="pub-links">
-              <!-- TODO: uncomment and fill in the links you have -->
-              <!-- <a class="tag" href="#">PDF</a> -->
-              <!-- <a class="tag" href="#">Code</a> -->
-              <!-- <a class="tag" href="#">BibTeX</a> -->
-              <a class="tag" href="https://scholar.google.com/citations?view_op=list_works&hl=en&user=uzveKwIAAAAJ" target="_blank" rel="noopener">Google Scholar</a>
+            <h3>HWGN2: Side-Channel Protected Neural Networks</h3>
+            <p class="pub-authors">M. Hashemi, <strong>S. Roy</strong>, D. Forte, F. Ganji</p>
+            <p class="pub-venue">SPACE 2022</p>
+            <p class="pub-abstract">Developed a hardware framework that lets neural networks run securely on FPGAs without leaking information through power/timing channels.</p>
+            <div class="pub-links" style="margin-top:.6rem">
+              <a class="tag" href="https://scholar.google.com/citations?view_op=list_works&hl=en&user=uzveKwIAAAAJ" target="_blank" rel="noopener">View all on Google Scholar</a>
             </div>
           </div>
         </div>
@@ -323,20 +322,21 @@
           <div class="project-item">
             <details>
               <summary class="project-summary">
-                <h3>AI Model Compression</h3>
+                <div>
+                  <h3>Multi-Agent Reinforcement Learning</h3>
+                  <div style="font-size:.8rem;color:var(--muted);margin-top:.15em">MADDPG vs. DDPG &nbsp;·&nbsp; Northeastern University</div>
+                </div>
                 <div class="proj-tags">
-                  <!-- TODO: update tags to match your stack -->
                   <span class="tag">PyTorch</span>
-                  <span class="tag">Quantization</span>
+                  <span class="tag">OpenAI Gym</span>
+                  <span class="tag">Reinforcement Learning</span>
                 </div>
                 <svg class="project-chevron" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
               </summary>
               <div class="project-body">
-                <!-- TODO: fill in description and links -->
-                <p></p>
+                <p>Implemented and benchmarked MADDPG and DDPG algorithms in cooperative and competitive multi-agent environments. Analyzed policy convergence, reward shaping, and inter-agent communication under partial observability.</p>
                 <div class="proj-footer">
                   <div class="tech-tags"></div>
-                  <!-- <a class="project-link" href="#" target="_blank" rel="noopener">GitHub &rarr;</a> -->
                 </div>
               </div>
             </details>
@@ -346,18 +346,22 @@
           <div class="project-item">
             <details>
               <summary class="project-summary">
-                <h3>AI + System Workflows</h3>
+                <div>
+                  <h3>LLM Compression &amp; Efficient Training</h3>
+                  <div style="font-size:.8rem;color:var(--muted);margin-top:.15em">Northeastern University</div>
+                </div>
                 <div class="proj-tags">
-                  <span class="tag">Python</span>
-                  <span class="tag">Systems</span>
+                  <span class="tag">PyTorch</span>
+                  <span class="tag">LLMs</span>
+                  <span class="tag">Model Compression</span>
                 </div>
                 <svg class="project-chevron" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
               </summary>
               <div class="project-body">
-                <p></p>
+                <p>Explored parameter-efficient fine-tuning and model compression techniques for large language models. Participated in the OpenAI parameter golf challenge (train_gpt.py), minimizing parameter count while preserving GPT training quality.</p>
                 <div class="proj-footer">
                   <div class="tech-tags"></div>
-                  <!-- <a class="project-link" href="#" target="_blank" rel="noopener">GitHub &rarr;</a> -->
+                  <a class="project-link" href="https://github.com/Steffi-Roy" target="_blank" rel="noopener">GitHub &rarr;</a>
                 </div>
               </div>
             </details>
@@ -367,18 +371,21 @@
           <div class="project-item">
             <details>
               <summary class="project-summary">
-                <h3>AI on Embedded Systems</h3>
+                <div>
+                  <h3>HabitBuddy</h3>
+                  <div style="font-size:.8rem;color:var(--muted);margin-top:.15em">End-to-End HCI Application &nbsp;·&nbsp; Northeastern University, CS 5340</div>
+                </div>
                 <div class="proj-tags">
-                  <span class="tag">Arduino</span>
-                  <span class="tag">TensorFlow Lite</span>
+                  <span class="tag">Figma</span>
+                  <span class="tag">UX Research</span>
+                  <span class="tag">HCI</span>
                 </div>
                 <svg class="project-chevron" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
               </summary>
               <div class="project-body">
-                <p></p>
+                <p>Led end-to-end UX research and iterative design of a companion-based habit tracker. Process included user personas, paper prototyping, heuristic evaluation, and high-fidelity Figma prototype.</p>
                 <div class="proj-footer">
                   <div class="tech-tags"></div>
-                  <!-- <a class="project-link" href="#" target="_blank" rel="noopener">GitHub &rarr;</a> -->
                 </div>
               </div>
             </details>
@@ -390,25 +397,28 @@
           <div class="section-label">Education</div>
 
           <div class="edu-entry">
-            <h3>M.S. Electrical &amp; Computer Engineering</h3>
-            <p>University of Florida &nbsp;·&nbsp; Hardware Security &amp; Design Verification
-            <!-- TODO: add graduation year, e.g. "· 2024" -->
-            </p>
+            <h3>Northeastern University — Khoury College of Computer Sciences</h3>
+            <p>M.S. in Computer Science &nbsp;·&nbsp; GPA: 4.0/4.0 &nbsp;·&nbsp; Jan 2026 – Present</p>
+            <p style="font-size:.85rem;color:var(--muted)">Courses: Foundations of AI, Human-Computer Interaction, Algorithms, Cloud Computing (in progress)</p>
           </div>
           <div class="edu-entry">
-            <h3>B.E. Electrical &amp; Electronics Engineering</h3>
-            <!-- TODO: add your undergraduate institution name -->
-            <p><!-- TODO: University Name --> &nbsp;·&nbsp; Computer Architecture &amp; Digital Systems</p>
+            <h3>University of Florida</h3>
+            <p>M.S. in Electrical &amp; Computer Engineering &nbsp;·&nbsp; GPA: 3.6/4.0 &nbsp;·&nbsp; Jan 2021 – Aug 2023</p>
+          </div>
+          <div class="edu-entry">
+            <h3>Mahindra Ecole Centrale, Hyderabad</h3>
+            <p>B.Tech in Electrical &amp; Electronics Engineering &nbsp;·&nbsp; CGPA: 9.3/10 &nbsp;·&nbsp; 2016 – 2020</p>
           </div>
         </div>
 
         <!-- ── Contact ── -->
         <div class="section-wrap" id="contact">
           <div class="section-label">Contact</div>
-          <p>I am actively looking for PhD opportunities for Fall 2026. If your lab works on AI systems, hardware security, computer architecture, or related areas, I'd love to connect.</p>
+          <p>I am actively seeking PhD positions for Fall 2026. My interests span ML systems, safe AI, and efficient deep learning. If your lab works on any of these areas, I would love to connect.</p>
           <ul class="contact-list">
             <li><a href="mailto:steffiroy@hotmail.com">&#9993; steffiroy@hotmail.com</a></li>
-            <li><a href="https://linkedin.com/in/steffiroy" target="_blank" rel="noopener">&#128279; LinkedIn</a></li>
+            <li><a href="https://github.com/Steffi-Roy" target="_blank" rel="noopener">&#128279; GitHub</a></li>
+            <li><a href="https://scholar.google.com/citations?view_op=list_works&hl=en&user=uzveKwIAAAAJ" target="_blank" rel="noopener">&#128218; Google Scholar</a></li>
           </ul>
           <p class="contact-note">Response time: usually within 48 hours.</p>
         </div>
