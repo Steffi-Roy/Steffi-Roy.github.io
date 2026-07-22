@@ -6,26 +6,21 @@
     <title>Steffi Roy | MS Student · ML Systems & Safe AI</title>
     <meta name="description" content="Steffi Roy — MS student at Northeastern researching machine learning systems, safe AI, and efficient deep learning. Seeking PhD positions Fall 2026.">
     <meta name="color-scheme" content="light dark">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
-
     <script>
       (function () {
         const saved = localStorage.getItem('theme');
         document.documentElement.setAttribute('data-theme', saved === 'dark' ? 'dark' : 'light');
       })();
     </script>
-
     <style>
-      /* ── Design tokens ── */
       :root {
         --bg: #f6f7fb; --card: #ffffff; --text: #1f2937; --muted: #6b7280;
         --head: #0f172a; --brand: #3b82f6; --brand-light: #eff6ff;
         --brand-ink: #1d4ed8; --border: #e5e7eb;
         --radius: 14px; --shadow: 0 4px 24px rgba(2,6,23,.07);
-        --space: clamp(14px, 2.5vw, 24px); --container: 880px;
         --pub-accent: #7c3aed;
       }
       html[data-theme="dark"] {
@@ -36,204 +31,217 @@
         --pub-accent: #a78bfa;
       }
 
-      /* ── Reset & base ── */
       *, *::before, *::after { box-sizing: border-box }
       html { scroll-behavior: smooth }
-      body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.7 Inter, system-ui, sans-serif }
+      body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.7 Inter, system-ui, sans-serif; min-height: 100vh; display: flex; flex-direction: column }
       h1, h2, h3, h4 { margin: 0 0 .5em; color: var(--head); line-height: 1.3 }
-      h2 { font-family: Outfit, Inter, sans-serif; font-size: clamp(20px, 2.6vw, 26px) }
-      h3 { font-size: clamp(16px, 2vw, 18px) }
+      h2 { font-family: Outfit, Inter, sans-serif; font-size: clamp(22px, 2.8vw, 30px) }
+      h3 { font-size: clamp(15px, 1.8vw, 17px) }
       a { color: var(--brand); text-decoration: none }
       a:hover { text-decoration: underline }
       p { margin: .6em 0 }
       :focus-visible { outline: 2px solid var(--brand); outline-offset: 2px }
       .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap }
 
-      /* ── Layout ── */
-      .wrap { max-width: var(--container); margin: 0 auto; padding: 0 var(--space) }
-
-      /* ── Header ── */
-      header {
-        background: linear-gradient(160deg, #0b0e14 0%, #0f1e35 60%, #0d1b2e 100%);
-        color: #fff; padding: 3.5rem 1rem 3rem;
+      /* ── Top navbar ── */
+      .topnav {
+        background: linear-gradient(135deg, #0b0e14 0%, #0f1e35 100%);
+        border-bottom: 1px solid rgba(255,255,255,.07);
+        display: flex; align-items: center;
+        padding: 1rem 2.5rem; gap: 2rem;
+        position: sticky; top: 0; z-index: 100;
       }
-      .hero { display: grid; grid-template-columns: auto 1fr; gap: 2rem; align-items: center }
-      .hero-memoji-wrap {
-        width: 185px; height: 185px; border-radius: 50%; overflow: hidden;
-        border: 3px solid rgba(255,255,255,.2); box-shadow: 0 4px 20px rgba(0,0,0,.4);
-        flex-shrink: 0; align-self: center;
+      .site-title {
+        font-family: Outfit, sans-serif; font-weight: 700; font-size: 1.05rem;
+        color: #fff; text-decoration: none; margin-right: auto; white-space: nowrap;
       }
-      .hero-memoji {
-        width: 100%; height: 100%;
-        object-fit: cover;
-        object-position: center 15%;
-        display: block;
+      .site-title:hover { text-decoration: none; opacity: .85 }
+      .nav-links { display: flex; align-items: center; gap: 2rem }
+      .nav-links a {
+        color: rgba(255,255,255,.6); font-size: .92rem; font-weight: 500;
+        text-decoration: none; transition: color .15s;
       }
-      .hero-text h1 {
-        font-family: Outfit, sans-serif; font-weight: 700; font-size: clamp(26px, 4vw, 38px);
-        color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,.3); margin-bottom: .15em;
-      }
-      .hero-text .subtitle { color: #94a3b8; font-size: 1rem; margin: 0 0 .75rem }
-      .seeking-badge {
-        display: inline-block; background: rgba(96,165,250,.15); color: #93c5fd;
-        border: 1px solid rgba(96,165,250,.35); border-radius: 999px;
-        font-size: .78rem; font-weight: 600; padding: .28rem .75rem; margin-bottom: .9rem;
-        letter-spacing: .02em;
-      }
-      .hero-ctas { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .75rem }
-      .btn {
-        display: inline-flex; align-items: center; gap: .35rem;
-        padding: .45rem .9rem; border-radius: 8px; font-weight: 600; font-size: .875rem;
-        text-decoration: none; transition: filter .15s;
-      }
-      .btn:hover { filter: brightness(1.08); text-decoration: none }
-      .btn-primary { background: var(--brand); color: #fff }
-      .btn-outline { background: rgba(255,255,255,.07); color: #e2e8f0; border: 1px solid rgba(255,255,255,.18) }
+      .nav-links a:hover { color: #fff; text-decoration: none }
+      .nav-links a[aria-current="page"] { color: #fff; font-weight: 700 }
 
       /* Theme toggle */
       .segment { display: inline-flex; border: 1px solid rgba(255,255,255,.15); border-radius: 999px; padding: 2px; background: rgba(255,255,255,.06) }
       .segment button {
-        border: 0; background: transparent; padding: .3rem .6rem; border-radius: 999px;
+        border: 0; background: transparent; padding: .28rem .55rem; border-radius: 999px;
         cursor: pointer; color: #94a3b8; display: inline-flex; align-items: center; justify-content: center;
       }
       .segment button[aria-pressed="true"] { background: var(--brand); color: #fff }
-      .segment svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2 }
+      .segment svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 2 }
 
-      /* ── Content ── */
-      main { padding: 2.5rem 0 3rem }
+      /* ── Page body ── */
+      .page-body {
+        display: grid;
+        grid-template-columns: 240px 1fr;
+        gap: 3.5rem;
+        max-width: 1020px;
+        margin: 0 auto;
+        padding: 3rem 2.5rem;
+        width: 100%;
+        flex: 1;
+      }
 
-      .section-wrap { padding: 2rem 0; border-top: 1px solid var(--border) }
+      /* ── Left profile column ── */
+      .left-col { display: flex; flex-direction: column; align-items: flex-start; gap: .6rem }
+
+      .profile-photo-wrap {
+        width: 170px; height: 190px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 3px solid rgba(100,116,139,.5);
+        box-shadow: 0 4px 24px rgba(0,0,0,.25);
+        margin-bottom: .75rem; flex-shrink: 0;
+      }
+      .profile-photo {
+        width: 100%; height: 100%;
+        object-fit: cover; object-position: center 12%; display: block;
+      }
+
+      .profile-name {
+        font-family: Outfit, sans-serif; font-weight: 700; font-size: 1.15rem;
+        color: var(--head); margin: 0 0 .1em;
+      }
+      .profile-role { font-size: .85rem; color: var(--muted); margin: 0 0 .6rem; line-height: 1.5 }
+
+      .seeking-badge {
+        display: inline-block;
+        background: rgba(96,165,250,.12); color: #3b82f6;
+        border: 1px solid rgba(96,165,250,.3); border-radius: 999px;
+        font-size: .72rem; font-weight: 600; padding: .22rem .6rem;
+        margin-bottom: .75rem; letter-spacing: .02em;
+      }
+      html[data-theme="dark"] .seeking-badge { color: #93c5fd; background: rgba(96,165,250,.12) }
+
+      .profile-links { display: flex; flex-direction: column; gap: .4rem; margin-bottom: .5rem }
+      .profile-link {
+        display: flex; align-items: center; gap: .5rem;
+        font-size: .85rem; color: var(--muted); text-decoration: none;
+        transition: color .15s;
+      }
+      .profile-link:hover { color: var(--brand); text-decoration: none }
+      .profile-link svg { width: 15px; height: 15px; flex-shrink: 0; stroke: currentColor; fill: none; stroke-width: 2 }
+
+      .btn-cv {
+        margin-top: .5rem;
+        display: inline-flex; align-items: center; gap: .35rem;
+        padding: .45rem 1rem; border-radius: 8px; font-weight: 600; font-size: .85rem;
+        background: var(--brand); color: #fff; text-decoration: none;
+        transition: filter .15s;
+      }
+      .btn-cv:hover { filter: brightness(1.1); text-decoration: none }
+      .btn-cv svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2 }
+
+      /* ── Right content column ── */
+      .right-col { min-width: 0 }
+
+      .section-wrap { padding: 2.25rem 0; border-top: 1px solid var(--border) }
       .section-wrap:first-child { border-top: none; padding-top: 0 }
 
       .section-label {
         font-family: Outfit, sans-serif; text-transform: uppercase; letter-spacing: .08em;
-        font-size: .7rem; font-weight: 700; color: var(--brand); margin-bottom: 1.2rem;
+        font-size: .68rem; font-weight: 700; color: var(--brand); margin-bottom: 1rem;
       }
 
       /* Research interests */
-      .interests-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-top: 1.25rem }
+      .interests-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem }
       .interest-card {
         background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
         padding: 1.1rem 1.25rem; box-shadow: var(--shadow);
       }
-      .interest-card h4 { font-size: .95rem; color: var(--head); margin-bottom: .3em }
-      .interest-card p { font-size: .85rem; color: var(--muted); margin: 0 }
+      .interest-card h4 { font-size: .92rem; color: var(--head); margin-bottom: .3em }
+      .interest-card p { font-size: .83rem; color: var(--muted); margin: 0 }
 
-      /* Research statement */
-      .statement {
-        background: var(--brand-light); border-left: 4px solid var(--brand);
-        border-radius: 0 var(--radius) var(--radius) 0; padding: 1rem 1.25rem;
-        font-size: .95rem; color: var(--text); margin-bottom: 1.5rem; line-height: 1.75;
-      }
+      /* Footer */
+      footer { text-align: center; color: var(--muted); font-size: .8rem; padding: 1.5rem 1rem; border-top: 1px solid var(--border) }
 
-
-      /* Publications */
-      .pub-card {
-        background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
-        box-shadow: var(--shadow); padding: 1.25rem 1.5rem;
-        border-left: 4px solid var(--pub-accent);
-      }
-      .pub-card h3 { font-size: 1rem; margin-bottom: .3em }
-      .pub-authors { font-size: .85rem; color: var(--muted); margin-bottom: .25em }
-      .pub-venue { font-size: .85rem; color: var(--pub-accent); font-weight: 600; margin-bottom: .6em }
-      .pub-abstract { font-size: .88rem; color: var(--text); line-height: 1.65; margin-bottom: .85em }
-      .pub-links { display: flex; flex-wrap: wrap; gap: .5rem }
-      .tag {
-        display: inline-block; background: var(--brand-light); color: var(--brand-ink);
-        border: 1px solid var(--border); border-radius: 6px;
-        font-size: .75rem; font-weight: 600; padding: .18rem .55rem;
-      }
-      .tag.venue-tag { background: transparent; color: var(--pub-accent); border-color: var(--pub-accent) }
-
-      /* Project cards */
-      .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.1rem; margin-top: .25rem }
-      .project-card {
-        background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
-        box-shadow: var(--shadow); padding: 1.4rem 1.5rem;
-        display: flex; flex-direction: column; gap: .6rem;
-        transition: box-shadow .2s, border-color .2s;
-      }
-      .project-card:hover { border-color: var(--brand); box-shadow: 0 6px 32px rgba(59,130,246,.12) }
-      .project-card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: .5rem }
-      .project-card h3 { font-size: 1rem; margin: 0; color: var(--head) }
-      .project-card .proj-context { font-size: .78rem; color: var(--muted); margin-top: .2em }
-      .project-card p { font-size: .875rem; color: var(--text); line-height: 1.65; margin: 0; flex: 1 }
-      .project-card-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .5rem; margin-top: .25rem }
-      .tech-tags { display: flex; flex-wrap: wrap; gap: .35rem }
-      .project-link { font-size: .82rem; font-weight: 600; color: var(--brand); white-space: nowrap }
-      .project-link:hover { text-decoration: underline }
-
-      /* Education */
-      .edu-timeline { display: flex; flex-direction: column; gap: .9rem }
-      .edu-entry { display: flex; gap: 1rem; align-items: flex-start }
-      .edu-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--brand); margin-top: .55rem; flex-shrink: 0 }
-      .edu-entry h3 { font-size: .95rem; margin: 0 0 .15em; color: var(--head) }
-      .edu-entry p { font-size: .85rem; color: var(--muted); margin: 0 }
-
-
-/* Footer */
-      footer { text-align: center; color: var(--muted); font-size: .82rem; padding: 2rem 1rem; border-top: 1px solid var(--border) }
-
-      /* Responsive */
-      @media (max-width: 600px) {
-        .hero { grid-template-columns: 1fr; text-align: center }
-        .hero-memoji-wrap { margin: 0 auto }
-        .hero-ctas { justify-content: center }
-        .interests-grid { grid-template-columns: 1fr }
-        .projects-grid { grid-template-columns: 1fr }
+      /* ── Mobile ── */
+      @media (max-width: 700px) {
+        .page-body { grid-template-columns: 1fr; gap: 2rem; padding: 1.5rem 1.25rem }
+        .left-col { flex-direction: row; flex-wrap: wrap; align-items: flex-start; gap: 1.25rem }
+        .profile-photo-wrap { width: 110px; height: 120px }
+        .topnav { padding: .85rem 1.25rem }
+        .nav-links { gap: 1.25rem }
       }
       @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto } }
     </style>
   </head>
   <body>
-    <!-- ── Header / Hero ── -->
-    <header>
-      <div class="wrap">
-        <div class="hero">
-          <div class="hero-memoji-wrap">
-            <video class="hero-memoji" autoplay loop muted playsinline>
-              <source src="images/memoji_wave.webm" type="video/webm">
-              <source src="images/memoji_wave.mp4"  type="video/mp4">
-            </video>
-          </div>
-          <div class="hero-text">
-            <div class="seeking-badge">Actively seeking PhD positions · Fall 2026</div>
-            <h1>Steffi Roy</h1>
-            <p class="subtitle">MS student at Northeastern interested in machine learning systems, safe AI, and efficient deep learning. Previously: hardware security research at UF, silicon verification at Texas Instruments and Microsoft.</p>
-            <div class="hero-ctas">
-              <a class="btn btn-primary" href="/Steffi_Roy_Resume.pdf" target="_blank" rel="noopener">
-                <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                Download CV
-              </a>
-              <a class="btn btn-outline" href="https://github.com/Steffi-Roy" target="_blank" rel="noopener">GitHub</a>
-              <a class="btn btn-outline" href="https://scholar.google.com/citations?view_op=list_works&hl=en&user=uzveKwIAAAAJ" target="_blank" rel="noopener">Google Scholar</a>
-              <a class="btn btn-outline" href="mailto:steffiroy@hotmail.com">Email Me</a>
-            </div>
-          </div>
-        </div>
 
-        <div style="display:flex; justify-content:flex-end; margin-top:1.5rem">
-          <div class="segment" id="theme-seg" role="group" aria-label="Theme">
-            <button type="button" data-mode="light" aria-pressed="true" aria-label="Light theme">
-              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2M12 19v2M21 12h-2M5 12H3M17.657 6.343l-1.414 1.414M7.757 16.243l-1.414 1.414M6.343 6.343 7.757 7.757M16.243 16.243l1.414 1.414"/></svg>
-              <span class="sr-only">Light</span>
-            </button>
-            <button type="button" data-mode="dark" aria-pressed="false" aria-label="Dark theme">
-              <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 009 21a9 9 0 0012-8.21z"/></svg>
-              <span class="sr-only">Dark</span>
-            </button>
-          </div>
-        </div>
+    <!-- ── Top navbar ── -->
+    <nav class="topnav" aria-label="Site navigation">
+      <a class="site-title" href="/">Steffi Roy</a>
+      <div class="nav-links">
+        <a href="/" aria-current="page">About</a>
+        <a href="/projects.html">Projects</a>
+        <a href="/Steffi_Roy_Resume.pdf" target="_blank" rel="noopener">CV</a>
       </div>
-    </header>
+      <div class="segment" id="theme-seg" role="group" aria-label="Theme">
+        <button type="button" data-mode="light" aria-pressed="true" aria-label="Light theme">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2M12 19v2M21 12h-2M5 12H3M17.657 6.343l-1.414 1.414M7.757 16.243l-1.414 1.414M6.343 6.343 7.757 7.757M16.243 16.243l1.414 1.414"/></svg>
+          <span class="sr-only">Light</span>
+        </button>
+        <button type="button" data-mode="dark" aria-pressed="false" aria-label="Dark theme">
+          <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 009 21a9 9 0 0012-8.21z"/></svg>
+          <span class="sr-only">Dark</span>
+        </button>
+      </div>
+    </nav>
 
-    <main>
-      <div class="wrap">
+    <!-- ── Page body ── -->
+    <div class="page-body">
 
-        <!-- ── Research Interests ── -->
+      <!-- Left: profile -->
+      <aside class="left-col">
+        <div class="profile-photo-wrap">
+          <video class="profile-photo" autoplay loop muted playsinline>
+            <source src="images/memoji_wave.webm" type="video/webm">
+            <source src="images/memoji_wave.mp4"  type="video/mp4">
+          </video>
+        </div>
+
+        <p class="profile-name">Steffi Roy</p>
+        <p class="profile-role">MS student at Northeastern<br>ML Systems &amp; Safe AI</p>
+
+        <span class="seeking-badge">Seeking PhD · Fall 2026</span>
+
+        <div class="profile-links">
+          <a class="profile-link" href="https://linkedin.com/in/steffiroy" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            LinkedIn
+          </a>
+          <a class="profile-link" href="https://github.com/Steffi-Roy" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            GitHub
+          </a>
+          <a class="profile-link" href="https://scholar.google.com/citations?view_op=list_works&hl=en&user=uzveKwIAAAAJ" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M12 14l-8-5 8-5 8 5-8 5z"/><path d="M12 14v7M4 9v5a8 8 0 0 0 16 0V9"/></svg>
+            Google Scholar
+          </a>
+          <a class="profile-link" href="mailto:steffiroy@hotmail.com">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Email
+          </a>
+        </div>
+
+      </aside>
+
+      <!-- Right: content -->
+      <main class="right-col">
+
+        <!-- About -->
+        <div class="section-wrap">
+          <h2>About me</h2>
+          <p>I am an MS student at Northeastern University's Khoury College of Computer Sciences, interested in machine learning systems, safe AI, and efficient deep learning. I am actively seeking PhD positions for Fall 2026.</p>
+          <p>Previously, I conducted hardware security research at the University of Florida, developing privacy-preserving frameworks for electronic design automation and side-channel defenses for neural network inference on FPGAs. Before that, I worked in silicon verification at Texas Instruments and Microsoft.</p>
+        </div>
+
+        <!-- Research -->
         <div class="section-wrap" id="research">
-          <div class="section-label">Research</div>
-
+          <div class="section-label">Research Interests</div>
           <div class="interests-grid">
             <div class="interest-card">
               <h4>ML Systems &amp; Efficient Deep Learning</h4>
@@ -241,7 +249,7 @@
             </div>
             <div class="interest-card">
               <h4>Safe &amp; Certifiable AI</h4>
-              <p>Robustness under distribution shift, out-of-distribution detection, and formal guarantees for learned systems — particularly in autonomous and safety-critical settings.</p>
+              <p>Robustness under distribution shift, out-of-distribution detection, and formal guarantees for learned systems in autonomous and safety-critical settings.</p>
             </div>
             <div class="interest-card">
               <h4>Hardware Security for AI</h4>
@@ -250,133 +258,10 @@
           </div>
         </div>
 
+      </main>
+    </div>
 
-        <!-- ── Publications ── -->
-        <div class="section-wrap" id="publications">
-          <div class="section-label">Publications</div>
-
-          <div class="pub-card" style="margin-bottom:.75rem">
-            <h3>Garbled EDA: Privacy-Preserving Electronic Design Automation</h3>
-            <p class="pub-authors">M. Hashemi, <strong>S. Roy</strong>, F. Ganji, D. Forte</p>
-            <p class="pub-venue">ICCAD 2022</p>
-            <p class="pub-abstract">Designed a framework to run chip design tools securely without revealing proprietary IP, using cryptographic multiparty computation.</p>
-          </div>
-
-          <div class="pub-card" style="margin-bottom:.75rem">
-            <h3>Active IC Metering Protocol Security with Oblivious Transfer</h3>
-            <p class="pub-authors"><strong>S. Roy</strong>, M. Hashemi, F. Ganji, D. Forte</p>
-            <p class="pub-venue">SRC TECHCON 2022</p>
-            <p class="pub-abstract">Built and hardened protocols that prevent unauthorized cloning of chips, using oblivious transfer cryptography.</p>
-          </div>
-
-          <div class="pub-card">
-            <h3>HWGN2: Side-Channel Protected Neural Networks</h3>
-            <p class="pub-authors">M. Hashemi, <strong>S. Roy</strong>, D. Forte, F. Ganji</p>
-            <p class="pub-venue">SPACE 2022</p>
-            <p class="pub-abstract">Developed a hardware framework that lets neural networks run securely on FPGAs without leaking information through power/timing channels.</p>
-            <div class="pub-links" style="margin-top:.6rem">
-              <a class="tag" href="https://scholar.google.com/citations?view_op=list_works&hl=en&user=uzveKwIAAAAJ" target="_blank" rel="noopener">View all on Google Scholar</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- ── Projects ── -->
-        <div class="section-wrap" id="projects">
-          <div class="section-label">Projects</div>
-
-          <div class="projects-grid">
-
-            <div class="project-card">
-              <div class="project-card-header">
-                <div>
-                  <h3>Multi-Agent Reinforcement Learning</h3>
-                  <div class="proj-context">MADDPG vs. DDPG &nbsp;·&nbsp; Northeastern</div>
-                </div>
-              </div>
-              <p>Implemented and benchmarked MADDPG and DDPG in cooperative and competitive multi-agent environments. Analyzed policy convergence, reward shaping, and inter-agent communication under partial observability.</p>
-              <div class="project-card-footer">
-                <div class="tech-tags">
-                  <span class="tag">PyTorch</span>
-                  <span class="tag">OpenAI Gym</span>
-                  <span class="tag">RL</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="project-card">
-              <div class="project-card-header">
-                <div>
-                  <h3>LLM Compression &amp; Efficient Training</h3>
-                  <div class="proj-context">Northeastern</div>
-                </div>
-              </div>
-              <p>Explored parameter-efficient fine-tuning and model compression for large language models. Participated in the OpenAI parameter golf challenge — minimizing parameter count while preserving GPT training quality.</p>
-              <div class="project-card-footer">
-                <div class="tech-tags">
-                  <span class="tag">PyTorch</span>
-                  <span class="tag">LLMs</span>
-                  <span class="tag">Model Compression</span>
-                </div>
-                <a class="project-link" href="https://github.com/Steffi-Roy" target="_blank" rel="noopener">GitHub &rarr;</a>
-              </div>
-            </div>
-
-            <div class="project-card">
-              <div class="project-card-header">
-                <div>
-                  <h3>HabitBuddy</h3>
-                  <div class="proj-context">HCI Application &nbsp;·&nbsp; Northeastern, CS 5340</div>
-                </div>
-              </div>
-              <p>Led end-to-end UX research and iterative design of a companion-based habit tracker — user personas, paper prototyping, heuristic evaluation, and high-fidelity Figma prototype.</p>
-              <div class="project-card-footer">
-                <div class="tech-tags">
-                  <span class="tag">Figma</span>
-                  <span class="tag">UX Research</span>
-                  <span class="tag">HCI</span>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- ── Education ── -->
-        <div class="section-wrap" id="education">
-          <div class="section-label">Education</div>
-
-          <div class="edu-timeline">
-            <div class="edu-entry">
-              <div class="edu-dot"></div>
-              <div>
-                <h3>Northeastern University — Khoury College of Computer Sciences</h3>
-                <p>M.S. Computer Science &nbsp;·&nbsp; 2026 – Present</p>
-              </div>
-            </div>
-            <div class="edu-entry">
-              <div class="edu-dot"></div>
-              <div>
-                <h3>University of Florida</h3>
-                <p>M.S. Electrical &amp; Computer Engineering &nbsp;·&nbsp; 2021 – 2023</p>
-              </div>
-            </div>
-            <div class="edu-entry">
-              <div class="edu-dot"></div>
-              <div>
-                <h3>Mahindra Ecole Centrale, Hyderabad</h3>
-                <p>B.Tech Electrical &amp; Electronics Engineering &nbsp;·&nbsp; 2016 – 2020</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-      </div><!-- /.wrap -->
-    </main>
-
-    <footer>
-      <p>&copy; 2025 Steffi Roy</p>
-    </footer>
+    <footer>&copy; 2025 Steffi Roy</footer>
 
     <script>
       (function(){
