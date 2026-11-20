@@ -4,18 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Projects | Steffi Roy</title>
-    <meta name="description" content="Projects by Steffi Roy — multi-agent reinforcement learning, LLM compression, and HCI design.">
+    <meta name="description" content="Projects by Steffi Roy — multi-agent reinforcement learning, world-model probing, and compact language models.">
     <meta name="color-scheme" content="light dark">
     <meta name="theme-color" content="#0b0e14">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Projects | Steffi Roy">
-    <meta property="og:description" content="Projects by Steffi Roy — multi-agent reinforcement learning, LLM compression, and HCI design.">
+    <meta property="og:description" content="Projects by Steffi Roy — multi-agent reinforcement learning, world-model probing, and compact language models.">
     <meta property="og:url" content="https://steffir.com/projects.html">
+    <meta property="og:image" content="https://steffir.com/images/headshot.jpg">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/assets/css/site.css">
+    <link rel="stylesheet" href="/assets/css/site.css?v=2">
     <script>
       (function () {
         let t = null;
@@ -24,7 +25,7 @@
         document.documentElement.setAttribute('data-theme', t);
       })();
     </script>
-    <script src="/assets/js/site.js" defer></script>
+    <script src="/assets/js/site.js?v=2" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -51,15 +52,12 @@
       <!-- Left: profile -->
       <aside class="profile" aria-label="Profile">
         <div class="profile-photo-wrap">
-          <video class="profile-photo" autoplay loop muted playsinline aria-hidden="true">
-            <source src="images/memoji_wave.webm" type="video/webm">
-            <source src="images/memoji_wave.mp4"  type="video/mp4">
-          </video>
+          <img class="profile-photo" src="/images/headshot.jpg" alt="Steffi Roy" width="600" height="600">
         </div>
 
         <div class="profile-meta">
           <p class="profile-name">Steffi Roy</p>
-          <p class="profile-role">MS student at Northeastern<br>Multi-Agent Systems &amp; Safe AI</p>
+          <p class="profile-role">Multi-Agent Systems &amp; Safe AI</p>
           <span class="seeking-badge">Seeking PhD · Fall 2027</span>
         </div>
 
@@ -90,38 +88,62 @@
       <!-- Right: content -->
       <main class="content" id="main">
         <h1 class="page-title">Projects</h1>
-        <p class="page-intro">Selected projects from my MS at Northeastern.</p>
 
-        <div class="projects-grid">
+        <div class="projects-list">
           <article class="card project-card">
             <div>
-              <h3>Multi-Agent Reinforcement Learning</h3>
-              <div class="proj-context">MADDPG vs. DDPG &nbsp;·&nbsp; Northeastern</div>
+              <h3>Deception in Multi-Agent RL: MADDPG vs. Independent DDPG</h3>
+              <div class="proj-context">Foundations of AI &nbsp;·&nbsp; Northeastern</div>
             </div>
-            <p>Implemented and benchmarked MADDPG and DDPG in cooperative and competitive multi-agent environments. Analyzed policy convergence, reward shaping, and inter-agent communication under partial observability.</p>
-            <div class="tech-tags">
-              <span class="tag">PyTorch</span>
-              <span class="tag">PettingZoo</span>
-              <span class="tag">RL</span>
-            </div>
-            <div class="card-links">
-              <a class="link-pill" href="/Projects/FAI_Final_Project.pdf" target="_blank" rel="noopener">Report (PDF) <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+            <p>Compared MADDPG (centralized training, decentralized execution) with independent DDPG on a physical deception task, extending PettingZoo to support multiple adversaries. MADDPG converged 7–10× faster when coordination was hard (2 vs. 2 and 3 vs. 2 agents), but final reward did not consistently favor it. With three agents sharing one critic against a single adversary, the team held the adversary to its lowest reach rate yet earned negative reward, a likely case of reward hacking.</p>
+            <div class="card-bottom">
+              <div class="tech-tags">
+                <span class="tag">PyTorch</span>
+                <span class="tag">PettingZoo</span>
+                <span class="tag">Multi-agent RL</span>
+              </div>
+              <div class="card-links">
+                <a class="link-pill" href="/Projects/FAI_Final_Project.pdf" target="_blank" rel="noopener">Report (PDF) <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                <a class="link-pill" href="https://github.com/Steffi-Roy/Multiadversay-Physcial-Deception-Environment" target="_blank" rel="noopener">Code <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+              </div>
             </div>
           </article>
 
           <article class="card project-card">
             <div>
-              <h3>LLM Compression &amp; Efficient Training</h3>
-              <div class="proj-context">Northeastern</div>
+              <h3>What DreamerV3 Encodes About Small Objects in Pong</h3>
+              <div class="proj-context">World models &nbsp;·&nbsp; Probing</div>
             </div>
-            <p>Explored parameter-efficient fine-tuning and model compression for large language models. Participated in the OpenAI parameter golf challenge — minimizing parameter count while preserving GPT training quality.</p>
-            <div class="tech-tags">
-              <span class="tag">PyTorch</span>
-              <span class="tag">LLMs</span>
-              <span class="tag">Model Compression</span>
+            <p>Froze a DreamerV3 world model and probed its latent state at four depths to test whether reconstruction training encodes the ball, the one object that decides the reward. The ball reconstructed far worse than the frame (20.3 dB vs. 42.5 dB PSNR), but decoding showed only a partial deficit: its horizontal position lagged (R² 0.865 against a 0.977 pixel ceiling) while its vertical position did not.</p>
+            <div class="card-bottom">
+              <div class="tech-tags">
+                <span class="tag">PyTorch</span>
+                <span class="tag">DreamerV3</span>
+                <span class="tag">Interpretability</span>
+              </div>
+              <div class="card-links">
+                <a class="link-pill" href="https://github.com/Steffi-Roy/dreamerv3-pong-probing/blob/main/report.pdf" target="_blank" rel="noopener">Report (PDF) <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                <a class="link-pill" href="https://github.com/Steffi-Roy/dreamerv3-pong-probing" target="_blank" rel="noopener">Code <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+                <a class="link-pill" href="https://youtu.be/nNmZyIs8wEs" target="_blank" rel="noopener">Video <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+              </div>
             </div>
-            <div class="card-links">
-              <a class="link-pill" href="https://github.com/Steffi-Roy" target="_blank" rel="noopener">GitHub <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+          </article>
+
+          <article class="card project-card">
+            <div>
+              <h3>Parameter Golf: A 16 MB Language Model</h3>
+              <div class="proj-context">OpenAI Parameter Golf &nbsp;·&nbsp; SUNDAI Hackathon</div>
+            </div>
+            <p>Trained a transformer to fit the challenge’s 16 MB limit within a 10-minute budget on 8×H100 GPUs, using int6 quantization-aware training with straight-through gradients and the Muon optimizer. Added score-first test-time training so the model adapts to validation sequences at inference without exceeding memory limits.</p>
+            <div class="card-bottom">
+              <div class="tech-tags">
+                <span class="tag">PyTorch</span>
+                <span class="tag">LLMs</span>
+                <span class="tag">Quantization</span>
+              </div>
+              <div class="card-links">
+                <a class="link-pill" href="https://github.com/Steffi-Roy/parameter-golf" target="_blank" rel="noopener">Code <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+              </div>
             </div>
           </article>
 
@@ -131,10 +153,12 @@
               <div class="proj-context">HCI Application &nbsp;·&nbsp; Northeastern, CS 5340</div>
             </div>
             <p>Led end-to-end UX research and iterative design of a companion-based habit tracker — user personas, paper prototyping, heuristic evaluation, and high-fidelity Figma prototype.</p>
-            <div class="tech-tags">
-              <span class="tag">Figma</span>
-              <span class="tag">UX Research</span>
-              <span class="tag">HCI</span>
+            <div class="card-bottom">
+              <div class="tech-tags">
+                <span class="tag">Figma</span>
+                <span class="tag">UX Research</span>
+                <span class="tag">HCI</span>
+              </div>
             </div>
           </article>
         </div>

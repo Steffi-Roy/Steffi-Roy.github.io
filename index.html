@@ -3,19 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Steffi Roy | MS Student · Multi-Agent Systems & Safe AI</title>
-    <meta name="description" content="Steffi Roy — MS student at Northeastern researching multi-agent systems and safe, reliable AI. Seeking PhD positions for Fall 2027.">
+    <title>Steffi Roy | Multi-Agent Systems & Safe AI</title>
+    <meta name="description" content="Steffi Roy works on multi-agent systems and safe, reliable AI, with a background in chip verification and hardware security. Seeking PhD positions for Fall 2027.">
     <meta name="color-scheme" content="light dark">
     <meta name="theme-color" content="#0b0e14">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Steffi Roy | Multi-Agent Systems & Safe AI">
-    <meta property="og:description" content="MS student at Northeastern researching multi-agent systems and safe, reliable AI.">
+    <meta property="og:description" content="Multi-agent systems and safe, reliable AI. Seeking PhD positions for Fall 2027.">
     <meta property="og:url" content="https://steffir.com/">
+    <meta property="og:image" content="https://steffir.com/images/headshot.jpg">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/assets/css/site.css">
+    <link rel="stylesheet" href="/assets/css/site.css?v=2">
     <script>
       (function () {
         let t = null;
@@ -24,7 +25,7 @@
         document.documentElement.setAttribute('data-theme', t);
       })();
     </script>
-    <script src="/assets/js/site.js" defer></script>
+    <script src="/assets/js/site.js?v=2" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -51,15 +52,12 @@
       <!-- Left: profile -->
       <aside class="profile" aria-label="Profile">
         <div class="profile-photo-wrap">
-          <video class="profile-photo" autoplay loop muted playsinline aria-hidden="true">
-            <source src="images/memoji_wave.webm" type="video/webm">
-            <source src="images/memoji_wave.mp4"  type="video/mp4">
-          </video>
+          <img class="profile-photo" src="/images/headshot.jpg" alt="Steffi Roy" width="600" height="600">
         </div>
 
         <div class="profile-meta">
           <h1 class="profile-name">Steffi Roy</h1>
-          <p class="profile-role">MS student at Northeastern<br>Multi-Agent Systems &amp; Safe AI</p>
+          <p class="profile-role">Multi-Agent Systems &amp; Safe AI</p>
           <span class="seeking-badge">Seeking PhD · Fall 2027</span>
         </div>
 
@@ -92,14 +90,15 @@
 
         <section class="section" aria-labelledby="about-title">
           <h2 id="about-title">About me</h2>
-          <p>I am an MS student at Northeastern University's Khoury College of Computer Sciences, focusing on multi-agent systems and safe AI. I am actively seeking PhD positions for Fall 2027.</p>
-          <p>Previously, I conducted hardware security research at the University of Florida, developing privacy-preserving frameworks for electronic design automation and side-channel defenses for neural network inference on FPGAs. Before that, I worked in silicon verification at Texas Instruments and Microsoft.</p>
+          <p>I work on multi-agent systems and safe AI, and I am seeking PhD positions for Fall 2027.</p>
+          <p>My background is in catching failures before they spread. At Texas Instruments, I work as a Design Verification Engineer, using formal and simulation-based verification to find bugs in chips before they ship. Before that, I did hardware security research in the FICS Lab at the University of Florida, protecting neural-network inference on FPGAs from side-channel leakage and hardening IC metering protocols against fault-injection attacks.</p>
+          <p>I now want to bring that mindset to teams of learning agents: noticing when one agent starts to fail, forecasting how the error will spread, and building systems that recover before it becomes a team failure.</p>
         </section>
 
         <section class="section" id="research" aria-labelledby="research-title">
           <h2 id="research-title">Research interests</h2>
           <p>I’m interested in multi-agent systems: how agents learn, coordinate, and fail, and how to make them robust, reliable, and safe.</p>
-          <div class="interests-grid">
+          <div class="interests-list">
             <div class="card interest-card">
               <div class="interest-icon">
                 <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
@@ -120,6 +119,84 @@
               </div>
               <h3>Safe &amp; Secure Agent Systems</h3>
               <p>Keeping agent systems safe and secure, from guarantees in safety-critical settings to agents that act on people’s behalf and keep them in control.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="publications" aria-labelledby="pubs-title">
+          <div class="section-head">
+            <h2 id="pubs-title">Publications</h2>
+            <a class="section-link" href="/publications.html">Details &amp; talks &rarr;</a>
+          </div>
+          <ol class="pub-compact">
+            <li>
+              <div class="pub-title"><a href="https://doi.org/10.1145/3508352.3549455" target="_blank" rel="noopener">Garbled EDA: Privacy-Preserving Electronic Design Automation</a></div>
+              <p class="pub-meta">M. Hashemi, <strong>S. Roy</strong>, F. Ganji, D. Forte · <em>ICCAD 2022</em></p>
+            </li>
+            <li>
+              <div class="pub-title">Active IC Metering Protocol Security with Oblivious Transfer</div>
+              <p class="pub-meta"><strong>S. Roy</strong>, M. Hashemi, F. Ganji, D. Forte · <em>SRC TECHCON 2022</em></p>
+            </li>
+            <li>
+              <div class="pub-title"><a href="https://doi.org/10.1007/978-3-031-22829-2_13" target="_blank" rel="noopener">HWGN2: Side-Channel Protected Neural Networks</a></div>
+              <p class="pub-meta">M. Hashemi, <strong>S. Roy</strong>, D. Forte, F. Ganji · <em>SPACE 2022</em></p>
+            </li>
+          </ol>
+        </section>
+
+        <section class="section" id="experience" aria-labelledby="exp-title">
+          <h2 id="exp-title">Experience</h2>
+          <div class="entry-list">
+            <div class="entry">
+              <div>
+                <div class="entry-title">Design Verification Engineer</div>
+                <div class="entry-sub">Texas Instruments</div>
+              </div>
+              <div class="entry-date">Aug 2023 – present</div>
+              <p class="entry-desc">SoC-level formal and simulation verification of Flash, XSPI, PLL and RTC subsystems, plus Python and Tcl automation tooling. Presented the Maestro XML Diff tool at DVCon 2025.</p>
+            </div>
+            <div class="entry">
+              <div>
+                <div class="entry-title">Silicon Engineer Intern</div>
+                <div class="entry-sub">Microsoft</div>
+              </div>
+              <div class="entry-date">Jan – Apr 2023</div>
+              <p class="entry-desc">Full-chip AXI interconnect tests between the SoC and Southbridge for the Xbox platform, with coverage analysis and debugging.</p>
+            </div>
+            <div class="entry">
+              <div>
+                <div class="entry-title">Research Assistant, FICS Lab</div>
+                <div class="entry-sub">University of Florida</div>
+              </div>
+              <div class="entry-date">Dec 2021 – Jan 2023</div>
+              <p class="entry-desc">Hardware security research leading to three 2022 papers: garbled-circuit chip design tools (ICCAD), side-channel-protected neural networks (SPACE) and secure IC metering (SRC TECHCON).</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="education" aria-labelledby="edu-title">
+          <h2 id="edu-title">Education</h2>
+          <div class="entry-list">
+            <div class="entry">
+              <div>
+                <div class="entry-title">M.S. in Computer Science</div>
+                <div class="entry-sub">Northeastern University, Khoury College · GPA 4.0 / 4.0</div>
+              </div>
+              <div class="entry-date">2026 – present</div>
+            </div>
+            <div class="entry">
+              <div>
+                <div class="entry-title">M.S. in Electrical &amp; Computer Engineering</div>
+                <div class="entry-sub">University of Florida</div>
+              </div>
+              <div class="entry-date">2021 – 2023</div>
+            </div>
+            <div class="entry">
+              <div>
+                <div class="entry-title">B.Tech in Electrical &amp; Electronics Engineering</div>
+                <div class="entry-sub">Mahindra École Centrale, Hyderabad · CGPA 9.3 / 10</div>
+              </div>
+              <div class="entry-date">2016 – 2020</div>
             </div>
           </div>
         </section>

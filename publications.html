@@ -11,11 +11,12 @@
     <meta property="og:title" content="Publications | Steffi Roy">
     <meta property="og:description" content="Publications by Steffi Roy — hardware security, privacy-preserving computation, and side-channel protected neural networks.">
     <meta property="og:url" content="https://steffir.com/publications.html">
+    <meta property="og:image" content="https://steffir.com/images/headshot.jpg">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/assets/css/site.css">
+    <link rel="stylesheet" href="/assets/css/site.css?v=2">
     <script>
       (function () {
         let t = null;
@@ -24,7 +25,7 @@
         document.documentElement.setAttribute('data-theme', t);
       })();
     </script>
-    <script src="/assets/js/site.js" defer></script>
+    <script src="/assets/js/site.js?v=2" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -51,15 +52,12 @@
       <!-- Left: profile -->
       <aside class="profile" aria-label="Profile">
         <div class="profile-photo-wrap">
-          <video class="profile-photo" autoplay loop muted playsinline aria-hidden="true">
-            <source src="images/memoji_wave.webm" type="video/webm">
-            <source src="images/memoji_wave.mp4"  type="video/mp4">
-          </video>
+          <img class="profile-photo" src="/images/headshot.jpg" alt="Steffi Roy" width="600" height="600">
         </div>
 
         <div class="profile-meta">
           <p class="profile-name">Steffi Roy</p>
-          <p class="profile-role">MS student at Northeastern<br>Multi-Agent Systems &amp; Safe AI</p>
+          <p class="profile-role">Multi-Agent Systems &amp; Safe AI</p>
           <span class="seeking-badge">Seeking PhD · Fall 2027</span>
         </div>
 
@@ -90,7 +88,6 @@
       <!-- Right: content -->
       <main class="content" id="main">
         <h1 class="page-title">Publications</h1>
-        <p class="page-intro">Hardware security research from my time at the University of Florida. The full list is on <a href="https://scholar.google.com/citations?view_op=list_works&hl=en&user=uzveKwIAAAAJ" target="_blank" rel="noopener">Google Scholar</a>.</p>
 
         <div class="pub-list">
           <article class="card pub-card">
@@ -122,6 +119,34 @@
             </div>
           </article>
         </div>
+
+        <section class="section" aria-labelledby="talks-title">
+          <h2 id="talks-title">Talks</h2>
+          <div class="entry-list">
+            <div class="entry">
+              <div>
+                <div class="entry-title">Maestro XML Diff tool</div>
+                <div class="entry-sub">DVCon 2025</div>
+              </div>
+              <div class="entry-date">2025</div>
+              <p class="entry-desc">A Python tool that helps design verification engineers track changes across Maestro XML updates.</p>
+            </div>
+            <div class="entry">
+              <div>
+                <div class="entry-title">HWGN2: Side-Channel Protected Neural Networks</div>
+                <div class="entry-sub">SPACE 2022</div>
+              </div>
+              <div class="entry-date">2022</div>
+            </div>
+            <div class="entry">
+              <div>
+                <div class="entry-title">Active IC Metering Protocol Security with Oblivious Transfer</div>
+                <div class="entry-sub">SRC TECHCON 2022</div>
+              </div>
+              <div class="entry-date">2022</div>
+            </div>
+          </div>
+        </section>
       </main>
     </div>
 
