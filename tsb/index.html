@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>TSB: Multi-agent RL for in-orbit servicing</title>
+<meta name="description" content="Targeted Selective Broadcasting (TSB): a Northeastern University project benchmarking multi-agent reinforcement learning (MAPPO, IPPO) for in-orbit satellite servicing, where agents learn when to communicate and with whom.">
+<meta name="keywords" content="Targeted Selective Broadcasting, TSB, multi-agent reinforcement learning, MARL, MAPPO, CTDE, in-orbit servicing, satellite servicing, agent communication, Northeastern University">
+<meta property="og:title" content="TSB: Multi-agent RL for in-orbit servicing">
+<meta property="og:description" content="Servicer satellites that talk only when it matters. Benchmarking MARL communication strategies for in-orbit servicing.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4F4F8; --panel:#FFFFFF; --ink:#14142B; --muted:#55566E; --line:#D3D3E0;
+  --cobalt:#6A3FD6; --signal:#A86A12; --client:#0E8C7A; --soft:#E9E8F2;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0B0C1C; --panel:#14152B; --ink:#ECEBF5; --muted:#A3A3C0; --line:#282A46;
+    --cobalt:#B79CFF; --signal:#F5B942; --client:#3FD0B5; --soft:#1D1E3B;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0B0C1C; --panel:#14152B; --ink:#ECEBF5; --muted:#A3A3C0; --line:#282A46;
+  --cobalt:#B79CFF; --signal:#F5B942; --client:#3FD0B5; --soft:#1D1E3B;
+  color-scheme:dark;
+}
+/* header and hero stay in orbit night in both themes */
+.night{
+  --paper:#0B0C1C; --panel:#14152B; --ink:#ECEBF5; --muted:#A3A3C0; --line:#282A46;
+  --cobalt:#B79CFF; --signal:#F5B942; --client:#3FD0B5; --soft:#1D1E3B;
+  color-scheme:dark; background-color:var(--paper); color:var(--ink);
+}
+.sky{background-image:
+  radial-gradient(1px 1px at 8% 18%,rgba(232,237,247,.55),transparent 60%),
+  radial-gradient(1px 1px at 23% 64%,rgba(232,237,247,.35),transparent 60%),
+  radial-gradient(1.5px 1.5px at 41% 9%,rgba(232,237,247,.5),transparent 60%),
+  radial-gradient(1px 1px at 57% 31%,rgba(232,237,247,.3),transparent 60%),
+  radial-gradient(1px 1px at 74% 12%,rgba(232,237,247,.45),transparent 60%),
+  radial-gradient(1.5px 1.5px at 88% 41%,rgba(232,237,247,.4),transparent 60%),
+  radial-gradient(1px 1px at 93% 7%,rgba(232,237,247,.5),transparent 60%),
+  radial-gradient(1px 1px at 67% 22%,rgba(245,185,66,.5),transparent 60%)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Schibsted Grotesk",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;
+}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:#0B0C1C}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+a{color:var(--cobalt)}
+:focus-visible{outline:2px solid var(--signal);outline-offset:3px;border-radius:3px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+
+/* header */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;height:56px;gap:16px}
+.brand{font-weight:800;letter-spacing:-.01em;text-decoration:none;color:var(--ink);white-space:nowrap}
+.brand span{color:var(--muted);font-weight:500}
+nav{display:flex;gap:20px;overflow-x:auto}
+nav a{color:var(--muted);text-decoration:none;font-size:15px;white-space:nowrap}
+nav a:hover{color:var(--ink)}
+@media (max-width:720px){
+  html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 104px)}
+  header.top .wrap{height:auto;flex-wrap:wrap;padding-top:12px;gap:2px}
+  nav{width:100%;gap:20px;padding:4px 0 8px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  nav::-webkit-scrollbar{display:none}
+  nav a{padding:8px 0;font-size:14px}
+}
+@media (max-width:420px){.brand span{display:none}}
+@media (pointer:coarse){.modes button,.pause,.btn{min-height:44px}}
+@media (max-width:380px){canvas{height:300px}.wrap{padding:0 16px}.modes button{padding:7px 11px;font-size:14px}}
+
+/* hero */
+.hero{padding-top:56px;padding-bottom:64px}
+tr.ours td{background:color-mix(in srgb,var(--signal) 10%,transparent)}
+.hero h1{font-size:clamp(36px,6vw,68px);line-height:1.02;letter-spacing:-.03em;font-weight:800;margin:0 0 20px;max-width:14ch}
+.hero p.lede{font-size:clamp(17px,2vw,20px);color:var(--muted);max-width:60ch;margin:0}
+.sim{margin:36px 0 0;background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.sim-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line)}
+.modes{display:inline-flex;background:var(--soft);border-radius:999px;padding:3px}
+.modes button{appearance:none;border:0;background:transparent;color:var(--muted);font:inherit;font-size:15px;font-weight:600;padding:7px 14px;border-radius:999px;cursor:pointer}
+.modes button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.pause{appearance:none;border:1px solid var(--line);background:transparent;color:var(--ink);font:inherit;font-size:14px;padding:6px 12px;border-radius:999px;cursor:pointer}
+.stage{position:relative}
+canvas{display:block;width:100%;height:440px}
+@media (max-width:640px){canvas{height:340px}}
+.readout{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+.readout div{padding:14px 16px}
+.readout div+div{border-left:1px solid var(--line)}
+.readout b{display:block;font-size:30px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.1}
+.readout span{font-size:14px;color:var(--muted)}
+.readout .msg b{color:var(--signal)}
+.readout .waste b{color:var(--muted)}
+.sim-note{padding:12px 16px;font-size:14px;color:var(--muted);border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:6px 22px}
+.key{display:inline-flex;align-items:center;gap:7px}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+
+/* sections */
+section.block{padding:72px 0;border-top:1px solid var(--line)}
+section.block:first-of-type{border-top:0}
+.split{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:48px}
+@media (max-width:860px){.split{grid-template-columns:1fr;gap:20px}}
+h2{font-size:clamp(26px,3.4vw,36px);line-height:1.1;letter-spacing:-.02em;margin:0;font-weight:700}
+h3{font-size:19px;margin:0 0 6px;font-weight:700;letter-spacing:-.01em}
+.body p{margin:0 0 16px;max-width:64ch}
+.body p:last-child{margin-bottom:0}
+.muted{color:var(--muted)}
+
+/* method pipeline */
+.pipe{list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);border-radius:12px;background:var(--panel);counter-reset:s}
+.pipe li{padding:20px;counter-increment:s;position:relative}
+.pipe li+li{border-left:1px solid var(--line)}
+.pipe li::before{content:counter(s);display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;border:1.5px solid var(--signal);color:var(--signal);font-weight:700;font-size:14px;margin-bottom:12px}
+.pipe p{margin:0;color:var(--muted);font-size:16px}
+@media (max-width:760px){.pipe{grid-template-columns:1fr}.pipe li+li{border-left:0;border-top:1px solid var(--line)}}
+.ctde{margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.ctde div{border-left:3px solid var(--cobalt);padding:2px 0 2px 16px}
+.ctde p{margin:0;color:var(--muted);font-size:16px}
+@media (max-width:640px){.ctde{grid-template-columns:1fr}}
+
+/* benchmark */
+.table-wrap{overflow-x:auto;margin-top:8px}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:16px}
+th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600;color:var(--muted);font-size:14px}
+td:first-child{font-weight:600;white-space:nowrap}
+.tag{display:inline-block;font-size:13px;line-height:1.35;padding:3px 9px;border-radius:6px;background:var(--soft);color:var(--muted)}
+.tag.ours{background:color-mix(in srgb,var(--signal) 16%,transparent);color:var(--ink);font-weight:600;box-shadow:inset 0 0 0 1px var(--signal)}
+.facts{display:grid;grid-template-columns:repeat(2,1fr);gap:28px;margin-top:32px}
+.facts ul{margin:0;padding-left:18px;color:var(--muted)}
+.facts li{margin:3px 0}
+.facts li b{color:var(--ink);font-weight:600}
+@media (max-width:640px){.facts{grid-template-columns:1fr}}
+.pending{margin-top:32px;border:1.5px dashed var(--line);border-radius:12px;padding:22px;display:flex;gap:16px;align-items:flex-start}
+.pending p{margin:0;color:var(--muted)}
+.pending strong{color:var(--ink)}
+
+/* plan */
+.timeline{list-style:none;margin:28px 0 0;padding:0;position:relative}
+.timeline::before{content:"";position:absolute;left:11px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.timeline li{position:relative;padding:0 0 26px 44px}
+.timeline li:last-child{padding-bottom:0}
+.timeline li::before{content:"";position:absolute;left:4px;top:5px;width:16px;height:16px;border-radius:50%;background:var(--paper);border:2px solid var(--line)}
+.timeline li.done::before{background:var(--muted);border-color:var(--muted)}
+.timeline li.now::before{background:var(--signal);border-color:var(--signal);box-shadow:0 0 0 5px color-mix(in srgb,var(--signal) 25%,transparent)}
+.wk{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px}
+.wk h3{margin:0}
+.wk .dates{color:var(--muted);font-size:15px}
+.wk .here{font-size:13px;font-weight:700;color:var(--signal)}
+.timeline p{margin:6px 0 0;color:var(--muted);max-width:64ch;font-size:16px}
+.sync{margin-top:8px;font-size:14px;font-weight:600;color:var(--ink)}
+.sync::before{content:"";display:inline-block;width:8px;height:8px;transform:rotate(45deg);background:var(--signal);margin-right:8px;vertical-align:1px}
+.streams{display:grid;grid-template-columns:repeat(2,1fr);gap:22px 32px;margin-top:8px}
+.streams p{margin:0;color:var(--muted);font-size:16px}
+@media (max-width:640px){.streams{grid-template-columns:1fr}}
+
+
+/* team */
+.team-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px}
+.team-actions{display:flex;gap:8px;align-items:center}
+.btn{appearance:none;font:inherit;font-size:15px;font-weight:600;padding:8px 16px;border-radius:999px;cursor:pointer;border:1px solid var(--line);background:transparent;color:var(--ink)}
+.btn.primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.btn[disabled]{opacity:.5;cursor:default}
+.save-msg{font-size:14px;color:var(--muted)}
+.team-rest{margin-top:16px !important}
+.member.sup{border-color:var(--signal)}
+.member.sup .m-role{color:var(--signal)}
+.team-grid{list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
+@media (max-width:1000px){.team-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:640px){.team-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.member{padding:16px}}
+@media (max-width:360px){.team-grid{grid-template-columns:1fr}}
+.member{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.member.lead{border-color:var(--cobalt)}
+.member.tbc{background:transparent;border-style:dashed}
+.avatar{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:17px;background:var(--soft);color:var(--ink);margin-bottom:12px}
+.member.lead .avatar{background:var(--cobalt);color:var(--panel)}
+.member.tbc .avatar{background:transparent;border:1.5px dashed var(--line);color:var(--muted)}
+.m-role{font-size:14px;font-weight:600;color:var(--muted)}
+.member.lead .m-role{color:var(--cobalt)}
+.m-name{font-size:19px;font-weight:700;letter-spacing:-.01em;line-height:1.25;overflow-wrap:anywhere}
+.member.tbc .m-name{color:var(--muted)}
+.m-focus{font-size:15px;color:var(--muted);margin-top:4px}
+.member input{font:inherit;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:6px 8px;width:100%}
+.member label{font-size:13px;color:var(--muted);margin-top:6px}
+.member label:first-of-type{margin-top:0}
+
+/* footer */
+footer{border-top:1px solid var(--line);padding:56px 0 64px}
+.foot{display:grid;grid-template-columns:2fr 1fr 1fr;gap:32px}
+.foot p{margin:4px 0;color:var(--muted);font-size:16px}
+.foot h3{font-size:16px}
+.foot .big{font-size:clamp(22px,2.8vw,30px);font-weight:700;letter-spacing:-.02em;line-height:1.15;margin:0 0 10px}
+@media (max-width:760px){.foot{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header class="top night">
+  <div class="wrap">
+    <a class="brand" href="#top">TSB <span>Multi-agent RL for in-orbit servicing</span></a>
+    <nav aria-label="Sections">
+      <a href="#problem">Problem</a>
+      <a href="#method">Method</a>
+      <a href="#benchmark">Benchmark</a>
+      <a href="#plan">Workstreams</a>
+      <a href="#team">Team</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+<div class="night sky">
+  <div class="wrap hero">
+    <h1>Servicer satellites that talk only when it matters.</h1>
+    <p class="lede">We’re benchmarking multi-agent reinforcement learning for in-orbit servicing and testing Targeted Selective Broadcasting (TSB), where each agent learns when to send a message and who should receive it.</p>
+
+    <figure class="sim" aria-label="Interactive illustration of three communication strategies">
+      <div class="sim-bar">
+        <div class="modes" role="group" aria-label="Communication strategy">
+          <button type="button" data-mode="none" aria-pressed="false">No comms</button>
+          <button type="button" data-mode="bcast" aria-pressed="false">Broadcast all</button>
+          <button type="button" data-mode="tsb" aria-pressed="true">TSB</button>
+        </div>
+        <button type="button" class="pause" id="pause">Pause</button>
+      </div>
+      <div class="stage"><canvas id="cv" role="img" aria-label="Five servicer satellites patrol relative-motion ellipses around a reference orbit. When a client satellite needs service, messages travel between servicers according to the selected strategy."></canvas></div>
+      <div class="readout" aria-live="polite">
+        <div class="msg"><b id="rMsg">0</b><span>messages sent</span></div>
+        <div><b id="rSrv">0</b><span>clients serviced</span></div>
+        <div class="waste"><b id="rWst">0</b><span>wasted trips</span></div>
+      </div>
+      <figcaption class="sim-note">
+        <span class="key"><i class="dot" style="background:var(--cobalt)"></i>Servicer</span>
+        <span class="key"><i class="dot" style="background:var(--client)"></i>Client needing service</span>
+        <span class="key"><i class="dot" style="background:var(--signal)"></i>Message</span>
+        <span>A hand-coded illustration of the idea, not trained policy output. Counters reset when you switch.</span>
+      </figcaption>
+    </figure>
+  </div>
+</div>
+
+  <section class="block" id="problem">
+    <div class="wrap split">
+      <h2>The problem</h2>
+      <div class="body">
+        <p>A team of servicer satellites shares a neighborhood of clients that need refueling, inspection or repair, with debris moving through the same space. Every servicer has limited fuel and a limited view, so the team has to divide the work without crashing, doubling up, or leaving clients waiting.</p>
+        <p>Talking helps, but bandwidth in orbit is scarce and links drop. Telling everyone everything floods the channel. Saying nothing leads to duplicated trips. We want agents that learn the middle ground.</p>
+        <p class="muted">We model relative motion with Clohessy-Wiltshire (Hill) dynamics in a space robotics layer built on an existing simulator, not a simulator written from scratch.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="method">
+    <div class="wrap">
+      <div class="split">
+        <h2>How TSB works</h2>
+        <div class="body"><p>TSB sits inside each agent’s policy. Every step, a message passes through three learned stages before anything goes on the channel.</p></div>
+      </div>
+      <ol class="pipe">
+        <li><h3>Gate</h3><p>A Gumbel-softmax switch decides whether this agent has anything worth sending right now.</p></li>
+        <li><h3>Target scorer</h3><p>Attention over teammates picks who should hear it, usually one or two agents rather than all of them.</p></li>
+        <li><h3>Message encoder</h3><p>Turns the agent’s observation into a compact message, trained end to end with the policy.</p></li>
+      </ol>
+      <div class="ctde">
+        <div><h3>Trained together</h3><p>MAPPO with a centralized critic that sees the full state during training. The gate and targets are learned as PPO actions, with a communication cost that anneals up from zero.</p></div>
+        <div><h3>Flown apart</h3><p>At execution each servicer acts only on its own observation plus the messages it received. No central controller in the loop.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="benchmark">
+    <div class="wrap">
+      <div class="split">
+        <h2>The benchmark</h2>
+        <div class="body"><p>Every method trains on the same environment, scenarios and seeds, so the comparison comes down to how agents communicate.</p></div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Method</th><th>Communication</th><th>Why it’s here</th></tr></thead>
+          <tbody>
+            <tr><td>IPPO</td><td><span class="tag">None</span></td><td>Independent learners, no shared critic</td></tr>
+            <tr><td>MAPPO</td><td><span class="tag">None</span></td><td>Centralized critic, no messages</td></tr>
+            <tr><td>MAPPO + broadcast</td><td><span class="tag">Everyone, every step</span></td><td>Upper bound on information, worst case on bandwidth</td></tr>
+            <tr class="ours"><td>MAPPO + TSB</td><td><span class="tag ours">Learned: when and to whom</span></td><td>Our method</td></tr>
+            <tr><td>TSB ablations</td><td><span class="tag">Gate only, targeting only</span></td><td>Which part of TSB does the work</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="facts">
+        <div>
+          <h3>What we measure</h3>
+          <ul>
+            <li><b>Resource allocation:</b> task completion and fuel per task</li>
+            <li><b>Threat perception:</b> debris detection latency and collisions</li>
+            <li><b>Strategy convergence:</b> how fast learning curves level off</li>
+            <li><b>Communication efficiency:</b> messages per step</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Where we test it</h3>
+          <ul>
+            <li><b>Team size:</b> 3, 5 and 8 servicers</li>
+            <li><b>Threat density:</b> low, medium and high debris</li>
+            <li><b>Link quality:</b> varied comm range and dropout</li>
+            <li><b>Rigor:</b> 5 seeds per run, IQM with bootstrap confidence intervals</li>
+          </ul>
+        </div>
+      </div>
+      <div class="pending">
+        <div><p><strong>Results land after the sweep.</strong> Code freezes Nov 20 and results lock Nov 25. Learning curves, the return vs. messages trade-off and side-by-side rollout videos will go here.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="plan">
+    <div class="wrap">
+      <div class="split">
+        <h2>How we’re organized</h2>
+        <div class="body"><p>Four workstreams run in parallel and come together for the showcase.</p></div>
+      </div>
+      <div>
+        <div class="streams" style="margin-top:28px">
+          <div><h3>Simulation</h3><p>Hill dynamics, servicers, clients, debris and a comm layer with range, bandwidth and dropout.</p></div>
+          <div><h3>Training infrastructure</h3><p>MAPPO and IPPO baselines, configs and Slurm arrays on Northeastern’s Explorer cluster.</p></div>
+          <div><h3>TSB</h3><p>Gate, target scorer and encoder, then ablations.</p></div>
+          <div><h3>Benchmark and evaluation</h3><p>Metric definitions, scenario sweeps, plots and the results story.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="team">
+    <div class="wrap">
+      <div class="team-head">
+        <div>
+          <h2>Team</h2>
+          <p class="muted" style="margin:10px 0 0;max-width:56ch">Four students at Northeastern University, with a faculty supervisor being finalized.</p>
+        </div>
+      <ul class="team-grid" aria-label="Supervisor">
+        <li class="member sup tbc"><div class="avatar">?</div><div class="m-role">Faculty supervisor</div><div class="m-name">To be confirmed</div></li>
+      </ul>
+      <ul class="team-grid team-rest" aria-label="Team">
+        <li class="member"><div class="avatar">KL</div><div class="m-role">Operations Chair</div><div class="m-name">Karen Lu</div></li>
+        <li class="member lead"><div class="avatar">PB</div><div class="m-role">Team lead</div><div class="m-name">Prathmesh Barapatre</div></li>
+        <li class="member"><div class="avatar">SR</div><div class="m-role">Team member</div><div class="m-name">Steffi Roy</div></li>
+        <li class="member"><div class="avatar">HS</div><div class="m-role">Team member</div><div class="m-name">Harshita Shitut</div></li>
+        <li class="member"><div class="avatar">MK</div><div class="m-role">Team member</div><div class="m-name">Mohit Kakkad</div></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer class="night sky">
+  <div class="wrap foot">
+    <div>
+      <p class="big">Multi-Agent Reinforcement Learning for Complex Decision Optimization</p>
+      <p>A four-person team at Northeastern University.</p>
+    </div>
+    <div>
+      <h3>Showcase</h3>
+      <p>Week of November 30, 2026</p>
+    </div>
+    <div>
+      <h3>Compute</h3>
+      <p>Northeastern Explorer cluster</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  // ---------- timeline status ----------
+  try{
+    const today = new Date(); today.setHours(12,0,0,0);
+    document.querySelectorAll('#timeline li').forEach(li=>{
+      const s = new Date(li.dataset.start+'T00:00:00'), e = new Date(li.dataset.end+'T23:59:59');
+      if (today > e) li.classList.add('done');
+      else if (today >= s){
+        li.classList.add('now');
+        const tag=document.createElement('span'); tag.className='here'; tag.textContent='We’re here';
+        li.querySelector('.wk').appendChild(tag);
+      }
+    });
+  }catch(e){}
+
+  // ---------- sim ----------
+  const cv = document.getElementById('cv');
+  const ctx = cv.getContext('2d');
+  const rMsg=document.getElementById('rMsg'), rSrv=document.getElementById('rSrv'), rWst=document.getElementById('rWst');
+  const pauseBtn=document.getElementById('pause');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let W=0,H=0,dpr=1;
+  let colors={};
+  function readColors(){
+    const cs=getComputedStyle(cv);
+    ['cobalt','signal','client','line','muted','ink','panel'].forEach(k=>colors[k]=cs.getPropertyValue('--'+k).trim());
+  }
+  function resize(){
+    dpr=Math.min(window.devicePixelRatio||1,2);
+    const r=cv.getBoundingClientRect(); W=r.width; H=r.height;
+    cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+
+  let mode='tsb', running=!reduce, t=0, last=null;
+  let agents=[], clients=[], pulses=[], stats={msg:0,srv:0,wst:0}, spawnT=0, beatT=0;
+  const N=5, SPEED=95, SENSE=0.30;
+
+  // Rng with fixed seed so modes are comparable
+  let seed=7; function rnd(){seed=(seed*16807)%2147483647;return (seed-1)/2147483646;}
+
+  function patrolPos(a,tt){
+    // CW natural motion: 2:1 ellipse, in-track horizontal, radial vertical
+    const s=Math.min(W/2.3, H*0.85);
+    const ph=a.ph + tt*0.35;
+    return {x:W/2 + 1.0*a.r*s*Math.sin(ph), y:H/2 + 0.5*a.r*s*Math.cos(ph)};
+  }
+  function reset(){
+    seed=7; t=0; spawnT=0.4; beatT=0; clients=[]; pulses=[]; stats={msg:0,srv:0,wst:0};
+    agents=[];
+    for(let i=0;i<N;i++){
+      const a={id:i, r:0.45+0.5*(i/(N-1)), ph:i*2.4+0.3, state:'patrol', target:null, svc:0};
+      const p=patrolPos(a,0); a.x=p.x; a.y=p.y; agents.push(a);
+    }
+    updateReadout();
+  }
+  function updateReadout(){ rMsg.textContent=stats.msg; rSrv.textContent=stats.srv; rWst.textContent=stats.wst; }
+  function dist(a,b){return Math.hypot(a.x-b.x,a.y-b.y);}
+  function free(a){return a.state==='patrol'||a.state==='return';}
+
+  function spawn(){
+    if(clients.filter(c=>!c.done).length>=3) return;
+    const s=Math.min(W/2.3,H*0.85);
+    const ang=rnd()*Math.PI*2, rr=0.25+rnd()*0.7;
+    clients.push({x:W/2+rr*s*Math.cos(ang), y:H/2+0.5*rr*s*Math.sin(ang), born:t, detected:false, done:false, fade:1});
+  }
+  function send(from,to,faint){
+    stats.msg++;
+    if(pulses.length<160) pulses.push({fx:from.x,fy:from.y,to,k:0,faint});
+  }
+  function detect(c){
+    const range=SENSE*W;
+    const seers=agents.filter(a=>dist(a,c)<range);
+    if(!seers.length) return;
+    c.detected=true;
+    const det=seers.reduce((m,a)=>dist(a,c)<dist(m,c)?a:m);
+    if(mode==='none'){
+      const go=seers.filter(free);
+      if(!go.length){ c.detected=false; return; }
+      go.forEach(a=>{a.state='go';a.target=c;});
+    } else {
+      const cand=agents.filter(free);
+      if(!cand.length){c.detected=false;return;}
+      const pick=cand.reduce((m,a)=>dist(a,c)<dist(m,c)?a:m);
+      if(mode==='bcast'){ agents.forEach(a=>{ if(a!==det) send(det,a,false); }); }
+      else if(pick!==det){ send(det,pick,false); } // TSB: gate opens only if someone else should act
+      pick.state='go'; pick.target=c;
+    }
+  }
+
+  function step(dt){
+    t+=dt;
+    spawnT-=dt; if(spawnT<=0){spawn(); spawnT=1.3+rnd()*1.1;}
+    if(mode==='bcast'){ beatT-=dt; if(beatT<=0){ beatT=0.9; agents.forEach(a=>agents.forEach(b=>{if(a!==b) send(a,b,true);})); } }
+    clients.forEach(c=>{ if(!c.done && !c.detected) detect(c); if(c.done) c.fade-=dt*1.5; });
+    clients=clients.filter(c=>c.fade>0);
+    agents.forEach(a=>{
+      if(a.state==='patrol'){ const p=patrolPos(a,t); a.x=p.x; a.y=p.y; return; }
+      if(a.state==='service'){ a.svc-=dt; if(a.svc<=0){ a.target.done=true; stats.srv++; a.state='return'; a.target=null; } return; }
+      const goal = a.state==='go' ? a.target : patrolPos(a,t);
+      const d=dist(a,goal), mv=SPEED*dt;
+      if(d<=mv+1){
+        a.x=goal.x; a.y=goal.y;
+        if(a.state==='go'){
+          const c=a.target;
+          if(c.done || c.claimed){ stats.wst++; a.state='return'; a.target=null; }
+          else { c.claimed=true; a.state='service'; a.svc=1.1; }
+        } else a.state='patrol';
+      } else { a.x+=(goal.x-a.x)/d*mv; a.y+=(goal.y-a.y)/d*mv; }
+    });
+    pulses.forEach(p=>p.k+=dt*(p.faint?2.2:1.6));
+    pulses=pulses.filter(p=>p.k<1);
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    // guides
+    ctx.strokeStyle=colors.line; ctx.lineWidth=1;
+    const s=Math.min(W/2.3,H*0.85);
+    agents.forEach(a=>{ ctx.beginPath(); ctx.ellipse(W/2,H/2,a.r*s,0.5*a.r*s,0,0,Math.PI*2); ctx.stroke(); });
+    ctx.setLineDash([3,5]);
+    ctx.beginPath(); ctx.moveTo(16,H/2); ctx.lineTo(W-16,H/2); ctx.moveTo(W/2,14); ctx.lineTo(W/2,H-14); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle=colors.muted; ctx.font='12px "Schibsted Grotesk", system-ui, sans-serif';
+    ctx.fillText('in-track', W-70, H/2-8); ctx.fillText('radial', W/2+8, 24);
+    // origin
+    ctx.fillStyle=colors.muted; ctx.beginPath(); ctx.arc(W/2,H/2,3,0,Math.PI*2); ctx.fill();
+    // clients
+    clients.forEach(c=>{
+      ctx.globalAlpha=Math.max(0,Math.min(1,c.fade));
+      const pr = c.done?0:(Math.sin((t-c.born)*5)*0.5+0.5);
+      ctx.strokeStyle=colors.client; ctx.lineWidth=2;
+      ctx.beginPath(); ctx.arc(c.x,c.y,7,0,Math.PI*2); ctx.stroke();
+      if(!c.done){ ctx.globalAlpha*=0.5*(1-pr); ctx.beginPath(); ctx.arc(c.x,c.y,7+pr*12,0,Math.PI*2); ctx.stroke(); }
+      if(c.done){ ctx.fillStyle=colors.client; ctx.beginPath(); ctx.arc(c.x,c.y,7,0,Math.PI*2); ctx.fill(); }
+      ctx.globalAlpha=1;
+    });
+    // pulses
+    pulses.forEach(p=>{
+      const x=p.fx+(p.to.x-p.fx)*p.k, y=p.fy+(p.to.y-p.fy)*p.k;
+      ctx.strokeStyle=colors.signal; ctx.globalAlpha=p.faint?0.12:0.45; ctx.lineWidth=p.faint?1:1.5;
+      ctx.beginPath(); ctx.moveTo(p.fx,p.fy); ctx.lineTo(p.to.x,p.to.y); ctx.stroke();
+      ctx.globalAlpha=p.faint?0.5:1; ctx.fillStyle=colors.signal;
+      ctx.beginPath(); ctx.arc(x,y,p.faint?2:3.5,0,Math.PI*2); ctx.fill();
+      ctx.globalAlpha=1;
+    });
+    // agents
+    agents.forEach(a=>{
+      if(a.state==='go'&&a.target){ ctx.strokeStyle=colors.cobalt; ctx.globalAlpha=0.35; ctx.setLineDash([2,4]); ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(a.target.x,a.target.y); ctx.stroke(); ctx.setLineDash([]); ctx.globalAlpha=1; }
+      ctx.fillStyle=colors.cobalt;
+      ctx.fillRect(a.x-4,a.y-4,8,8);
+      ctx.fillRect(a.x-13,a.y-2,7,4); ctx.fillRect(a.x+6,a.y-2,7,4);
+      if(a.state==='service'){ ctx.strokeStyle=colors.cobalt; ctx.lineWidth=1.5; ctx.beginPath(); ctx.arc(a.x,a.y,12,-Math.PI/2,-Math.PI/2+Math.PI*2*(1-a.svc/1.1)); ctx.stroke(); }
+    });
+  }
+
+  let acc=0;
+  function frame(ts){
+    if(last===null) last=ts;
+    let dt=Math.min(0.05,(ts-last)/1000); last=ts;
+    if(running){ step(dt); acc+=dt; if(acc>0.15){updateReadout();acc=0;} }
+    draw();
+    requestAnimationFrame(frame);
+  }
+
+  document.querySelectorAll('.modes button').forEach(b=>b.addEventListener('click',()=>{
+    mode=b.dataset.mode;
+    document.querySelectorAll('.modes button').forEach(x=>x.setAttribute('aria-pressed', String(x===b)));
+    reset();
+  }));
+  function setPause(){ pauseBtn.textContent = running ? 'Pause' : 'Play'; }
+  pauseBtn.addEventListener('click',()=>{ running=!running; setPause(); });
+  setPause();
+
+  window.addEventListener('resize',()=>{resize();reset();});
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',readColors);
+  new MutationObserver(readColors).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+  readColors(); resize(); reset();
+  if(reduce){ for(let i=0;i<180;i++) step(1/30); updateReadout(); }
+  requestAnimationFrame(frame);
+});
+</script>
+</body>
+</html>
